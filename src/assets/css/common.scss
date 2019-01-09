@@ -1,0 +1,477 @@
+@charset "UTF-8";
+.app {
+
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clear-both {
+  clear: both;
+}
+
+.dis-none {
+  display: none;
+}
+
+.dis-none-imp {
+  display: none !important;
+}
+
+.dis-block {
+  display: block;
+}
+
+.dis-block-imp {
+  display: block !important;
+}
+
+.dis-inline {
+  display: inline;
+}
+
+.dis-inline-imp {
+  display: inline !important;
+}
+
+.dis-ib {
+  display: inline-block;
+}
+
+.dis-ib-imp {
+  display: inline-block !important;
+}
+
+.dis-table {
+  display: table;
+}
+
+.dis-cell {
+  display: table-cell;
+}
+
+.pseudo-clear:after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.pseudo-clear:before {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.pos-rl {
+  position: relative;
+}
+
+.pos-ab {
+  position: absolute;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-left-imp {
+  text-align: left !important;
+}
+
+.val-middle {
+  vertical-align: middle;
+}
+
+.val-top {
+  vertical-align: top;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.lh100per {
+  line-height: 100%;
+}
+
+.all-border-box * {
+  box-sizing: border-box;
+}
+
+.confirm-btn-mg {
+  margin-right: 14px;
+}
+
+.align-middle-imp {
+  vertical-align: middle !important;
+}
+
+.text-right-imp {
+  text-align: right !important;
+}
+
+.text-left-imp {
+  text-align: left !important;
+}
+
+.cm-a {
+  color: #6d6dfe;
+}
+
+/*margin*/
+.mt6 {
+  margin-top: 6px;
+}
+
+.mt8 {
+  margin-top: 8px;
+}
+
+.mt9 {
+  margin-top: 9px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mt12 {
+  margin-top: 12px;
+}
+
+.mt27 {
+  margin-top: 27px;
+}
+
+.mr28 {
+  margin-right: 28px;
+}
+
+.mb22 {
+  margin-bottom: 22px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.ml28 {
+  margin-left: 28px;
+}
+
+/*margin end*/
+
+/*width*/
+.w50per {
+  width: 50%;
+}
+
+/*width end*/
+
+/*padding*/
+.pr19 {
+  padding-right: 19px;
+}
+
+.pr28 {
+  padding-right: 28px;
+}
+
+.pb18 {
+  padding-bottom: 18px;
+}
+
+.pl19 {
+  padding-left: 19px;
+}
+
+.pl28 {
+  padding-left: 28px;
+}
+
+.pl52 {
+  padding-left: 52px;
+}
+
+/*padding end*/
+
+/*border*/
+.bordTB6 {
+  border-top: 6px solid #EFEEF5;
+  border-bottom: 6px solid #EFEEF5;
+}
+
+/*border end*/
+
+/*公共*/
+.jhm-main {
+  padding: 21px;
+}
+
+.jhm-spacer {
+  width: 100%;
+  height: 6px;
+  background: #EFEEF5;
+}
+
+.h-btn-primary {
+  width: 100%;
+  font-size: 18px;
+  color: #fff;
+  background: #55ABEE;
+  height: 47px;
+  line-height: 47px;
+  text-align: center;
+}
+
+.header-bg-type01 {
+  width: 100%;
+  height: 106px;
+}
+
+/*公共 end*/
+
+/*公共组件*/
+//纸
+.HPaper {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 0 2px 0 rgba(148, 174, 218, 1);
+  padding-bottom: 27px;
+}
+
+.HPaper-head-transition {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(197, 225, 244, 1) 100%);
+}
+
+.HPaper-head-handle {
+  position: absolute;
+  width: calc(100% + 12px);
+  height: 5px;
+  top: -5px;
+  left: -6px;
+  background: #306CCA;
+  border-radius: 3px;
+}
+
+.HPaper-foot {
+  position: absolute;
+  bottom: -6.5px;
+  height: 6.5px;
+  font-size: 0;
+  img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 6.5px;
+  }
+}
+
+/*公共组件 end*/
+
+/*缴费首页*/
+.PaymentHome {
+  .header-bg-type01 {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+  }
+
+}
+
+.PaymentHome-main {
+  margin-top: 26px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.PaymentHome-cnt {
+  text-align: center;
+  img {
+    margin-top: 46px;
+    width: 190px;
+    height: 162px;
+  }
+}
+
+.PaymentHome-cnt-prompt {
+  color: #666;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: 1px;
+  margin-top: 14px;
+  margin-bottom: 21px;
+}
+
+.Payment-button {
+  width: 140px;
+  height: 30px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #fff;
+  background: #5E8CF8;
+  border-radius: 20px
+}
+
+.PaymentHome-checklist {
+  margin-top: 36px;
+  .weui-cell__bd {
+    color: #333;
+    font-size: 14px;
+  }
+  .weui-cells_checkbox {
+    .weui-check:checked + .vux-checklist-icon-checked:before {
+      color: #5E8CF8;
+    }
+    .weui-check:checked + .weui-icon-checked:before {
+      color: #5E8CF8;
+    }
+  }
+}
+
+.Payment-checklist {
+  .weui-cell__bd {
+    color: #333;
+    font-size: 14px;
+  }
+  .weui-cells_checkbox {
+    .weui-check:checked + .vux-checklist-icon-checked:before {
+      color: #5E8CF8;
+    }
+    .weui-check:checked + .weui-icon-checked:before {
+      color: #5E8CF8;
+    }
+  }
+}
+
+/*缴费首页 end*/
+
+/*缴费步骤2*/
+
+.PaymentDetail-head {
+  display: flex;
+  align-items: center;
+  height: 86px;
+  border-bottom: 6px solid #EFEEF5;
+  img {
+    width: 40px;
+    height: 40px;
+    margin-left: 36px;
+  }
+  p {
+    color: #333;
+    font-size: 20px;
+    margin-left: 28px;
+  }
+}
+
+.PaymentDetail-address {
+  padding-top: 23px;
+  padding-left: 18px;
+  padding-right: 18px;
+  background: url('~@/assets/img/Bitmap@2x(1).png');
+  background-size: 100% 106px;
+  background-repeat: no-repeat;
+  min-height: 175px;
+  border-bottom: 6px solid #EFEEF5;
+}
+
+.PaymentDetail-cnt {
+  display: flex;
+  padding-left: 12px;
+  padding-right: 12px;
+  .name {
+    font-size: 16px;
+    color: #999;
+    margin-right: 19px;
+    flex-shrink: 0;
+  }
+  .val {
+
+  }
+
+}
+
+.PaymentDetail-checklist {
+  padding-top: 10px;
+}
+
+.PaymentDetail-footer {
+  position: fixed;
+  display: flex;
+  align-items: stretch;
+  bottom: 0;
+  width: 100%;
+  height: 54px;
+}
+
+.PaymentDetail-footer-total {
+  flex-grow: 1;
+  background: #D7D7D7;
+  padding-top: 14px;
+  text-align: center;
+  &-word {
+    color: #666;
+    font-size: 14px;
+  }
+  &-money {
+    color: #5E8CF8;
+    font-size: 24px;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+}
+
+.PaymentDetail-footer-btn {
+  width: 142px;
+  flex-shrink: 0;
+  background: #5E8CF8;
+  color: #fff;
+  font-size: 20px;
+}
+
+/*缴费步骤2 end*/
+
