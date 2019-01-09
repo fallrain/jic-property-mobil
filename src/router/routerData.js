@@ -6,6 +6,8 @@ const PaymentDetail = () => import(/* webpackChunkName: "PaymentDetail" */ '@/vi
 const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/view/Payment/PaymentChannel');
 const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/Payment/PaymentSucess');
 const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/PaymentHistory/PaymentHistoryList');
+const InformationWallList = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallList');
+const InformationWallForm = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallForm');
 
 let data = [
   {
@@ -46,6 +48,22 @@ let data = [
     component: PaymentHistoryList,
     meta: {
       title: '缴费历史'
+    }
+  },
+  {
+    path: '/informationWallList',
+    name: 'InformationWallList',
+    component: InformationWallList,
+    meta: {
+      title: '信息上墙'
+    }
+  },
+  {
+    path: '/informationWallForm',
+    name: 'InformationWallForm',
+    component: InformationWallForm,
+    meta: {
+      title: '发布信息'
     }
   }
 ];
