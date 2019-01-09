@@ -660,3 +660,93 @@
 }
 
 /*支付成功 end*/
+
+/*缴费历史*/
+.PaymentHistoryList {
+  .vux-tab {
+    .vux-tab-item.vux-tab-selected {
+      color: #5E8CF8;
+      border-bottom: 2px solid #5E8CF8;
+    }
+  }
+  .vux-tab-bar-inner {
+    background: #5E8CF8;
+  }
+}
+
+.PaymentHistoryList-tab {
+  border-bottom: 6px solid #EFEEF5;
+}
+
+.PaymentHistoryList-main {
+  padding-right: 13px;
+  padding-left: 13px;
+}
+
+.PaymentHistoryList-query {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.PaymentHistoryList-query-item {
+  display: flex;
+  align-items: center;
+  float: right;
+  color: #666;
+  font-size: 12px;
+  .icon-rili {
+    font-size: 18px;
+    color: #3778FF;
+  }
+  .icon-jiantou9 {
+    font-size: 12px;
+    color: #666;
+    &::before {
+      display: inline-block;
+      transform: scaleX(.6);
+    }
+  }
+  span {
+    margin-left: 6px;
+    margin-right: 4px;
+  }
+}
+.PaymentHistoryList-body{
+  margin-top: 14px;
+}
+.PaymentHistoryList-item {
+  padding: 12px 6px;
+  border-bottom: 1px solid #ddd;
+  &:first-child {
+    border-top: 1px solid #ddd;
+  }
+}
+
+.PaymentHistoryList-item-money {
+  line-height: 37px;
+  color: #5E8CF8;
+  font-size: 26px;
+  span {
+    color: #999;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+}
+
+.PaymentHistoryList-item-common {
+  margin-top: 3px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.PaymentHistoryList-item-common-name {
+  & + .PaymentHistoryList-item-common-name {
+    margin-left: 8px;
+  }
+}
+
+/*缴费历史 end*/

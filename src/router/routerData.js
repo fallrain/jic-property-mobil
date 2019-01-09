@@ -1,9 +1,11 @@
 'use strict';
 import Nav from '@/view/Nav';
+
 const PaymentHome = () => import(/* webpackChunkName: "PaymentHome" */ '@/view/Payment/PaymentHome');
 const PaymentDetail = () => import(/* webpackChunkName: "PaymentDetail" */ '@/view/Payment/PaymentDetail');
 const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/view/Payment/PaymentChannel');
 const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/Payment/PaymentSucess');
+const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/PaymentHistory/PaymentHistoryList');
 
 let data = [
   {
@@ -36,6 +38,14 @@ let data = [
     component: PaymentSucess,
     meta: {
       title: '支付成功'
+    }
+  },
+  {
+    path: '/paymentHistoryList',
+    name: 'PaymentHistoryList',
+    component: PaymentHistoryList,
+    meta: {
+      title: '缴费历史'
     }
   }
 ];
