@@ -17,6 +17,7 @@ export default {
   @import 'assets/css/base';
 </style>
 <style>
+  @import 'assets/font/iconfont.css';
 </style>
 <style lang="scss">
   @import 'assets/css/common';

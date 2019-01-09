@@ -21,27 +21,26 @@
       </HPaper>
     </div>
     <div class="PaymentHome-checklist Payment-checklist">
-      <checklist
-        required
-        :options="checkList"
-        v-model="checklist001"
-        @on-change="change"
-      ></checklist>
+      <h-checklist
+        v-for="(item,i) in checkList"
+        :key="i"
+        :checkVal.sync="item.checked"
+      >
+        {{item.value}}
+      </h-checklist>
     </div>
   </div>
 </template>
 
 <script>
 import {
-  Checklist
-} from 'vux';
-import {
+  HChecklist,
   HPaper
 } from '@/components/common';
 
 export default {
   components: {
-    Checklist,
+    HChecklist,
     HPaper
   },
   data () {
@@ -50,10 +49,12 @@ export default {
       checkList: [
         {
           key: '1',
+          checked: false,
           value: '2018年10月10日-2018年11月10日 100元'
         },
         {
           key: '2',
+          checked: false,
           value: '2018年10月10日-2018年11月10日 100元'
         }
       ]

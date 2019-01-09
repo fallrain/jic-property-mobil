@@ -2,6 +2,8 @@
 import Nav from '@/view/Nav';
 const PaymentHome = () => import(/* webpackChunkName: "PaymentHome" */ '@/view/Payment/PaymentHome');
 const PaymentDetail = () => import(/* webpackChunkName: "PaymentDetail" */ '@/view/Payment/PaymentDetail');
+const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/view/Payment/PaymentChannel');
+const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/Payment/PaymentSucess');
 
 let data = [
   {
@@ -18,6 +20,22 @@ let data = [
     component: PaymentDetail,
     meta: {
       title: '付费信息查看'
+    }
+  },
+  {
+    path: '/paymentChannel',
+    name: 'PaymentChannel',
+    component: PaymentChannel,
+    meta: {
+      title: '支付渠道'
+    }
+  },
+  {
+    path: '/paymentSucess',
+    name: 'PaymentSucess',
+    component: PaymentSucess,
+    meta: {
+      title: '支付成功'
     }
   }
 ];

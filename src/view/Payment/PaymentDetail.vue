@@ -16,12 +16,16 @@
       </HPaper>
     </div>
     <div class="PaymentDetail-checklist Payment-checklist">
-      <checklist
-        required
-        :options="checkList"
-        v-model="checkedList"
-        @on-change="checklistChange"
-      ></checklist>
+      <h-checklist
+        v-for="(item,i) in checkList"
+        :key="i"
+        :checkVal.sync="item.checked"
+      >
+        <div class="PaymentDetail-checklist-cnt">
+          <span>{{item.value}}</span>
+          <span>{{item.money}}元</span>
+        </div>
+      </h-checklist>
     </div>
     <footer class="PaymentDetail-footer">
       <div class="PaymentDetail-footer-total">
@@ -40,14 +44,13 @@
 
 <script>
 import {
-  Checklist
-} from 'vux';
-import {
+  HChecklist,
   HPaper
 } from '@/components/common';
+
 export default {
   components: {
-    Checklist,
+    HChecklist,
     HPaper
   },
   data () {
@@ -60,21 +63,21 @@ export default {
       checkList: [
         {
           key: '1',
-          value: '2019年物业费'
+          checked: false,
+          value: '2019年物业费',
+          money: '3021.93'
         },
         {
           key: '2',
-          value: '2018年物业费'
+          checked: false,
+          value: '3021.93'
         }
       ],
-      checkedList: [
-
-      ]
+      checkedList: []
     };
   },
   methods: {
-    checklistChange () {
-
+    checklistChange (v, l) {
     }
   }
 };
