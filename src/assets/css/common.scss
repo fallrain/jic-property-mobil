@@ -752,3 +752,106 @@
 }
 
 /*缴费历史 end*/
+
+/*信息上墙*/
+
+.InformationWallList-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 13px;
+  padding-left: 34px;
+  width: 100%;
+  height: 77px;
+  background: url('~@/assets/img/Bitmap@2x(1).png');
+  background-size: 100% 77px;
+}
+
+.InformationWallList-head-title {
+  font-size: 20px;
+  color: #fff;
+}
+
+.InformationWallList-head-btn {
+  width: 109px;
+  height: 26px;
+  background: #fff;
+  color: #3582FF;
+  font-size: 16px;
+  border-radius: 13px;
+}
+
+.InformationWallList-cnt {
+  padding-top: 10px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.InformationWallList-item {
+  display: flex;
+  padding-top: 19px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ccc;
+}
+
+.InformationWallList-item-portrait {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  img {
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.InformationWallList-item-cnt {
+  flex-grow: 1;
+  padding-right: 13px;
+}
+
+.InformationWallList-item-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+  .name {
+    color: #333;
+    font-size: 14px;
+  }
+  .time {
+    color: #999;
+    font-size: 12px;
+  }
+}
+
+.InformationWallList-item-inf {
+  color: #333;
+  font-size: 14px;
+  text-indent: 2em;
+  line-height: 20px;
+  word-break: break-all;
+}
+
+.InformationWallList-item-img {
+  max-width: 100%;
+}
+
+.InformationWallList-item-btm {
+  width: 100%;
+  margin-top: 10px;
+  text-align: right;
+  .iconfont {
+    margin-right: 6px;
+    color: #5E8CF8;
+    font-size: 14px;
+  }
+  .count {
+    color: #999;
+    font-size: 12px;
+  }
+}
+
+/*信息上墙 end*/
