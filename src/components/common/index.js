@@ -4,6 +4,7 @@ import HItem from './HItem';
 import HPaper from './HPaper';
 import HTextarea from './HTextarea';
 import HTitleItem from './HTitleItem';
+import HUpload from './HUpload';
 
 export {
   HButton,
@@ -11,5 +12,6 @@ export {
   HItem,
   HPaper,
   HTextarea,
-  HTitleItem
+  HTitleItem,
+  HUpload
 };
