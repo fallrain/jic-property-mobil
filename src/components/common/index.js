@@ -5,6 +5,7 @@ import HCell from './HCell';
 import HChecklist from './HChecklist';
 import HGroup from './HGroup';
 import HItem from './HItem';
+import HLeftSlide from './HLeftSlide';
 import HLoadmore from './HLoadmore';
 import HNotice from './HNotice';
 import HPaper from './HPaper';
@@ -20,6 +21,7 @@ export {
   HChecklist,
   HGroup,
   HItem,
+  HLeftSlide,
   HLoadmore,
   HNotice,
   HPaper,

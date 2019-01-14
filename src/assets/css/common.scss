@@ -1003,3 +1003,45 @@
 }
 
 /*个人信息 end*/
+
+/*家庭成员*/
+
+.FamilyMemberList {
+  padding-top: 13px;
+}
+
+.FamilyMemberList-cnt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px;
+  margin-right: 19px;
+  margin-left: 19px;
+  border-bottom: 1px solid #DFDBDB;
+  padding-left: 4px;
+  padding-right: 13px;
+}
+
+.FamilyMemberList-cnt-inf {
+  img {
+    width: 20px;
+    height: 23px;
+    margin-right: 13px;
+  }
+  .name {
+    margin-right: 34px;
+    color: #282727;
+    font-size: 18px;
+  }
+  .tel {
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.FamilyMemberList-cnt-type {
+  color: #FF0000;
+  font-size: 14px;
+}
+
+/*家庭成员 end*/
