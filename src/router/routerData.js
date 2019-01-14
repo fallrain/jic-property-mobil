@@ -1,15 +1,16 @@
 'use strict';
 import Nav from '@/view/Nav';
 
-const PaymentHome = () => import(/* webpackChunkName: "PaymentHome" */ '@/view/Payment/PaymentHome');
-const PaymentDetail = () => import(/* webpackChunkName: "PaymentDetail" */ '@/view/Payment/PaymentDetail');
-const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/view/Payment/PaymentChannel');
-const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/Payment/PaymentSucess');
-const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/PaymentHistory/PaymentHistoryList');
-const InformationWallList = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallList');
-const InformationWallForm = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallForm');
-const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/Notice/NoticeList');
-const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/Notice/NoticeDetail');
+const PaymentHome = () => import(/* webpackChunkName: "PaymentHome" */ '@/view/payment/PaymentHome');
+const PaymentDetail = () => import(/* webpackChunkName: "PaymentDetail" */ '@/view/payment/PaymentDetail');
+const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/view/payment/PaymentChannel');
+const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/payment/PaymentSucess');
+const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/paymentHistory/PaymentHistoryList');
+const InformationWallList = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/informationWall/InformationWallList');
+const InformationWallForm = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/informationWall/InformationWallForm');
+const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/notice/NoticeList');
+const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/notice/NoticeDetail');
+const QuestionnaireList = () => import(/* webpackChunkName: "QuestionnaireList" */ '@/view/questionnaire/QuestionnaireList');
 
 let data = [
   {
@@ -82,6 +83,14 @@ let data = [
     component: NoticeDetail,
     meta: {
       title: '物业通知详情'
+    }
+  },
+  {
+    path: '/questionnaireList',
+    name: 'QuestionnaireList',
+    component: QuestionnaireList,
+    meta: {
+      title: '调查问卷列表'
     }
   }
 ];
