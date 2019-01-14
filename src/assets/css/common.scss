@@ -848,3 +848,21 @@
 }
 
 /*信息上墙-发布 end*/
+
+/*通知列表*/
+
+.Notice-list {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 4px;
+  .HNotice-item {
+    margin-top: 32px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .HNotice-btm {
+    // padding-left: 37px;
+    // padding-right: 29px;
+  }
+}
+/*通知列表 end*/

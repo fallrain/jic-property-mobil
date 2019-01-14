@@ -8,6 +8,8 @@ const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/vi
 const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/PaymentHistory/PaymentHistoryList');
 const InformationWallList = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallList');
 const InformationWallForm = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/InformationWall/InformationWallForm');
+const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/Notice/NoticeList');
+const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/Notice/NoticeDetail');
 
 let data = [
   {
@@ -64,6 +66,22 @@ let data = [
     component: InformationWallForm,
     meta: {
       title: '发布信息'
+    }
+  },
+  {
+    path: '/noticeList',
+    name: 'NoticeList',
+    component: NoticeList,
+    meta: {
+      title: '物业通知'
+    }
+  },
+  {
+    path: '/noticeDetail',
+    name: 'NoticeDetail',
+    component: NoticeDetail,
+    meta: {
+      title: '物业通知详情'
     }
   }
 ];

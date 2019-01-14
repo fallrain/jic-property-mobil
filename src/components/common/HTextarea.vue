@@ -55,6 +55,8 @@ export default {
     padding: 10px 14px;
     font-size: 14px;
     color: #999;
+    -webkit-appearance: none;
+
   }
 
   .HTextarea-fontNumber {
