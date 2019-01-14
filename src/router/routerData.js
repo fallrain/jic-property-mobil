@@ -11,6 +11,7 @@ const InformationWallForm = () => import(/* webpackChunkName: "InformationWallLi
 const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/notice/NoticeList');
 const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/notice/NoticeDetail');
 const QuestionnaireList = () => import(/* webpackChunkName: "QuestionnaireList" */ '@/view/questionnaire/QuestionnaireList');
+const PersonalInformation = () => import(/* webpackChunkName: "PersonalInformation" */ '@/view/personalInf/PersonalInformation');
 
 let data = [
   {
@@ -91,6 +92,14 @@ let data = [
     component: QuestionnaireList,
     meta: {
       title: '调查问卷列表'
+    }
+  },
+  {
+    path: '/personalInformation',
+    name: 'PersonalInformation',
+    component: PersonalInformation,
+    meta: {
+      title: '个人中心'
     }
   }
 ];

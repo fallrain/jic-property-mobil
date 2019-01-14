@@ -2,7 +2,7 @@
   <div class="PaymentHome">
     <img
       class="header-bg-type01"
-      src="@/assets/img/Bitmap@2x(1).png"
+      src="@/assets/img/detail-top-bg@2x.png"
     >
     <div class="PaymentHome-main">
       <HPaper

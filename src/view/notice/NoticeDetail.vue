@@ -1,10 +1,10 @@
 <template>
   <div class="jhm-main">
-    <article-title :value="title"></article-title>
-    <article-author
+    <h-article-title :value="title"></h-article-title>
+    <h-article-author
       :data="articleAuthor"
       class="mt9"
-    ></article-author>
+    ></h-article-author>
     <!--<img src="@/assets/img/bg.png" class="mt12 mb22">-->
     <p class="jhm-article-cnt" v-html="cnt"></p>
   </div>
@@ -12,14 +12,14 @@
 
 <script>
 import {
-  ArticleAuthor,
-  ArticleTitle
+  HArticleAuthor,
+  HArticleTitle
 } from '@/components/common';
 export default {
   name: 'NoticeDetail',
   components: {
-    ArticleAuthor,
-    ArticleTitle
+    HArticleAuthor,
+    HArticleTitle
   },
   props: ['articleCode'],
   data () {

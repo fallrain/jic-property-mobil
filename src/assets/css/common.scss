@@ -472,7 +472,7 @@
   padding-top: 23px;
   padding-left: 18px;
   padding-right: 18px;
-  background: url('~@/assets/img/Bitmap@2x(1).png');
+  background: url('~@/assets/img/detail-top-bg@2x.png');
   background-size: 100% 106px;
   background-repeat: no-repeat;
   min-height: 175px;
@@ -746,7 +746,7 @@
   padding-left: 34px;
   width: 100%;
   height: 77px;
-  background: url('~@/assets/img/Bitmap@2x(1).png');
+  background: url('~@/assets/img/detail-top-bg@2x.png');
   background-size: 100% 77px;
 }
 
@@ -899,3 +899,107 @@
 }
 
 /*问卷调查列表 end*/
+/*个人信息*/
+.PersonalInformation {
+
+}
+
+.PersonalInformation-topbg {
+  width: 100%;
+  height: 126px;
+}
+
+.PersonalInformation-head {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: -45px;
+  padding-left: 18px;
+  background: #fff;
+  text-align: center;
+}
+
+.PersonalInformation-head-cnt {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 16px;
+  flex-grow: 1;
+  padding-right: 23px;
+  align-content: space-between;
+}
+
+.PersonalInformation-head-portrait {
+  width: 90px;
+  height: 90px;
+  border-radius: 100%;
+}
+
+.PersonalInformation-head-name {
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  color: #fff;
+  padding-top: 14px;
+}
+
+.PersonalInformation-head-cnt-opts {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+}
+
+.PersonalInformation-head-cnt-opts-cnt {
+  font-size: 14px;
+  color: #666;
+  margin-left: 4px;
+}
+
+.PersonalInformation-head-cnt-opts-notice {
+  .iconfont {
+    color: #669DFD;
+  }
+}
+
+.PersonalInformation-head-cnt-opts-gap {
+  width: 1px;
+  height: 16px;
+  background: #D2D2D2;
+}
+
+.PersonalInformation-head-cnt-opts-payment {
+  .iconfont {
+    color: #F66A30;
+  }
+}
+
+.PersonalInformation-item {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+
+.PersonalInformation-item-portrait {
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.PersonalInformation-item-cnt {
+  padding-left: 18px;
+  & > .title {
+    color: #333;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 2px;
+  }
+  & > .introduction {
+    color: #999;
+    font-size: 14px;
+  }
+}
+
+/*个人信息 end*/
