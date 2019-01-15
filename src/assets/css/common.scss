@@ -1090,3 +1090,49 @@
 }
 
 /*我的小区列表 end*/
+
+/*我的小区详情*/
+
+.MyCommunityDetail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background: #EBEAEA;
+  padding-right: 17px;
+  padding-left: 20px;
+}
+
+.MyCommunityDetail-head-cnt {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: #333232;
+  .iconfont {
+    color: #537CDB;
+    font-size: 28px;
+    margin-right: 4px;
+  }
+}
+
+.MyCommunityDetail-head-opt {
+  display: flex;
+  align-items: center;
+  color: #5884E9;
+  font-size: 16px;
+  .iconfont {
+    font-size: 23px;
+    margin-right: 4px;
+  }
+}
+
+.MyCommunityDetail-cnt {
+  padding-top: 18px;
+  padding-right: 20px;
+  padding-left: 20px;
+  color: #666;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/*我的小区详情 end*/
