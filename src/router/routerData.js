@@ -11,6 +11,7 @@ const InformationWallForm = () => import(/* webpackChunkName: "InformationWallLi
 const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/notice/NoticeList');
 const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/notice/NoticeDetail');
 const QuestionnaireList = () => import(/* webpackChunkName: "QuestionnaireList" */ '@/view/questionnaire/QuestionnaireList');
+const QuestionnaireDetail = () => import(/* webpackChunkName: "QuestionnaireDetail" */ '@/view/questionnaire/QuestionnaireDetail');
 const PersonalInformation = () => import(/* webpackChunkName: "PersonalInformation" */ '@/view/personalInf/PersonalInformation');
 const FamilyMemberList = () => import(/* webpackChunkName: "FamilyMemberList" */ '@/view/personalInf/FamilyMemberList');
 const MyCommunityList = () => import(/* webpackChunkName: "MyCommunityList" */ '@/view/myCommunity/MyCommunityList');
@@ -101,6 +102,14 @@ let data = [
     component: QuestionnaireList,
     meta: {
       title: '调查问卷列表'
+    }
+  },
+  {
+    path: '/questionnaireDetail',
+    name: 'QuestionnaireDetail',
+    component: QuestionnaireDetail,
+    meta: {
+      title: '问卷详情'
     }
   },
   {

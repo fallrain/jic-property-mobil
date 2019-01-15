@@ -4,9 +4,10 @@
     <li
       v-for="(item,i) in data"
       :key="i"
+      @click="radioClick(i)"
     >
-      <i class=""></i>
-      <span>{{item.name}}</span>
+      <i :class="['iconfont',value===i?'icon-danxuan':'icon-guanbi']"></i>
+      <span>{{item.label}}</span>
     </li>
   </ol>
 </div>
@@ -16,10 +17,21 @@ export default {
   props: {
     data: {
       type: Array
+    },
+    value: {
+    }
+  },
+  data () {
+    return {
+    };
+  },
+  methods: {
+    radioClick (index) {
+      this.$emit('input', index);
     }
   }
 };
 </script>
-<style>
+<style lang="scss">
 
 </style>
