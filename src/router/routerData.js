@@ -15,6 +15,12 @@ const PersonalInformation = () => import(/* webpackChunkName: "PersonalInformati
 const FamilyMemberList = () => import(/* webpackChunkName: "FamilyMemberList" */ '@/view/personalInf/FamilyMemberList');
 const MyCommunityList = () => import(/* webpackChunkName: "MyCommunityList" */ '@/view/myCommunity/MyCommunityList');
 const MyCommunityDetail = () => import(/* webpackChunkName: "MyCommunityDetail" */ '@/view/myCommunity/MyCommunityDetail');
+const CommunityList = () => import(/* webpackChunkName: "CommunityList" */ '@/view/myCommunity/CommunityList');
+const BuildingList = () => import(/* webpackChunkName: "BuildingList" */ '@/view/myCommunity/BuildingList');
+const UnitList = () => import(/* webpackChunkName: "BuildingList" */ '@/view/myCommunity/UnitList');
+const RoomList = () => import(/* webpackChunkName: "RoomList" */ '@/view/myCommunity/RoomList');
+const BindUserChoose = () => import(/* webpackChunkName: "BindUserChoose" */ '@/view/myCommunity/BindUserChoose');
+const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommunity/BindUser');
 
 let data = [
   {
@@ -127,6 +133,54 @@ let data = [
     component: MyCommunityDetail,
     meta: {
       title: '我的小区'
+    }
+  },
+  {
+    path: '/communityList',
+    name: 'CommunityList',
+    component: CommunityList,
+    meta: {
+      title: '小区选择'
+    }
+  },
+  {
+    path: '/buildingList',
+    name: 'BuildingList',
+    component: BuildingList,
+    meta: {
+      title: '楼栋选择'
+    }
+  },
+  {
+    path: '/unitList',
+    name: 'UnitList',
+    component: UnitList,
+    meta: {
+      title: '单元选择'
+    }
+  },
+  {
+    path: '/roomList',
+    name: 'RoomList',
+    component: RoomList,
+    meta: {
+      title: '房间选择'
+    }
+  },
+  {
+    path: '/bindUserChoose',
+    name: 'BindUserChoose',
+    component: BindUserChoose,
+    meta: {
+      title: '绑定用户'
+    }
+  },
+  {
+    path: '/bindUser',
+    name: 'BindUser',
+    component: BindUser,
+    meta: {
+      title: '绑定用户'
     }
   }
 ];

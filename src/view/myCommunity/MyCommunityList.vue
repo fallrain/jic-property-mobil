@@ -10,7 +10,10 @@
         <i class="MyCommunityList-item-icon iconfont icon-htmal5icon14"></i>
       </li>
     </ol>
-    <div class="MyCommunityList-add">
+    <div
+      class="MyCommunityList-add"
+      @click="addCommunity"
+    >
       <i class="iconfont icon-jia"></i><span>添加小区</span>
     </div>
   </div>
@@ -31,6 +34,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    addCommunity () {
+      /* 添加小区 */
+      this.$router.push({
+        name: 'CommunityList'
+      });
+    }
   }
 };
 </script>

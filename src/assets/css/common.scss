@@ -180,6 +180,10 @@
   margin-top: 12px;
 }
 
+.mt23 {
+  margin-top: 23px;
+}
+
 .mt27 {
   margin-top: 27px;
 }
@@ -268,6 +272,36 @@
 .header-bg-type01 {
   width: 100%;
   height: 106px;
+}
+
+.weui-dialog {
+  border-radius: 8px;
+}
+
+.weui-dialog__hd {
+  padding-top: 18px;
+  padding-bottom: 24px;
+}
+
+.weui-dialog__bd {
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  padding-bottom: 24px;
+}
+
+.weui-dialog__title {
+  font-size: 18px;
+  color: #333;
+}
+
+.weui-dialog__btn_primary {
+  font-size: 16px;
+  color: #333;
+}
+
+.jic-weui-dialog-val {
+  color: #5E8CF8;
 }
 
 /*公共 end*/
@@ -1136,3 +1170,125 @@
 }
 
 /*我的小区详情 end*/
+
+/*小区列表*/
+
+.CommunityList-head {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #fff;
+  color: #5884E9;
+  font-size: 18px;
+  padding-left: 20px;
+  .iconfont {
+    font-size: 28px;
+    margin-right: 4px;
+  }
+}
+
+.CommunityList-cnt {
+  width: 100%;
+  height: calc(100vh - 50px);
+  overflow: auto;
+}
+
+/*小区列表 end*/
+
+/*楼栋选择*/
+
+.BuildingList-head {
+  height: 50px;
+  line-height: 50px;
+  background: #EBEAEA;
+  padding-left: 22px;
+  font-size: 18px;
+  color: #333;
+  .iconfont {
+    font-size: 22px;
+    color: #537CDB;
+    margin-right: 4px;
+  }
+}
+
+.BuildingList-cnt {
+  width: 100%;
+  height: calc(100vh - 50px);
+  overflow: auto;
+}
+
+.BuildingList {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.BuildingList-item {
+  padding: 16px 12px;
+  border-bottom: 1px solid #E4E3E6;
+  font-size: 16px;
+  color: #333232;
+}
+
+/*楼栋选择 end*/
+
+/*绑定用户-选择*/
+
+.BindUserChoose-cnt {
+  height: calc(100vh - 50px);
+  background: #F8F8F8;
+}
+
+.BindUser-btm {
+  margin-top: 43px;
+  text-align: center;
+}
+
+/*绑定用户-选择 end*/
+
+/*绑定用户*/
+.BindUser-cnt {
+  background: #fff;
+  padding: 20px;
+}
+
+.BindUser-valid-head {
+  display: flex;
+  align-items: center;
+  color: #333232;
+  font-size: 16px;
+  margin-bottom: 20px;
+  .iconfont {
+    font-size: 20px;
+    color: #5E8CF8;
+    margin-right: 2px;
+  }
+}
+
+.BindUser-valid-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #999;
+  padding: 15px 8px;
+  .name {
+    font-size: 16px;
+    color: #C4C4C4;
+  }
+  .val {
+    text-align: right;
+    font-size: 16px;
+    color: #333;
+    .iconfont {
+      color: #5E8CF8;
+    }
+  }
+}
+
+.BindUser-valid-item-ipt {
+  border: 0;
+  text-align: right;
+  font-size: 16px;
+  -webkit-appearance: none;
+}
+
+/*绑定用户 end*/

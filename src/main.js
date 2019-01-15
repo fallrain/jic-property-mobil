@@ -8,10 +8,12 @@ import mixin from './mixin';
 import ax, {axGet, axPost} from '@/lib/ajax';
 import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
-/* import {
-  LoadingPlugin
+import {
+  AlertPlugin,
+  ConfirmPlugin
 } from 'vux';
-Vue.use(LoadingPlugin); */
+Vue.use(AlertPlugin);
+Vue.use(ConfirmPlugin);
 
 Vue.config.productionTip = false;
 // 注册filter
