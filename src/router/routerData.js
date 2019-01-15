@@ -13,6 +13,7 @@ const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view
 const QuestionnaireList = () => import(/* webpackChunkName: "QuestionnaireList" */ '@/view/questionnaire/QuestionnaireList');
 const PersonalInformation = () => import(/* webpackChunkName: "PersonalInformation" */ '@/view/personalInf/PersonalInformation');
 const FamilyMemberList = () => import(/* webpackChunkName: "FamilyMemberList" */ '@/view/personalInf/FamilyMemberList');
+const MyCommunityList = () => import(/* webpackChunkName: "MyCommunityList" */ '@/view/myCommunity/MyCommunityList');
 
 let data = [
   {
@@ -109,6 +110,14 @@ let data = [
     component: FamilyMemberList,
     meta: {
       title: '成员列表'
+    }
+  },
+  {
+    path: '/myCommunityList',
+    name: 'MyCommunityList',
+    component: MyCommunityList,
+    meta: {
+      title: '我的小区'
     }
   }
 ];
