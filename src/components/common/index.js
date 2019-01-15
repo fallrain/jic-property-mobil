@@ -10,6 +10,7 @@ import HLeftSlide from './HLeftSlide';
 import HLoadmore from './HLoadmore';
 import HNotice from './HNotice';
 import HPaper from './HPaper';
+import HRadio from './HRadio';
 import HTextarea from './HTextarea';
 import HTitleItem from './HTitleItem';
 import HUpload from './HUpload';
@@ -27,6 +28,7 @@ export {
   HLoadmore,
   HNotice,
   HPaper,
+  HRadio,
   HTextarea,
   HTitleItem,
   HUpload
