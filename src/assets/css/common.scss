@@ -1450,3 +1450,46 @@
 }
 
 /*绑定用户 end*/
+
+/*联系我们*/
+
+.Contact-list {
+
+}
+
+.Contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px 20px 22px;
+  border-bottom: 1px solid #ddd;
+  .iconfont {
+    font-size: 28px;
+    color: #55ABEE;
+    transform: rotateY(180deg);
+    display: inline-block;
+  }
+}
+
+.Contact-item-portrait {
+  width: 44px;
+  height: 44px;
+  margin-right: 16px;
+}
+
+.Contact-item-cnt {
+  display: flex;
+  align-items: center;
+  .title {
+    font-size: 17px;
+    color: #333;
+    line-height: 24px;
+  }
+  .tel {
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+  }
+}
+
+/*联系我们 end*/

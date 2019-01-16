@@ -22,6 +22,7 @@ const UnitList = () => import(/* webpackChunkName: "BuildingList" */ '@/view/myC
 const RoomList = () => import(/* webpackChunkName: "RoomList" */ '@/view/myCommunity/RoomList');
 const BindUserChoose = () => import(/* webpackChunkName: "BindUserChoose" */ '@/view/myCommunity/BindUserChoose');
 const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommunity/BindUser');
+const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/Contact');
 
 let data = [
   {
@@ -190,6 +191,14 @@ let data = [
     component: BindUser,
     meta: {
       title: '绑定用户'
+    }
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact,
+    meta: {
+      title: '联系我们'
     }
   }
 ];
