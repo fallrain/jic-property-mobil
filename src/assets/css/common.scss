@@ -484,12 +484,17 @@
 /*缴费首页 end*/
 
 /*缴费步骤2*/
+.PaymentDetail {
+  min-height: 100vh;
+  background: #efeef5;
+}
 
 .PaymentDetail-head {
   display: flex;
   align-items: center;
   height: 86px;
   border-bottom: 6px solid #EFEEF5;
+  background: #fff;
   img {
     width: 40px;
     height: 40px;
@@ -510,13 +515,17 @@
   background-size: 100% 106px;
   background-repeat: no-repeat;
   min-height: 175px;
-  border-bottom: 6px solid #EFEEF5;
 }
 
 .PaymentDetail-cnt {
-  display: flex;
+  padding-top: 18px;
   padding-left: 12px;
   padding-right: 12px;
+  .title {
+    font-weight: 600;
+    color: #383838;
+    font-size: 18px;
+  }
   .name {
     font-size: 16px;
     color: #999;
@@ -530,12 +539,13 @@
 }
 
 .PaymentDetail-checklist {
-  padding-top: 10px;
-  padding-right: 22px;
-  padding-left: 22px;
+  padding-top: 22px;
   .weui-cell {
     padding-right: 1px;
     padding-left: 0;
+  }
+  .HChecklist {
+    align-items: flex-start;
   }
 }
 
@@ -575,8 +585,31 @@
 }
 
 .PaymentDetail-checklist-cnt {
+}
+
+.PaymentDetail-checklist-cnt-total {
   display: flex;
   justify-content: space-between;
+  & > .name {
+    font-size: 16px;
+    color: #333;
+  }
+  & > .val {
+    font-size: 16px;
+    color: #5e8cf8;
+  }
+}
+
+.PaymentDetail-checklist-cnt-item-par {
+  padding-top: 4px;
+}
+
+.PaymentDetail-checklist-cnt-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
 }
 
 /*缴费步骤2 end*/
