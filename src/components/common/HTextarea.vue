@@ -6,7 +6,10 @@
     :maxlength="maxNumber"
     v-model="taValue"
   ></textarea>
-  <p class="HTextarea-fontNumber">{{taValueLength}}/{{maxNumber}}</p>
+  <p
+    v-if="conuntMaxNumber"
+    class="HTextarea-fontNumber"
+  >{{taValueLength}}/{{maxNumber}}</p>
 </div>
 </template>
 <script>
@@ -14,6 +17,10 @@ export default {
   props: {
     value: {
       type: String
+    },
+    conuntMaxNumber: {
+      type: Boolean,
+      default: true
     },
     maxNumber: {
       type: Number,

@@ -1,16 +1,17 @@
 <template>
-<div>
-  <ol>
-    <li
-      v-for="(item,i) in data"
-      :key="i"
-      @click="radioClick(i)"
-    >
-      <i :class="['iconfont',value===i?'icon-danxuan':'icon-guanbi']"></i>
-      <span>{{item.label}}</span>
-    </li>
-  </ol>
-</div>
+  <div>
+    <ol class="HRadio-list">
+      <li
+        class="HRadio-item"
+        v-for="(item,i) in data"
+        :key="i"
+        @click="radioClick(i)"
+      >
+        <i :class="['HRadio-icon','iconfont',value===i?'icon-danxuan':'icon-guanbi']"></i>
+        <span class="HRadio-cnt">{{item.label}}</span>
+      </li>
+    </ol>
+  </div>
 </template>
 <script>
 export default {
@@ -18,12 +19,10 @@ export default {
     data: {
       type: Array
     },
-    value: {
-    }
+    value: {}
   },
   data () {
-    return {
-    };
+    return {};
   },
   methods: {
     radioClick (index) {
@@ -33,5 +32,24 @@ export default {
 };
 </script>
 <style lang="scss">
+  .HRadio-icon {
+    color: #479FE3;
+    margin-right: 8px;
+  }
 
+  .HRadio-cnt {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .HRadio-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .HRadio-item{
+    font-size: 0;
+    min-width: 80px;
+  }
 </style>

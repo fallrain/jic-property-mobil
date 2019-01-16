@@ -3,6 +3,7 @@ import HArticleAuthor from './HArticleAuthor';
 import HArticleTitle from './HArticleTitle';
 import HButton from './HButton';
 import HCell from './HCell';
+import HCheckbox from './HCheckbox';
 import HChecklist from './HChecklist';
 import HGroup from './HGroup';
 import HItem from './HItem';
@@ -21,6 +22,7 @@ export {
   HArticleTitle,
   HButton,
   HCell,
+  HCheckbox,
   HChecklist,
   HGroup,
   HItem,
