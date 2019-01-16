@@ -18,39 +18,58 @@
   </div>
 </template>
 <script>
-import {} from '@/components/common';
 
 export default {
-  components: {},
+  props: ['communityCode', 'buildingCode'],
   data () {
     return {
       name: '4号楼',
       list: [
-        {
-          name: '1单元'
-        },
-        {
-          name: '2单元'
-        },
-        {
-          name: '3单元'
-        },
-        {
-          name: '4单元'
-        },
-        {
-          name: '5单元'
-        },
-        {
-          name: '6单元'
-        }
       ]
     };
   },
+  activated () {
+    this.queryUnit();
+    this.setName();
+  },
   methods: {
+    setName () {
+      const communityName = sessionStorage.getItem('CommunityList.communityName');
+      const buildingName = sessionStorage.getItem('BuildingList.buildingName');
+      if (communityName) {
+        this.name = communityName;
+      }
+      if (buildingName) {
+        this.name += '-' + buildingName;
+      }
+    },
+    queryUnit () {
+      this.axGet(
+        'buildingUnit/wxGetUnits',
+        {
+          j_sub_system: this.communityCode, // 小区编码
+          buildingCode: this.buildingCode// 楼栋编码
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          this.list = data.list.map(function (v) {
+            return {
+              id: v.unitCode,
+              name: v.unitName + '单元'
+            };
+          });
+        }
+      });
+    },
     toNext (item) {
+      // 保存楼栋名字
+      sessionStorage.setItem('UnitList.unitName', item.name);
       this.$router.push({
-        name: 'RoomList'
+        name: 'RoomList',
+        params: {
+          unitCode: item.id
+        }
       });
     }
   }

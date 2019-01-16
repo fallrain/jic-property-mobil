@@ -20,7 +20,9 @@
       <button
         type="button"
         class="h-btn-primary"
-      >确定发布</button>
+        @click="submit"
+      >确定发布
+      </button>
     </div>
   </div>
 </template>
@@ -43,6 +45,47 @@ export default {
         advice: ''
       }
     };
+  },
+  created () {
+    this.genVdt();
+  },
+  methods: {
+    genVdt () {
+      this.vdt = new this.HValidate({
+        _this: this,
+        formData: this.form,
+        rules: {
+          advice: {
+            'required': true
+          },
+          questionType: {}
+        },
+        messages: {
+          question: {
+            'required': '意见不能为空'
+          },
+          questionType: {},
+          phone: {}
+        }
+      });
+    },
+    submit () {
+      /* 发布 */
+      if (this.vdt.valid()) {
+        this.axPost(
+          'infoWall/wxInsert',
+          {
+            img: 'http://mao.jpg',
+            content: this.form.content,
+            ownerCode: '1'
+          }
+        ).then(r => {
+          if (r.code === '200') {
+
+          }
+        });
+      }
+    }
   }
 };
 </script>

@@ -38,9 +38,10 @@ export default {
     Group,
     XSwitch
   },
+  props: ['communityCode', 'roomCode'],
   data () {
     return {
-      name: '2单元',
+      name: '',
       isMaster: true,
       switchList: [
         {
@@ -51,6 +52,10 @@ export default {
         }
       ]
     };
+  },
+  activated () {
+    // 设置详细房子名
+    this.getRoomDetail();
   },
   computed: {
     isTenant: {
@@ -63,9 +68,13 @@ export default {
     }
   },
   methods: {
-    toBind (item) {
+    toBind () {
       this.$router.push({
-        name: 'BindUser'
+        name: 'BindUser',
+        params: {
+          roomCode: this.roomCode,
+          master: this.isMaster ? 1 : 0
+        }
       });
     }
   }

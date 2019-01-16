@@ -2,7 +2,12 @@
   <div>
     <div class="InformationWallList-head">
       <span class="InformationWallList-head-title">信息上墙</span>
-      <button class="InformationWallList-head-btn" type="button">+ 发布</button>
+      <button
+        class="InformationWallList-head-btn"
+        type="button"
+        @click="toAdd"
+      >+ 发布
+      </button>
     </div>
     <div class="InformationWallList-cnt">
       <ol>
@@ -59,7 +64,33 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  activated () {
+
+  },
+  methods: {
+    toAdd () {
+      /* 发布信息 */
+      this.$router.push({
+        name: 'InformationWallForm'
+      });
+    },
+    query () {
+      /* 查询上墙信息 */
+      this.axGet(
+        'infoWall/wxList',
+        {
+          ownerCode: '1',
+          ...this.pageCfg.page
+        }
+      ).then(r => {
+        if (r.code === '200') {
+
+        }
+      });
+    }
+  }
+};
 </script>
 <style>
 

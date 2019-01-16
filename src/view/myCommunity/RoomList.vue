@@ -18,39 +18,62 @@
   </div>
 </template>
 <script>
-import {} from '@/components/common';
 
 export default {
-  components: {},
+  props: ['communityCode', 'unitCode'],
   data () {
     return {
       name: '2单元',
       list: [
-        {
-          name: '1001'
-        },
-        {
-          name: '1002'
-        },
-        {
-          name: '1003'
-        },
-        {
-          name: '1004'
-        },
-        {
-          name: '2001'
-        },
-        {
-          name: '2002'
-        }
       ]
     };
   },
+  activated () {
+    this.queryRooms();
+    this.setName();
+  },
   methods: {
+    setName () {
+      const communityName = sessionStorage.getItem('CommunityList.communityName');
+      const buildingName = sessionStorage.getItem('BuildingList.buildingName');
+      const unitName = sessionStorage.getItem('UnitList.unitName');
+      if (communityName) {
+        this.name = communityName;
+      }
+      if (buildingName) {
+        this.name += '-' + buildingName;
+      }
+      if (unitName) {
+        this.name += '-' + unitName;
+      }
+    },
+    queryRooms () {
+      this.axGet(
+        'unitRoom/wxGetRooms',
+        {
+          j_sub_system: this.communityCode,
+          unitCode: this.unitCode
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          this.list = data.list.map(function (v) {
+            return {
+              id: v.roomCode,
+              name: v.roomName + '室'
+            };
+          });
+        }
+      });
+    },
     toNext (item) {
+      // 保存房间名字
+      sessionStorage.setItem('RoomList.roomName', item.name);
       this.$router.push({
-        name: 'BindUserChoose'
+        name: 'BindUserChoose',
+        params: {
+          roomCode: item.id
+        }
       });
     }
   }

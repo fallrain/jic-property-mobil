@@ -22,7 +22,7 @@
     <div class="jhm-spacer"></div>
     <div>
       <h-group class="pl19 pr19">
-        <h-cell @click.native="jump('MyFollowExpert')">
+        <h-cell @click.native="jump('FamilyMemberList')">
           <div class="PersonalInformation-item">
             <div class="PersonalInformation-item-portrait">
               <img src="@/assets/img/family-member@2x.png">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </h-cell>
-        <h-cell @click.native="jump('FeedbackList')">
+        <h-cell @click.native="jump('MyCommunityDetail')">
           <div class="PersonalInformation-item">
             <div class="PersonalInformation-item-portrait">
               <img src="@/assets/img/community@2x.png">
@@ -44,7 +44,7 @@
             </div>
           </div>
         </h-cell>
-        <h-cell @click.native="jump('FeedbackForm')">
+        <h-cell @click.native="jump('InformationWallList')">
           <div class="PersonalInformation-item">
             <div class="PersonalInformation-item-portrait">
               <img src="@/assets/img/wall-inf@2x.png">

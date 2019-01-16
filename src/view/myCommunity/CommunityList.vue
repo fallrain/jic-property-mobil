@@ -25,70 +25,41 @@ export default {
     return {
       propertyName: '鸿棕物业',
       communityList: {
-        A: [
-          {
-            id: 1,
-            name: '阿里巴巴公寓'
-          },
-          {
-            id: 1,
-            name: '阿拉斯加风情'
-          },
-          {
-            id: 1,
-            name: '爱琴海府邸'
-          }
-        ],
-        B: [
-          {
-            id: 1,
-            name: '巴别塔公寓'
-          },
-          {
-            id: 1,
-            name: '巴迪斯达花园'
-          },
-          {
-            id: 1,
-            name: '白宝丽公园'
-          }
-        ],
-        D: [
-          {
-            id: 1,
-            name: '断背山'
-          },
-          {
-            id: 1,
-            name: '赌博圣地'
-          },
-          {
-            id: 1,
-            name: '大大卷工厂'
-          }
-        ],
-        h: [
-          {
-            id: 1,
-            name: '花花世界'
-          },
-          {
-            id: 1,
-            name: '环大西洋'
-          },
-          {
-            id: 1,
-            name: '欢乐海洋'
-          }
-        ]
       }
     };
+  },
+  created () {
+    this.queryCommunity();
   },
   methods: {
     toBuilding (item) {
       /* 去楼栋选择 */
+      sessionStorage.setItem('CommunityList.communityName', item.name);
       this.$router.push({
-        name: 'BuildingList'
+        name: 'BuildingList',
+        params: {
+          communityCode: item.id
+        }
+      });
+    },
+    queryCommunity () {
+      /* 查询小区列表 */
+      this.axGet(
+        'baseCommunity/wxList',
+        {
+          pageNum: 1,
+          pageSize: 999999
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          this.$set(this.communityList, 'A', data.list.map(function (v) {
+            return {
+              id: v.simpleCode,
+              name: v.communityName
+            };
+          }));
+        }
       });
     }
   }
