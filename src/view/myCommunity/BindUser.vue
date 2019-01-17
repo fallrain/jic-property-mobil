@@ -312,20 +312,13 @@ export default {
         }
         validResult.then(r => {
           if (r.code === '200') {
-
-          }
-        });
-        this.$vux.confirm.show({
-          title: '系统通知',
-          content: `
-           您绑定的房子为：<span class="jic-weui-dialog-val">各种小区</span><br>
-           房子房主为：<span class="jic-weui-dialog-val">川岛芳子1</span>
-        `,
-          onCancel () {
-            console.log('plugin cancel');
-          },
-          onConfirm () {
-            console.log('plugin confirm');
+            this.$vux.confirm.show({
+              title: '系统通知',
+              content: `
+                 您绑定的房子为：<span class="jic-weui-dialog-val">{{name}}</span><br>
+                 房子房主为：<span class="jic-weui-dialog-val">{{form.ownerName}}</span>
+              `
+            });
           }
         });
       }

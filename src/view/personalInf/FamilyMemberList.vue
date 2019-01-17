@@ -60,9 +60,11 @@ export default {
       this.axPost(
         'roomOwner/wxUpdateOwner',
         {
-          j_sub_system: 'a00003', // todo 默认小区需要先获取
           roomCode: '59513c8c33cc4085a99cbef192698bbe', // todo
           ownerCode: item.ownerCode
+        },
+        {
+          j_sub_system: 'a00003' // todo 默认小区需要先获取
         }
       ).then(r => {
         if (r.code === '200') {
