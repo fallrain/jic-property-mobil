@@ -958,6 +958,29 @@
   padding-right: 16px;
 }
 
+.InformationWallForm-img-par {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.InformationWallForm-preshow {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin-right: 20px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  .del{
+    font-size: 18px;
+    position: absolute;
+    color: #333;
+    right: 4px;
+    top: 4px;
+  }
+}
+
 /*信息上墙-发布 end*/
 
 /*通知列表*/
@@ -1441,11 +1464,11 @@
       color: #5E8CF8;
     }
   }
-  .multVal{
+  .multVal {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .BindUser-valid-item-ipt{
+    .BindUser-valid-item-ipt {
       width: 64px;
       margin-right: 2px;
       text-align: left;
