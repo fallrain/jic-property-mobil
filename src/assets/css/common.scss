@@ -1429,6 +1429,7 @@
   border-bottom: 1px solid #999;
   padding: 15px 8px;
   .name {
+    flex-shrink: 0;
     font-size: 16px;
     color: #C4C4C4;
   }
@@ -1438,6 +1439,16 @@
     color: #333;
     .iconfont {
       color: #5E8CF8;
+    }
+  }
+  .multVal{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .BindUser-valid-item-ipt{
+      width: 64px;
+      margin-right: 2px;
+      text-align: left;
     }
   }
 }

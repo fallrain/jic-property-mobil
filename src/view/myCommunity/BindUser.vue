@@ -20,7 +20,7 @@
                 type="text"
                 class="BindUser-valid-item-ipt"
                 placeholder="请输入真实姓名"
-                v-model="masterform.name"
+                v-model="masterForm.name"
               >
             </p>
           </li>
@@ -33,7 +33,7 @@
                 type="text"
                 class="BindUser-valid-item-ipt"
                 placeholder="请输入身份证号码"
-                v-model="masterform.idCard"
+                v-model="masterForm.idCard"
               >
             </p>
           </li>
@@ -41,12 +41,13 @@
             class="BindUser-valid-item"
           >
             <p class="name">预留手机号码</p>
-            <p class="val">
+            <p class="val multVal">
+              <span>{{halfTel}}</span>
               <input
                 type="text"
                 class="BindUser-valid-item-ipt"
-                placeholder="请输入预留手机号"
-                v-model="masterform.phone"
+                placeholder="后四位"
+                v-model="masterForm.phone"
               >
               <i class="iconfont icon-wenhao" @click="showPhoneNotice"></i>
             </p>
@@ -64,7 +65,12 @@
           >
             <p class="name">房主真实姓名</p>
             <p class="val">
-              <input type="text" class="BindUser-valid-item-ipt" placeholder="请输入房主真实姓名">
+              <input
+                type="text"
+                class="BindUser-valid-item-ipt"
+                placeholder="请输入房主真实姓名"
+                v-model="form.ownerName"
+              >
             </p>
           </li>
         </ol>
@@ -78,7 +84,12 @@
           >
             <p class="name">真实姓名</p>
             <p class="val">
-              <input type="text" class="BindUser-valid-item-ipt" placeholder="请输入真实姓名">
+              <input
+                type="text"
+                class="BindUser-valid-item-ipt"
+                placeholder="请输入真实姓名"
+                v-model="form.name"
+              >
             </p>
           </li>
           <li
@@ -86,15 +97,25 @@
           >
             <p class="name">身份证号码</p>
             <p class="val">
-              <input type="text" class="BindUser-valid-item-ipt" placeholder="请输入身份证号码">
+              <input
+                type="text"
+                class="BindUser-valid-item-ipt"
+                placeholder="请输入身份证号码"
+                v-model="form.idCard"
+              >
             </p>
           </li>
           <li
             class="BindUser-valid-item"
           >
-            <p class="name">预留手机号码</p>
+            <p class="name">手机号码</p>
             <p class="val">
-              <input type="text" class="BindUser-valid-item-ipt" placeholder="请输入预留手机号">
+              <input
+                type="text"
+                class="BindUser-valid-item-ipt"
+                placeholder="请输入手机号码"
+                v-model="form.phone"
+              >
             </p>
           </li>
         </ol>
@@ -127,8 +148,15 @@ export default {
   data () {
     return {
       name: '2单元',
-      isMaster: this.master === 1,
-      masterform: {
+      isMaster: this.master === '1',
+      halfTel: '',
+      masterForm: {
+        name: '',
+        idCard: '',
+        phone: ''
+      },
+      form: {
+        ownerName: '',
         name: '',
         idCard: '',
         phone: ''
@@ -138,12 +166,13 @@ export default {
   watch: {
     master (val) {
       // 缓存了本组件，data只构建一次，所以需要监控master
-      this.isMaster = val === 1;
+      this.isMaster = val === '1';
     }
   },
   activated () {
     // 切换时重新创建验证对象
     this.genVdt();
+    this.queryHost();
   },
   methods: {
     toNext (item) {
@@ -157,23 +186,39 @@ export default {
         content: '手机号码为您交房时提供给物业的手机号。'
       });
     },
+    queryHost () {
+      /* 查询房主信息 */
+      this.axGet(
+        'roomOwner/wxGetHostByRoomCode',
+        {
+          j_sub_system: this.communityCode,
+          roomCode: this.roomCode
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          this.ownerCode = data[0].ownerCode;
+          this.halfTel = data[0].tel;
+        }
+      });
+    },
     genVdt () {
       if (this.isMaster) {
         this.vdt = new this.HValidate({
           _this: this,
-          formData: this.masterform,
+          formData: this.masterForm,
           rules: {
             name: {
               'required': true,
               'cn': true
             },
             idCard: {
-              'required': true,
               IDCard: true
             },
             phone: {
               'required': true,
-              mobile: true
+              number: true,
+              length: 4
             }
           },
           messages: {
@@ -182,7 +227,45 @@ export default {
               'cn': '姓名必须为汉字'
             },
             idCard: {
-              'required': '身份证不能为空',
+              IDCard: '请输入合法的身份证'
+            },
+            phone: {
+              'required': '手机号后四位不能为空',
+              length: '最大长度为4位'
+            }
+          }
+        });
+      } else {
+        this.vdt = new this.HValidate({
+          _this: this,
+          formData: this.form,
+          rules: {
+            ownerName: {
+              'required': true,
+              'cn': true
+            },
+            name: {
+              'required': true,
+              'cn': true
+            },
+            idCard: {
+              IDCard: true
+            },
+            phone: {
+              'required': true,
+              mobile: true
+            }
+          },
+          messages: {
+            ownerName: {
+              'required': '房主姓名不能为空',
+              'cn': '房主姓名必须为汉字'
+            },
+            name: {
+              'required': '姓名不能为空',
+              'cn': '姓名必须为汉字'
+            },
+            idCard: {
               IDCard: '请输入合法的身份证'
             },
             phone: {
@@ -190,8 +273,6 @@ export default {
             }
           }
         });
-      } else {
-
       }
     },
     valid () {
@@ -201,12 +282,31 @@ export default {
           validResult = this.axPost(
             'roomOwner/wxValidateHost',
             {
-              j_sub_system: this.communityCode,
+              simpleCode: this.communityCode,
               roomCode: this.roomCode,
-              ownerName: this.masterform.name,
-              tel: this.masterform.phone,
-              ownerCode: '1',
-              wxUid: '123455'
+              ownerName: this.masterForm.name,
+              tel: this.halfTel + this.masterForm.phone,
+              ownerCode: this.ownerCode,
+              wxUid: '123455' // todo 应该是真实的uid
+            },
+            {
+              j_sub_system: this.communityCode
+            }
+          );
+        } else {
+          validResult = this.axPost(
+            'roomOwner/wxValidateLease',
+            {
+              simpleCode: this.communityCode,
+              roomCode: this.roomCode,
+              ownerName: this.form.ownerName,
+              tel: this.form.phone,
+              idCard: this.form.idCard,
+              // ownerCode: this.ownerCode,
+              wxUid: '123455' // todo 应该是真实的uid
+            },
+            {
+              j_sub_system: this.communityCode
             }
           );
         }

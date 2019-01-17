@@ -51,8 +51,12 @@ const axGet = function (url, params) {
   });
 };
 
-const axPost = function (url, params) {
-  return ax.post(url, params);
+const axPost = function (url, data, params) {
+  return ax({
+    url: url,
+    data: data,
+    params: params
+  });
 };
 export default ax;
 

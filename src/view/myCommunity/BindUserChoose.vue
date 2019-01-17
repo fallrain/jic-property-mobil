@@ -73,7 +73,7 @@ export default {
         name: 'BindUser',
         params: {
           roomCode: this.roomCode,
-          master: this.isMaster ? 1 : 0
+          master: this.isMaster ? '1' : '0'
         }
       });
     }
