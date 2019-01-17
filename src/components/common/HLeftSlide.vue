@@ -9,7 +9,7 @@
       >
         <slot></slot>
       </div>
-      <div class="HLeftSlide-remove" ref='remove'>
+      <div class="HLeftSlide-remove" ref='remove' @click="remove">
         删除
       </div>
     </div>
@@ -28,6 +28,9 @@ export default {
     };
   },
   methods: {
+    remove () {
+      this.$emit('remove-item');
+    },
     touchStart (ev) {
       ev = ev || event;
       // tounches类数组，等于1时表示此时有只有一只手指在触摸屏幕

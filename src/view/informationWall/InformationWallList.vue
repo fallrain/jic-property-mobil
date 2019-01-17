@@ -13,49 +13,29 @@
       <ol>
         <li
           class="InformationWallList-item"
+          v-for="(item,i) in list"
+          :key="i"
         >
           <div class="InformationWallList-item-portrait">
             <img src="@/assets/img/Bitmap@2x(4).png">
           </div>
           <div class="InformationWallList-item-cnt">
             <p class="InformationWallList-item-head">
-              <span class="name">小区住户</span>
-              <span class="time">2018/10/12 16:23</span>
+              <span class="name">{{item.name}}</span>
+              <span class="time">{{item.time}}</span>
             </p>
-            <p class="InformationWallList-item-inf">
-              老人8月12日与金沙滩风景区走丢身穿蓝色中山装，头带浅绿色帽子，家里万分着急，如有遇到的，请联系：18489293王女士，万分着急，谢谢，老人有高血压糖尿病，每日需要用药，走丢时身上没带任何药物。
-            </p>
+            <p class="InformationWallList-item-inf">{{item.content}}</p>
             <img
+              v-if="item.img"
               class="InformationWallList-item-img"
-              src="@/assets/img/detail-top-bg@2x.png"
+              :src="item.img"
             >
             <div class="InformationWallList-item-btm">
-              <i class="iconfont icon-xing"></i>
-              <span class="count">321个关注</span>
-            </div>
-          </div>
-        </li>
-        <li
-          class="InformationWallList-item"
-        >
-          <div class="InformationWallList-item-portrait">
-            <img src="@/assets/img/Bitmap@2x(4).png">
-          </div>
-          <div class="InformationWallList-item-cnt">
-            <p class="InformationWallList-item-head">
-              <span class="name">小区住户</span>
-              <span class="time">2018/10/12 16:23</span>
-            </p>
-            <p class="InformationWallList-item-inf">
-              老人8月12日与金沙滩风景区走丢身穿蓝色中山装，头带浅绿色帽子，家里万分着急，如有遇到的，请联系：18489293王女士，万分着急，谢谢，老人有高血压糖尿病，每日需要用药，走丢时身上没带任何药物。
-            </p>
-            <img
-              class="InformationWallList-item-img"
-              src="@/assets/img/detail-top-bg@2x.png"
-            >
-            <div class="InformationWallList-item-btm">
-              <i class="iconfont icon-xing"></i>
-              <span class="count">321个关注</span>
+              <i
+                :class="['iconfont',item.isFollow?'icon-iconfontxingxing':'icon-xing']"
+                @click="follow(item)"
+              ></i>
+              <span class="count">{{item.follows}}个关注</span>
             </div>
           </div>
         </li>
@@ -65,8 +45,15 @@
 </template>
 <script>
 export default {
+  props: ['all'],
   activated () {
-
+    this.query();
+  },
+  data () {
+    return {
+      list: [
+      ]
+    };
   },
   methods: {
     toAdd () {
@@ -77,15 +64,45 @@ export default {
     },
     query () {
       /* 查询上墙信息 */
+      const data = {
+        j_sub_system: 'a00003', // todo 本人默认小区code,需要获取
+        ...this.pageCfg.page
+      };
+      if (this.all === 'self') {
+        data.ownerCode = '1'; // todo 本住户的code 需获取
+      }
       this.axGet(
         'infoWall/wxList',
+        data
+      ).then(r => {
+        if (r.code === '200') {
+          this.list = r.value.list.map(function (v) {
+            return {
+              name: v.manName,
+              time: v.createdTime,
+              content: v.content,
+              img: v.img,
+              follows: v.follow,
+              isFollow: v.isFollow,
+              infoCode: v.infoCode
+            };
+          });
+        }
+      });
+    },
+    follow (item) {
+      /* 关注/取消关注 */
+      this.axPost(
+        'infoWall/wxFollow',
         {
-          ownerCode: '1',
-          ...this.pageCfg.page
+          ownerCode: '1', // todo 住户id
+          infoCode: item.infoCode
+        },
+        {
+          j_sub_system: 'a00003' // todo 小区id
         }
       ).then(r => {
         if (r.code === '200') {
-
         }
       });
     }

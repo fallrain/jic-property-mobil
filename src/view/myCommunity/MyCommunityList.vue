@@ -35,11 +35,28 @@ export default {
       ]
     };
   },
+  created () {
+    this.queryMyRooms();
+  },
   methods: {
     addCommunity () {
       /* 添加小区 */
       this.$router.push({
         name: 'CommunityList'
+      });
+    },
+    queryMyRooms () {
+      /* 查询我的房产 */
+      this.axPost(
+        'roomOwnerRel/wxGetAllList',
+        {
+          wxUid: '123455',
+          ownerCode: '1'
+        }
+      ).then(r => {
+        if (r.code === '200') {
+
+        }
       });
     }
   }

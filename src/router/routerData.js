@@ -7,7 +7,7 @@ const PaymentChannel = () => import(/* webpackChunkName: "PaymentChannel" */ '@/
 const PaymentSucess = () => import(/* webpackChunkName: "PaymentSucess" */ '@/view/payment/PaymentSucess');
 const PaymentHistoryList = () => import(/* webpackChunkName: "PaymentHistoryList" */ '@/view/paymentHistory/PaymentHistoryList');
 const InformationWallList = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/informationWall/InformationWallList');
-const InformationWallForm = () => import(/* webpackChunkName: "InformationWallList" */ '@/view/informationWall/InformationWallForm');
+const InformationWallForm = () => import(/* webpackChunkName: "InformationWallForm" */ '@/view/informationWall/InformationWallForm');
 const NoticeList = () => import(/* webpackChunkName: "Notice" */ '@/view/notice/NoticeList');
 const NoticeDetail = () => import(/* webpackChunkName: "NoticeDetail" */ '@/view/notice/NoticeDetail');
 const QuestionnaireList = () => import(/* webpackChunkName: "QuestionnaireList" */ '@/view/questionnaire/QuestionnaireList');
@@ -66,9 +66,10 @@ let data = [
     }
   },
   {
-    path: '/informationWallList',
+    path: '/informationWallList/:all',
     name: 'InformationWallList',
     component: InformationWallList,
+    props: true,
     meta: {
       title: '信息上墙'
     }
