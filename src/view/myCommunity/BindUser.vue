@@ -249,7 +249,7 @@ export default {
               'cn': true
             },
             idCard: {
-              IDCard: true
+              // IDCard: true
             },
             phone: {
               'required': true,
@@ -277,47 +277,55 @@ export default {
     },
     valid () {
       if (this.vdt.valid()) {
-        let validResult;
-        if (this.isMaster) {
-          validResult = this.axPost(
-            'roomOwner/wxValidateHost',
-            {
-              simpleCode: this.communityCode,
-              roomCode: this.roomCode,
-              ownerName: this.masterForm.name,
-              tel: this.halfTel + this.masterForm.phone,
-              ownerCode: this.ownerCode,
-              wxUid: '123455' // todo 应该是真实的uid
-            },
-            {
-              j_sub_system: this.communityCode
+        this.$vux.confirm.show({
+          title: '系统通知',
+          hideOnBlur: true,
+          content: `
+                 您绑定的房子为：<span class="jic-weui-dialog-val">${this.name}</span><br>
+                 房子房主为：<span class="jic-weui-dialog-val">${this.form.ownerName}</span>
+              `,
+          onConfirm: () => {
+            let validResult;
+            if (this.isMaster) {
+              validResult = this.axPost(
+                'roomOwner/wxValidateHost',
+                {
+                  simpleCode: this.communityCode,
+                  roomCode: this.roomCode,
+                  ownerName: this.masterForm.name,
+                  tel: this.halfTel + this.masterForm.phone,
+                  ownerCode: this.ownerCode,
+                  wxUid: '123455' // todo 应该是真实的uid
+                },
+                {
+                  j_sub_system: this.communityCode
+                }
+              );
+            } else {
+              validResult = this.axPost(
+                'roomOwner/wxValidateLease',
+                {
+                  simpleCode: this.communityCode,
+                  roomCode: this.roomCode,
+                  ownerName: this.form.ownerName,
+                  leaseName: this.form.name,
+                  tel: this.form.phone,
+                  idCard: this.form.idCard,
+                  // ownerCode: this.ownerCode,
+                  wxUid: '123455' // todo 应该是真实的uid
+                },
+                {
+                  j_sub_system: this.communityCode
+                }
+              );
             }
-          );
-        } else {
-          validResult = this.axPost(
-            'roomOwner/wxValidateLease',
-            {
-              simpleCode: this.communityCode,
-              roomCode: this.roomCode,
-              ownerName: this.form.ownerName,
-              tel: this.form.phone,
-              idCard: this.form.idCard,
-              // ownerCode: this.ownerCode,
-              wxUid: '123455' // todo 应该是真实的uid
-            },
-            {
-              j_sub_system: this.communityCode
-            }
-          );
-        }
-        validResult.then(r => {
-          if (r.code === '200') {
-            this.$vux.confirm.show({
-              title: '系统通知',
-              content: `
-                 您绑定的房子为：<span class="jic-weui-dialog-val">{{name}}</span><br>
-                 房子房主为：<span class="jic-weui-dialog-val">{{form.ownerName}}</span>
-              `
+            validResult.then(r => {
+              if (r.code === '200') {
+                this.$vux.toast.show({
+                  type: 'text',
+                  text: '绑定成功'
+                });
+              }
             });
           }
         });

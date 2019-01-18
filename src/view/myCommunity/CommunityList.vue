@@ -53,10 +53,10 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
-          this.$set(this.communityList, 'A', data.list.map(function (v) {
+          this.$set(this.communityList, 'A', Object.entries(data).map(function (v) {
             return {
-              id: v.simpleCode,
-              name: v.communityName
+              id: v[1].simpleCode,
+              name: v[1].communityName
             };
           }));
         }

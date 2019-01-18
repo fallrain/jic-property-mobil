@@ -107,8 +107,9 @@ let data = [
     }
   },
   {
-    path: '/questionnaireDetail',
+    path: '/questionnaireDetail/:surveyCode',
     name: 'QuestionnaireDetail',
+    props: true,
     component: QuestionnaireDetail,
     meta: {
       title: '问卷详情'
