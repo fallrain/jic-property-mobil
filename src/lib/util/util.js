@@ -31,7 +31,9 @@ let util = {
     }
   },
   formatDate: function (date, pattern) {
-    if (!date) { return ''; }
+    if (!date) {
+      return '';
+    }
     if (!(date instanceof Date)) {
       date = new Date(date);
     }
@@ -51,7 +53,7 @@ let util = {
       minutes: numToStr(date.getMinutes()),
       seconds: numToStr(date.getSeconds())
     };
-    let res = pattern || 'yyyy/MM/dd';
+    let res = pattern || 'yyyy-MM-dd';
     res = res.replace(/yyyy/g, obj.year);
     res = res.replace(/MM/g, obj.month);
     res = res.replace(/dd/g, obj.date);
@@ -68,5 +70,10 @@ let util = {
     /* 浅拷贝 */
     return JSON.parse(JSON.stringify(obj));
   }
+};
+util.setUserInfToStorage = function () {
+  localStorage.setItem('uid', util.getUrlVal('uid'));
+  localStorage.setItem('nickname', util.getUrlVal('nickname'));
+  localStorage.setItem('headimg', util.getUrlVal('headimg'));
 };
 export default util;

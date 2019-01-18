@@ -140,9 +140,10 @@ let data = [
     }
   },
   {
-    path: '/myCommunityDetail',
+    path: '/myCommunityDetail/:communityCode',
     name: 'MyCommunityDetail',
     component: MyCommunityDetail,
+    props: true,
     meta: {
       title: '我的小区'
     }

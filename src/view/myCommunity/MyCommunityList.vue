@@ -2,9 +2,10 @@
   <div>
     <ol>
       <li
-        :class="['MyCommunityList-item',i===1 && 'active']"
+        :class="['MyCommunityList-item',item.isDefault && 'active']"
         v-for="(item,i) in communityList"
         :key="i"
+        @click="setDefault(item)"
       >
         <p class="MyCommunityList-item-cnt">{{item.address}}</p>
         <i class="MyCommunityList-item-icon iconfont icon-htmal5icon14"></i>
@@ -22,17 +23,7 @@
 export default {
   data () {
     return {
-      communityList: [
-        {
-          address: '天成园2号数2902室'
-        },
-        {
-          address: '天成园2号数1802室'
-        },
-        {
-          address: '天成园1号数0403室'
-        }
-      ]
+      communityList: []
     };
   },
   created () {
@@ -50,12 +41,35 @@ export default {
       this.axPost(
         'roomOwnerRel/wxGetAllList',
         {
-          wxUid: '123455',
-          ownerCode: '1'
+          wxUid: localStorage.getItem('uid'),
+          ownerCode: sessionStorage.getItem('ownerCode')
         }
       ).then(r => {
         if (r.code === '200') {
-
+          this.communityList = r.value.map(function (v) {
+            return {
+              communityCode: v.communityCode,
+              roomCode: v.roomCode,
+              isDefault: v.isDefault == '1',
+              address: v.communityName + v.buildingName + v.unitName + v.roomName
+            };
+          });
+        }
+      });
+    },
+    setDefault (item) {
+      /* 设置默认房产 */
+      this.axPost(
+        'roomOwnerRel/wxChangeCommunity',
+        {
+          'roomCode': item.roomCode || '59513c8c33cc4085a99cbef192698bbe',
+          'wxUid': localStorage.getItem('uid')
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          this.$router.push({
+            name: 'MyCommunityDetail'
+          });
         }
       });
     }

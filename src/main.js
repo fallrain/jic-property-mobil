@@ -8,10 +8,13 @@ import mixin from './mixin';
 import ax, {axGet, axPost} from '@/lib/ajax';
 import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
+import auth from '@/lib/auth/auth';
+
 import {
   AlertPlugin,
   ConfirmPlugin
 } from 'vux';
+
 Vue.use(AlertPlugin);
 Vue.use(ConfirmPlugin);
 
@@ -33,6 +36,22 @@ Vue.prototype.HValidate = hValidate;
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
+  async created () {
+    auth.check();
+    await axGet(
+      'communityInfo/wxGetAllInfoByWx',
+      {
+        wxUid: localStorage.getItem('uid')
+      }
+    ).then(r => {
+      if (r.code === '200') {
+        const data = r.value;
+        sessionStorage.setItem('ownerCode', data.ownerCode);
+        sessionStorage.setItem('simpleCode', data.simpleCode);
+        sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
+      }
+    });
+  },
   template: '<App/>'
 });
