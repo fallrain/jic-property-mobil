@@ -65,7 +65,7 @@ export default {
     query () {
       /* 查询上墙信息 */
       const data = {
-        j_sub_system: 'a00003', // todo 本人默认小区code,需要获取
+        j_sub_system: sessionStorage.getItem('simpleCode'),
         ...this.pageCfg.page
       };
       if (this.all === 'self') {
@@ -99,7 +99,7 @@ export default {
           infoCode: item.infoCode
         },
         {
-          j_sub_system: 'a00003' // todo 小区id
+          j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

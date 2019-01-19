@@ -39,7 +39,7 @@ export default {
       this.axGet(
         'roomOwner/wxGetAllOwners',
         {
-          j_sub_system: 'a00003', // todo 默认小区需要先获取
+          j_sub_system: sessionStorage.getItem('simpleCode'),
           roomCode: '59513c8c33cc4085a99cbef192698bbe'// todo 默认房子需要先获取
         }
       ).then(r => {
@@ -64,7 +64,7 @@ export default {
           ownerCode: item.ownerCode
         },
         {
-          j_sub_system: 'a00003' // todo 默认小区需要先获取
+          j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

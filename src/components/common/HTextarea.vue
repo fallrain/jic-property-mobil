@@ -37,6 +37,11 @@ export default {
     };
   },
   watch: {
+    value (newV, oldV) {
+      if (oldV !== newV) {
+        this.taValue = newV;
+      }
+    },
     taValue (newV, oldV) {
       if (oldV !== newV) {
         this.$emit('input', newV);

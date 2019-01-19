@@ -32,7 +32,7 @@ export default {
       this.axGet(
         'questionSurvey/wxList',
         {
-          j_sub_system: 'a00003', // todo 默认小区code
+          j_sub_system: sessionStorage.getItem('simpleCode'),
           ...this.pageCfg.page
         }
       ).then(r => {

@@ -295,7 +295,7 @@ export default {
                   ownerName: this.masterForm.name,
                   tel: this.halfTel + this.masterForm.phone,
                   ownerCode: this.ownerCode,
-                  wxUid: '123455' // todo 应该是真实的uid
+                  wxUid: localStorage.getItem('uid')
                 },
                 {
                   j_sub_system: this.communityCode
@@ -312,7 +312,7 @@ export default {
                   tel: this.form.phone,
                   idCard: this.form.idCard,
                   // ownerCode: this.ownerCode,
-                  wxUid: '123455' // todo 应该是真实的uid
+                  wxUid: localStorage.getItem('uid')
                 },
                 {
                   j_sub_system: this.communityCode

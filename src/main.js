@@ -48,6 +48,7 @@ new Vue({
       if (r.code === '200') {
         const data = r.value;
         sessionStorage.setItem('ownerCode', data.ownerCode);
+        sessionStorage.setItem('roomCode', data.roomCode);
         sessionStorage.setItem('simpleCode', data.simpleCode);
         sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
       }

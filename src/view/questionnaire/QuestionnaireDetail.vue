@@ -48,6 +48,7 @@
     </div>
     <div class="QuestionnaireDetail-btn-par">
       <button
+        v-if="showBtn"
         type="button"
         class="h-btn-primary"
         @click="submit"
@@ -74,19 +75,71 @@ export default {
   props: ['surveyCode'],
   data () {
     return {
+      showBtn: false,
       questions: []
     };
   },
   activated () {
-    this.queryDetail();
+    this.reset();
+    this.queryanswer();
   },
   methods: {
+    reset () {
+      this.questions = [];
+      this.showBtn = false;
+    },
+    async queryanswer () {
+      await this.queryDetail();
+      this.axGet(
+        'questionSurveyInfo/wxCheckSubmit',
+        {
+          surveyCode: this.surveyCode,
+          wxUid: localStorage.getItem('uid'),
+          j_sub_system: sessionStorage.getItem('simpleCode')
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          if (data) {
+            this.showBtn = false;
+            Object.entries(data).forEach(type => {
+              type[1].forEach(v => {
+                // 匹配到的索引
+                const questionIndex = this.questions.findIndex(question => {
+                  return question.infoCode === v.infoCode;
+                });
+                const curQuestion = this.questions[questionIndex];
+                // 问题的答案，用索引来表示
+                let value;
+                if (type[0] === '1') {
+                  // 汉字答案在汉字内容中的索引...
+                  value = v.content.split(',').findIndex(cnt => {
+                    return cnt === v.answer;
+                  });
+                } else if (type[0] === '2') {
+                  value = v.answer.split(',').map(as => {
+                    return v.content.split(',').findIndex(cnt => {
+                      return as === cnt;
+                    });
+                  });
+                } else {
+                  value = v.answer;
+                }
+                curQuestion.value = value;
+              });
+            });
+          } else {
+            this.showBtn = true;
+          }
+        }
+      });
+    },
     queryDetail () {
       /* 查询题目详情 */
       this.axGet(
         'questionSurveyInfo/wxInfo',
         {
-          j_sub_system: 'a00003', // todo 应该从接口取
+          j_sub_system: sessionStorage.getItem('simpleCode'),
           surveyCode: this.surveyCode
         }
       ).then(r => {
@@ -127,9 +180,9 @@ export default {
     submit () {
       /* 提交题目 */
       const data = {
-        wxUid: '123455', // todo 需要获取
+        wxUid: localStorage.getItem('uid'),
         surveyCode: this.surveyCode,
-        roomCode: '59513c8c33cc4085a99cbef192698bbe'// todo 默认roomcode,需要获取
+        roomCode: sessionStorage.getItem('roomCode')
       };
       data.list = this.questions.map(function (v) {
         const data = {
@@ -151,7 +204,7 @@ export default {
         'questionSurveyAnswer/wxSubmitList',
         data,
         {
-          j_sub_system: 'a00003'// todo 需要获取到默认小区code
+          j_sub_system: localStorage.getItem('simpleCode')// todo 需要获取到默认小区code
         }
       ).then(r => {
         if (r.code === '200') {
