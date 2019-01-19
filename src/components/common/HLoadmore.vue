@@ -69,4 +69,24 @@ export default {
 };
 </script>
 <style lang="scss">
+  .HLoadmore {
+    .vux-loadmore.weui-loadmore_line:after,
+    .vux-loadmore.weui-loadmore_line:before {
+      content: "";
+      border-top: 1px solid #ccc;
+      top: .9em;
+    }
+    .weui-loadmore_line .weui-loadmore__tips {
+      top: 0;
+    }
+    .weui-loadmore__tips {
+      color: #ccc;
+    }
+    .weui-loading {
+      display: none;
+    }
+    .weui-loadmore_line {
+      margin-top: 17px;
+    }
+  }
 </style>

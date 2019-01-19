@@ -40,12 +40,26 @@
           </div>
         </li>
       </ol>
+      <h-loadmore
+        ref="hloadmore"
+        :show="pageCfg.loadingShow"
+        :loadingType="pageCfg.loadingType"
+        :data="pageCfg.page"
+        :query="query"
+      ></h-loadmore>
     </div>
   </div>
 </template>
 <script>
+import {
+  HLoadmore
+} from '@/components/common';
+
 export default {
   props: ['all'],
+  components: {
+    HLoadmore
+  },
   activated () {
     this.query();
   },
@@ -69,14 +83,14 @@ export default {
         ...this.pageCfg.page
       };
       if (this.all === 'self') {
-        data.ownerCode = '1'; // todo 本住户的code 需获取
+        data.ownerCode = sessionStorage.getItem('ownerCode'); // todo 本住户的code 需获取
       }
       this.axGet(
         'infoWall/wxList',
         data
       ).then(r => {
         if (r.code === '200') {
-          this.list = r.value.list.map(function (v) {
+          this.list = this.list.concat(r.value.list.map(function (v) {
             return {
               name: v.manName,
               time: v.createdTime,
@@ -86,7 +100,8 @@ export default {
               isFollow: v.isFollow,
               infoCode: v.infoCode
             };
-          });
+          }));
+          this.$refs.hloadmore.queryBack(r, this);
         }
       });
     },
@@ -94,15 +109,20 @@ export default {
       /* 关注/取消关注 */
       this.axPost(
         'infoWall/wxFollow',
+        {},
         {
-          ownerCode: '1', // todo 住户id
-          infoCode: item.infoCode
-        },
-        {
+          ownerCode: sessionStorage.getItem('ownerCode'),
+          infoCode: item.infoCode,
           j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
         if (r.code === '200') {
+          item.isFollow = item.isFollow === 1 ? 0 : 1;
+          if (item.isFollow === 1) {
+            item.follows++;
+          } else {
+            item.follows = item.follows - 1 < 0 ? 0 : item.follows - 1;
+          }
         }
       });
     }

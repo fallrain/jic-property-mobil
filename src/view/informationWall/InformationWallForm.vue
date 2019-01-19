@@ -133,13 +133,13 @@ export default {
         this.axPost(
           'infoWall/wxInsert',
           {
-            title: '',
+            title: '1',
             img: this.form.imgUrl,
             content: this.form.advice,
-            ownerCode: '1'
+            ownerCode: sessionStorage.getItem('ownerCode')
           },
           {
-            j_sub_system: 'a00003'// todo 小区code需要获取
+            j_sub_system: sessionStorage.getItem('simpleCode')
           }
         ).then(r => {
           if (r.code === '200') {
