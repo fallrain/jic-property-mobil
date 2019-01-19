@@ -29,9 +29,19 @@ export default {
   created () {
     this.queryMyRooms();
   },
+  activated () {
+    // 重置请求
+    if (sessionStorage.getItem('BindUser.refreshMyCommunityList') === '1') {
+      this.communityList = [];
+      this.queryMyRooms();
+      sessionStorage.removeItem('BindUser.refreshMyCommunityList');
+    }
+  },
   methods: {
     addCommunity () {
       /* 添加小区 */
+      // 刷新小区列表
+      // sessionStorage.setItem('MyCommunityList.toCommunityList', '1');
       this.$router.push({
         name: 'CommunityList'
       });
@@ -50,7 +60,7 @@ export default {
             return {
               communityCode: v.communityCode,
               roomCode: v.roomCode,
-              isDefault: v.isDefault == '1',
+              isDefault: v.isDefault === '1',
               address: v.communityName + v.buildingName + v.unitName + v.roomName
             };
           });
@@ -62,13 +72,16 @@ export default {
       this.axPost(
         'roomOwnerRel/wxChangeCommunity',
         {
-          'roomCode': item.roomCode || '59513c8c33cc4085a99cbef192698bbe',
+          'roomCode': item.roomCode || '59513c8c33cc4085a99cbef192698bbe', // todo 应该去掉
           'wxUid': localStorage.getItem('uid')
         }
       ).then(r => {
         if (r.code === '200') {
           this.$router.push({
-            name: 'MyCommunityDetail'
+            name: 'MyCommunityDetail',
+            params: {
+              communityCode: 'change'
+            }
           });
         }
       });

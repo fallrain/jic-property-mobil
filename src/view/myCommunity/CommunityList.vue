@@ -24,8 +24,7 @@ export default {
   data () {
     return {
       propertyName: '鸿棕物业',
-      communityList: {
-      }
+      communityList: {}
     };
   },
   created () {
@@ -53,12 +52,16 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
-          this.$set(this.communityList, 'A', Object.entries(data).map(function (v) {
-            return {
-              id: v[1].simpleCode,
-              name: v[1].communityName
-            };
-          }));
+          const communityListTemp = {};
+          Object.entries(data).forEach(function (v) {
+            communityListTemp[v[0]] = v[1].map(function (community) {
+              return {
+                id: community.simpleCode,
+                name: community.communityName
+              };
+            });
+          });
+          this.communityList = communityListTemp;
         }
       });
     }

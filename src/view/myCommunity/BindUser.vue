@@ -323,7 +323,12 @@ export default {
               if (r.code === '200') {
                 this.$vux.toast.show({
                   type: 'text',
-                  text: '绑定成功'
+                  onHide: () => {
+                    sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
+                    this.$router.replace({
+                      name: 'MyCommunityList'
+                    });
+                  }
                 });
               }
             });
