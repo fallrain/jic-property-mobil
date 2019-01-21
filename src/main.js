@@ -11,12 +11,9 @@ import hValidate from '@/lib/hValidate/hValidate';
 import auth from '@/lib/auth/auth';
 
 import {
-  AlertPlugin,
-  ConfirmPlugin
+  WechatPlugin
 } from 'vux';
-
-Vue.use(AlertPlugin);
-Vue.use(ConfirmPlugin);
+Vue.use(WechatPlugin);
 
 Vue.config.productionTip = false;
 // 注册filter
@@ -50,6 +47,7 @@ new Vue({
         sessionStorage.setItem('ownerCode', data.ownerCode);
         sessionStorage.setItem('roomCode', data.roomCode);
         sessionStorage.setItem('simpleCode', data.simpleCode);
+        sessionStorage.setItem('communityName', data.communityName);
         sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
       }
     });

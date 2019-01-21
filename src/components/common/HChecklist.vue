@@ -2,6 +2,7 @@
   <div :class="['HChecklist',isSuccess && 'sucesss',isReverse && 'reverse']">
     <check-icon
       :value.sync="tempVal"
+      @click.native="checkClick"
     ></check-icon>
     <div class="HChecklist-cnt">
       <slot></slot>
@@ -37,6 +38,11 @@ export default {
     },
     tempVal (val) {
       this.$emit('update:checkVal', val);
+    }
+  },
+  methods: {
+    checkClick () {
+      this.$emit('check-click', this.tempVal);
     }
   }
 };

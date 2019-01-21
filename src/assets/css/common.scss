@@ -512,6 +512,14 @@
   }
 }
 
+.PaymentHome-btn-par {
+  margin-top: 98px;
+  text-align: center;
+  .HButton{
+    font-size: 14px;
+  }
+}
+
 /*缴费首页 end*/
 
 /*缴费步骤2*/
@@ -726,7 +734,7 @@
   border-bottom: 1px solid #ccc;
   .name {
     flex-shrink: 0;
-    font-size: 16px;
+    font-size: 14px;
     color: #999;
     margin-right: 10px;
   }
@@ -735,13 +743,16 @@
     color: #5E8CF8;
   }
   .val {
-    font-size: 16px;
+    font-size: 12px;
     color: #333;
     line-height: 25px;
   }
 }
 
 .PaymentChannel-cnt-item-right {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   .val {
 
   }
@@ -1009,8 +1020,10 @@
     font-size: 18px;
     position: absolute;
     color: #333;
-    right: 4px;
-    top: 4px;
+    right: -6px;
+    top: -6px;
+    background: #fff;
+    border-radius: 100%;
   }
 }
 

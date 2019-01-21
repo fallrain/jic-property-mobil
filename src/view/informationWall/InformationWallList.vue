@@ -16,9 +16,9 @@
           v-for="(item,i) in list"
           :key="i"
         >
-          <div class="InformationWallList-item-portrait">
+         <!-- <div class="InformationWallList-item-portrait">
             <img src="@/assets/img/Bitmap@2x(4).png">
-          </div>
+          </div>-->
           <div class="InformationWallList-item-cnt">
             <p class="InformationWallList-item-head">
               <span class="name">{{item.name}}</span>

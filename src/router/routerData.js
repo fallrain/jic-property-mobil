@@ -30,13 +30,14 @@ let data = [
     name: 'PaymentHome',
     component: PaymentHome,
     meta: {
-      title: '鸿棕物业服务'
+      title: '待缴费'
     }
   },
   {
-    path: '/paymentDetail',
+    path: '/paymentDetail/:type',
     name: 'PaymentDetail',
     component: PaymentDetail,
+    props: true,
     meta: {
       title: '付费信息查看'
     }

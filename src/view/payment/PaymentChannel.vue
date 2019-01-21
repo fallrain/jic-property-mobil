@@ -14,7 +14,17 @@
       <li
         class="PaymentChannel-cnt-item"
       >
-        <label class="name">缴费地址</label>
+        <label class="name">缴费小区</label>
+        <div class="PaymentChannel-cnt-item-right">
+          <p
+            class="val"
+          >{{form.communityName}}</p>
+        </div>
+      </li>
+      <li
+        class="PaymentChannel-cnt-item"
+      >
+        <label class="name">缴费项</label>
         <div class="PaymentChannel-cnt-item-right">
           <p
             v-for="(item,i) in form.address"
@@ -26,22 +36,10 @@
       <li
         class="PaymentChannel-cnt-item"
       >
-        <label class="name">缴费项</label>
-        <div class="PaymentChannel-cnt-item-right">
-          <p
-            v-for="(item,i) in form.paymentItems"
-            :key="i"
-            class="val"
-          >{{item}}</p>
-        </div>
-      </li>
-      <li
-        class="PaymentChannel-cnt-item"
-      >
         <label class="name">收款单位</label>
-          <span
-            class="val"
-          >{{form.company}}</span>
+        <span
+          class="val"
+        >{{form.company}}</span>
       </li>
     </ol>
     <div class="PaymentChannel-checklist">
@@ -64,6 +62,7 @@
         width="263"
         height="39"
         cnt="确认无误，立即支付"
+        @click.native="tpPay"
       ></h-button>
     </div>
   </div>
@@ -79,11 +78,15 @@ export default {
     HButton,
     HChecklist
   },
+  activated () {
+    this.parseData();
+  },
   data () {
     return {
       form: {
-        company: '大海物业',
-        totalMoney: '3021.93',
+        communityName: sessionStorage.getItem('communityName'),
+        company: '鸿宗物业',
+        totalMoney: '',
         address: [
           '龙道葡萄泊园小区2号楼3单元202室',
           '龙道葡萄泊园小区2号楼3单元402室'
@@ -93,13 +96,55 @@ export default {
           '2018物业费'
         ]
       },
+      type: '',
       checkList: [
         {
           key: '1',
           value: '微信支付'
         }
-      ]
+      ],
+      chargeCodes: []
     };
+  },
+  methods: {
+    parseData () {
+      /* 解析数据 */
+      let channelData = JSON.parse(sessionStorage.getItem('PaymentDetail.payData') || '{}');
+      this.form.totalMoney = channelData.totalMoney;
+      this.type = channelData.type;
+      const chargeName = channelData.type === 'paring' ? '车位费' : '物业费';
+      let addressTemp = [];
+      let chargeCodesTemp = [];
+      channelData.checkedList.forEach(function (place) {
+        addressTemp = addressTemp.concat(place.yearAmount.map(function (batch) {
+          return place.room + batch.value + chargeName;
+        }));
+        chargeCodesTemp = chargeCodesTemp.concat(place.yearAmount.map(function (batch) {
+          return batch.chargeCode;
+        }));
+      });
+      this.chargeCodes = chargeCodesTemp;
+      this.form.address = addressTemp;
+    },
+    tpPay () {
+      /* 调用支付 */
+
+      this.axPost(
+        'property/wxpay/createOrder',
+        {
+          uid: localStorage.getItem('uid'),
+          orderType: this.type,
+          chargeCodes: this.chargeCodes
+        },
+        {
+          j_sub_system: localStorage.getItem('uid')
+        }
+      ).then(r => {
+        if (r.code === '200') {
+
+        }
+      });
+    }
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div class="PaymentDetail">
     <div class="PaymentDetail-head">
       <img src="@/assets/img/icon-property@2x.png">
-      <p>{{type}}</p>
+      <p>{{typeName}}</p>
     </div>
     <div class="PaymentDetail-address">
       <HPaper
@@ -16,6 +16,7 @@
               v-for="(item,i) in checkList"
               :key="i"
               :checkVal.sync="item.checked"
+              @check-click="checkClick"
             >
               <div class="PaymentDetail-checklist-cnt">
                 <p class="PaymentDetail-checklist-cnt-total">
@@ -45,7 +46,9 @@
       </div>
       <button
         type="button"
-        class="PaymentDetail-footer-btn">
+        class="PaymentDetail-footer-btn"
+        @click="toPaymentChannel"
+      >
         去支付
       </button>
     </footer>
@@ -57,58 +60,123 @@ import {
   HChecklist,
   HPaper
 } from '@/components/common';
+import wxMix from '@/mixin/weixin';
 
 export default {
   components: {
     HChecklist,
     HPaper
   },
+  mixins: [wxMix],
+  props: ['type'],
   data () {
     return {
-      type: '物业费',
-      communityName: '龙道葡泊园小区',
+      typeName: this.type === 'parking' ? '车位费' : '物业费',
+      communityName: sessionStorage.getItem('communityName'),
       form: {
-        totalMoney: '3021.93'
+        totalMoney: 0
       },
-      checkList: [
-        {
-          key: '1',
-          checked: false,
-          room: '2号楼三单元202室',
-          money: '3021.93',
-          yearAmount: [
-            {
-              value: '2019年物业费',
-              money: '1568.00'
-            },
-            {
-              value: '2018年物业费',
-              money: '1568.00'
-            }
-          ]
-        },
-        {
-          key: '2',
-          checked: false,
-          room: '2号楼三单元402室',
-          money: '4021.93',
-          yearAmount: [
-            {
-              value: '2019年物业费',
-              money: '1568.00'
-            },
-            {
-              value: '2018年物业费',
-              money: '1568.00'
-            }
-          ]
-        }
-      ],
+      checkList: {},
       checkedList: []
     };
   },
+  activated () {
+    sessionStorage.removeItem('PaymentDetail.payData');
+    this.getSdkCfg();
+  },
+  created () {
+    this.query();
+  },
   methods: {
-    checklistChange (v, l) {
+    toPaymentHome () {
+      this.$router.replace({
+        name: 'PaymentHome',
+        query: {
+          type: this.type
+        }
+      });
+    },
+    query () {
+      let url;
+      if (this.type === 'parking') {
+        url = 'charge/parking/listByUser';
+      } else {
+        url = 'charge/property/listByUse';
+      }
+
+      this.axGet(
+        url,
+        {
+          uid: localStorage.getItem('uid'),
+          j_sub_system: sessionStorage.getItem('simpleCode')
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          if (!data || !data.length) {
+            this.toPaymentHome();
+          } else {
+            if (this.type === 'parking') {
+              const checkListTemp = {};
+              data.forEach(function (v) {
+                if (!checkListTemp[v.parkingCode]) {
+                  checkListTemp[v.parkingCode] = {
+                    checked: false,
+                    room: v.parkingName,
+                    money: 0,
+                    yearAmount: []
+                  };
+                }
+                const room = checkListTemp[v.parkingCode];
+                room.money += v.charge.replace('元', '') * 1;
+                room.yearAmount.push({
+                  chargeCode: v.chargeCode,
+                  value: v.batchName,
+                  money: v.charge
+                });
+              });
+              this.checkList = checkListTemp;
+            }
+          }
+        }
+      });
+    },
+    checkClick () {
+      /* 计算金额 */
+      setTimeout(() => {
+        this.form.totalMoney = 0;
+        for (let p in this.checkList) {
+          const data = this.checkList[p];
+          if (data.checked) {
+            this.form.totalMoney += this.checkList[p].money;
+          }
+        }
+      });
+    },
+    toPaymentChannel () {
+      /* 去支付渠道页面 */
+      const checkedList = [];
+      for (let p in this.checkList) {
+        if (this.checkList[p].checked) {
+          checkedList.push(this.checkList[p]);
+        }
+      }
+      if (!checkedList.length) {
+        this.$vux.toast.show({
+          type: 'text',
+          text: '请选择支付项'
+        });
+        return;
+      }
+      const data = {
+        type: this.type,
+        totalMoney: this.form.totalMoney,
+        checkedList: checkedList
+      };
+      sessionStorage.setItem('PaymentDetail.payData', JSON.stringify(data));
+      this.$router.push({
+        name: 'PaymentChannel'
+      });
     }
   }
 };
