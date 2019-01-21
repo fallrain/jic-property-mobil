@@ -249,6 +249,18 @@
 /*border end*/
 
 /*公共*/
+@mixin mix-img100per {
+  img {
+    max-width: 100%;
+  }
+}
+
+.img100per {
+  img {
+    min-width: 100%;
+  }
+}
+
 .jpm-main {
   padding: 21px;
 }
@@ -257,6 +269,25 @@
   width: 100%;
   height: 6px;
   background: #EFEEF5;
+}
+
+.jhm-spacer {
+  @extend .jpm-spacer
+}
+
+.jhm-article-cnt {
+  text-indent: 2em;
+  font-size: 14px;
+  color: #666;
+  word-break: break-all;
+  overflow: hidden;
+  &.px16 {
+    font-size: 16px;
+  }
+  img {
+    display: block;
+  }
+  @include mix-img100per;
 }
 
 .h-btn-primary {

@@ -5,7 +5,7 @@
         <i :class="['iconfont',iconTypeCls]"></i>
         <span class="HNotice-item-type-inf">{{iconTypeInf}}</span>
       </p>
-      <p class="HNotice-item-detail" v-if="contentHtml" v-html="content"></p>
+      <p class="HNotice-item-detail img100per" v-if="contentHtml" v-html="content"></p>
       <p class="HNotice-item-detail" v-else>{{content}}</p>
     </div>
     <div class="HNotice-btm">
@@ -20,8 +20,7 @@
 export default {
   props: {
     iconType: {
-      type: String,
-      default: 'sys'
+      type: String
     },
     contentHtml: {
       type: Boolean,
@@ -44,6 +43,7 @@ export default {
   computed: {
     iconTypeCls () {
       const iconType = {
+        urgent: 'icon-lingdang',
         'sys': 'icon-lingdang',
         'news': 'icon-diqiu-copy'
       };
@@ -51,6 +51,7 @@ export default {
     },
     iconTypeInf () {
       const iconTypeInf = {
+        urgent: '紧急通知',
         'sys': '系统通知',
         'news': '我院动态'
       };

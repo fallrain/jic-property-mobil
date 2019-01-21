@@ -66,6 +66,13 @@ let util = {
     let m = Math.pow(10, digit);
     return Math.round(f * m, 10) / m;
   },
+  formatNoSplitTime (val) {
+    if (!val) {
+      return '';
+    }
+    val += '';
+    return val.substr(0, 4) + '-' + val.substr(4, 2) + '-' + val.substr(6, 2) + ' ' + val.substr(8, 2) + ':' + val.substr(10, 2);
+  },
   shallowCopyObject (obj) {
     /* 浅拷贝 */
     return JSON.parse(JSON.stringify(obj));

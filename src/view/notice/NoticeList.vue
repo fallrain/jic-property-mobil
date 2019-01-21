@@ -12,13 +12,13 @@
         :time="item.time"
         @click.native="toDetail(item)"
       ></h-notice>
-      <!--<h-loadmore
+      <h-loadmore
         ref="hloadmore"
         :show="pageCfg.loadingShow"
         :loadingType="pageCfg.loadingType"
         :data="pageCfg.page"
         :query="query"
-      ></h-loadmore>-->
+      ></h-loadmore>
     </div>
   </div>
 </template>
@@ -45,22 +45,25 @@ export default {
       this.axGet(
         'article/list',
         {
+          j_sub_system: sessionStorage.getItem('simpleCode'),
+          isPush: 2,
           articleType: 'notice',
           ...this.pageCfg.page
         }
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
-          this.noticeList = this.noticeList.concat(data.list.map(function (v) {
+          this.noticeList = this.noticeList.concat(data.list.map(v => {
             return {
               contentHtml: true,
               type: {
-                'sysnotice': 'sys',
-                'wydt': 'news'
+                'system_notice': 'sys',
+                'urgent_notice': 'urgent',
+                'ordinary_notice': 'news'
               }[v.subType],
               isRead: true,
-              time: v.createdTime,
-              title: v.content,
+              time: this.hUtil.formatNoSplitTime(v.messageSendTime),
+              title: v.title,
               articleCode: v.articleCode
             };
           }));
@@ -70,9 +73,9 @@ export default {
     },
     toDetail (item) {
       this.$router.push({
-        name: 'NoticePar',
+        name: 'NoticeDetail',
         params: {
-          cpntName: 'NoticeDetail-' + item.articleCode
+          articleCode: item.articleCode
         }
       });
     }

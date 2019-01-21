@@ -91,8 +91,9 @@ let data = [
     }
   },
   {
-    path: '/noticeDetail',
+    path: '/noticeDetail/:articleCode',
     name: 'NoticeDetail',
+    props: true,
     component: NoticeDetail,
     meta: {
       title: '物业通知详情'

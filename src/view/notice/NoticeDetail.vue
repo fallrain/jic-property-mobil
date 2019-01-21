@@ -1,5 +1,5 @@
 <template>
-  <div class="jhm-main">
+  <div class="jpm-main">
     <h-article-title :value="title"></h-article-title>
     <h-article-author
       :data="articleAuthor"
@@ -44,6 +44,7 @@ export default {
       this.axGet(
         '/article/info',
         {
+          j_sub_system: sessionStorage.getItem('simpleCode'),
           articleCode: this.articleCode
         }
       ).then(r => {
