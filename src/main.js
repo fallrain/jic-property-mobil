@@ -86,7 +86,7 @@ new Vue({
         }
         next();
       });
-      function f () {
+      /* function f () {
         const us = [
           '/paymentDetail/parking',
           '/paymentDetail/property',
@@ -114,8 +114,9 @@ new Vue({
         });
         console.log(log);
       }
-      f();
+      f(); */
     });
+    alert(sessionStorage.getItem('simpleCode'));
   },
   template: '<App/>'
 });
