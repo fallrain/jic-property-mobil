@@ -59,9 +59,10 @@ let data = [
     }
   },
   {
-    path: '/paymentHistoryList',
+    path: '/paymentHistoryList/:tabType',
     name: 'PaymentHistoryList',
     component: PaymentHistoryList,
+    props: true,
     meta: {
       title: '缴费历史'
     }
@@ -142,7 +143,7 @@ let data = [
     }
   },
   {
-    path: '/myCommunityDetail/:communityCode',
+    path: '/myCommunityDetail',
     name: 'MyCommunityDetail',
     component: MyCommunityDetail,
     props: true,

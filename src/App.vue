@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="app">
-    <keep-alive>
+    <keep-alive
+      :exclude="['PaymentHistoryList']"
+    >
       <router-view/>
     </keep-alive>
   </div>

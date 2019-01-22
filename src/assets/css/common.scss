@@ -515,7 +515,7 @@
 .PaymentHome-btn-par {
   margin-top: 98px;
   text-align: center;
-  .HButton{
+  .HButton {
     font-size: 14px;
   }
 }
@@ -875,6 +875,8 @@
 }
 
 .PaymentHistoryList-item-common {
+  display: flex;
+  justify-content: flex-start;
   margin-top: 3px;
   line-height: 20px;
   font-size: 14px;
@@ -882,9 +884,11 @@
 }
 
 .PaymentHistoryList-item-common-name {
-  & + .PaymentHistoryList-item-common-name {
-    margin-left: 8px;
-  }
+  margin-right: 8px;
+}
+
+.PaymentHistoryList-item-common-val {
+
 }
 
 /*缴费历史 end*/

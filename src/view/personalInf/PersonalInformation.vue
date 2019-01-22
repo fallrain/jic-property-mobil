@@ -6,12 +6,18 @@
       <div class="PersonalInformation-head-cnt">
         <p class="PersonalInformation-head-name">{{personName}}</p>
         <div class="PersonalInformation-head-cnt-opts">
-          <div class="PersonalInformation-head-cnt-opts-notice">
+          <div
+            class="PersonalInformation-head-cnt-opts-notice"
+            @click="jump('NoticeList')"
+          >
             <i class="iconfont icon-youjian"></i>
             <span class="PersonalInformation-head-cnt-opts-cnt">物业通知</span>
           </div>
           <div class="PersonalInformation-head-cnt-opts-gap"></div>
-          <div class="PersonalInformation-head-cnt-opts-payment">
+          <div
+            class="PersonalInformation-head-cnt-opts-payment"
+            @click="jump('PaymentHistoryList')"
+          >
             <i class="iconfont icon-weibiaoti--"></i>
             <span class="PersonalInformation-head-cnt-opts-cnt">我的缴费</span>
             <span></span>
@@ -75,7 +81,7 @@ export default {
   data () {
     return {
       portraitSrc: decodeURIComponent(localStorage.getItem('headimg') || '') || require('@/assets/img/default-portrait.jpg'),
-      personName: decodeURIComponent(localStorage.getItem('nickname') || '大傻春')// todo 默认测试名待删除
+      personName: decodeURIComponent(localStorage.getItem('nickname') || '')
     };
   },
   methods: {
@@ -85,8 +91,11 @@ export default {
       switch (name) {
         case 'MyFollowExpert':
           break;
-        case 'FeedbackForm':
-          query.parentFrom = 'PersonalInformation';
+        case 'InformationWallList':
+          params.all = 'self';
+          break;
+        case 'PaymentHistoryList':
+          params.tabType = 'property';
           break;
       }
       this.$router.push({
