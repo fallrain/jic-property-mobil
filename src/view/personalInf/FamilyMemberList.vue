@@ -1,29 +1,39 @@
 <template>
-  <div class="FamilyMemberList">
-    <h-left-slide
-      v-for="(item,i) in list"
-      :key="i"
-      @remove-item="remove(item,i)"
-    >
-      <div class="FamilyMemberList-cnt">
-        <p class="FamilyMemberList-cnt-inf">
-          <img src="@/assets/img/Mask Copy 2@2x.png">
-          <span class="name">{{item.name}}</span>
-          <span class="tel">{{item.tel}}</span>
-        </p>
-        <p class="FamilyMemberList-cnt-type">{{item.type===1?'房东':'租客'}}</p>
-      </div>
-    </h-left-slide>
+  <div>
+    <div class="FamilyMemberList">
+      <h-left-slide
+        v-for="(item,i) in list"
+        :key="i"
+        @remove-item="remove(item,i)"
+      >
+        <div class="FamilyMemberList-cnt">
+          <p class="FamilyMemberList-cnt-inf">
+            <img src="@/assets/img/Mask Copy 2@2x.png">
+            <span class="name">{{item.name}}</span>
+            <span class="tel">{{item.tel}}</span>
+          </p>
+          <p class="FamilyMemberList-cnt-type">{{item.type===1?'房东':'租客'}}</p>
+        </div>
+      </h-left-slide>
+    </div>
+    <h-loadmore
+      ref="hloadmore"
+      :show="true"
+      :loadingType="pageCfg.loadingType"
+      :data="pageCfg.page"
+    ></h-loadmore>
   </div>
 </template>
 <script>
 import {
-  HLeftSlide
+  HLeftSlide,
+  HLoadmore
 } from '@/components/common';
 
 export default {
   components: {
-    HLeftSlide
+    HLeftSlide,
+    HLoadmore
   },
   data () {
     return {
@@ -40,7 +50,7 @@ export default {
         'roomOwner/wxGetAllOwners',
         {
           j_sub_system: sessionStorage.getItem('simpleCode'),
-          roomCode: '59513c8c33cc4085a99cbef192698bbe'// todo 默认房子需要先获取
+          roomCode: sessionStorage.getItem('roomCode')
         }
       ).then(r => {
         if (r.code === '200') {
@@ -52,6 +62,11 @@ export default {
               ownerCode: v.ownerCode
             };
           });
+          if (this.list && this.list.length) {
+            this.pageCfg.loadingType = 2;
+          } else {
+            this.pageCfg.loadingType = 3;
+          }
         }
       });
     },
