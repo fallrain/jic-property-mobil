@@ -13,6 +13,7 @@ import auth from '@/lib/auth/auth';
 import {
   WechatPlugin
 } from 'vux';
+
 Vue.use(WechatPlugin);
 
 Vue.config.productionTip = false;
@@ -42,6 +43,16 @@ new Vue({
         wxUid: localStorage.getItem('uid')
       }
     ).then(r => {
+      const noAuthPages = [
+        'MyCommunityList',
+        'CommunityList',
+        'BuildingList',
+        'UnitList',
+        'RoomList',
+        'BindUserChoose',
+        'BindUser',
+        'PersonalInformation'
+      ];
       if (r.code === '200') {
         const data = r.value;
         sessionStorage.setItem('ownerCode', data.ownerCode);
@@ -49,7 +60,27 @@ new Vue({
         sessionStorage.setItem('simpleCode', data.simpleCode);
         sessionStorage.setItem('communityName', data.communityName);
         sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
+        const routeName = this.$router.history.current.name || this.$router.history.pending.name;
+        if (!data || (data && !data.simpleCode)) {
+          if (!noAuthPages.includes(routeName)) {
+            // 没有绑定小区直接到添加小区页面
+            this.$router.replace({
+              name: 'MyCommunityList'
+            });
+          }
+        }
       }
+      router.beforeEach((to, from, next) => {
+        if (!sessionStorage.getItem('simpleCode')) {
+          if (!noAuthPages.includes(to.name)) {
+            // 没有绑定小区直接到添加小区页面
+            this.$router.replace({
+              name: 'MyCommunityList'
+            });
+          }
+        }
+        next();
+      });
     });
   },
   template: '<App/>'

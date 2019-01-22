@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div></div>
     <ol>
       <li
         :class="['MyCommunityList-item',item.isDefault && 'active']"
@@ -72,7 +73,7 @@ export default {
       this.axPost(
         'roomOwnerRel/wxChangeCommunity',
         {
-          'roomCode': item.roomCode || '59513c8c33cc4085a99cbef192698bbe', // todo 应该去掉
+          'roomCode': item.roomCode,
           'wxUid': localStorage.getItem('uid')
         }
       ).then(r => {

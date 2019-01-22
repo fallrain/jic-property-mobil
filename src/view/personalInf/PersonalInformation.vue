@@ -39,7 +39,7 @@
             </div>
           </div>
         </h-cell>
-        <h-cell @click.native="jump('MyCommunityDetail')">
+        <h-cell @click.native="jump('MyCommunityList')">
           <div class="PersonalInformation-item">
             <div class="PersonalInformation-item-portrait">
               <img src="@/assets/img/community@2x.png">
