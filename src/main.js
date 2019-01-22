@@ -8,12 +8,14 @@ import mixin from './mixin';
 import ax, {axGet, axPost} from '@/lib/ajax';
 import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
-import auth from '@/lib/auth/auth';
 
 import {
   WechatPlugin
 } from 'vux';
-
+// 跳转回来的时候，重置uid等信息
+if (util.getUrlVal('uid')) {
+  util.setUserInfToStorage();
+}
 Vue.use(WechatPlugin);
 
 Vue.config.productionTip = false;
@@ -36,7 +38,7 @@ new Vue({
   router,
   components: {App},
   async created () {
-    auth.check();
+    // auth.check();
     await axGet(
       'communityInfo/wxGetAllInfoByWx',
       {
@@ -81,6 +83,35 @@ new Vue({
         }
         next();
       });
+      function f () {
+        const us = [
+          '/paymentDetail/parking',
+          '/paymentDetail/property',
+          '/informationWallList/all',
+          '/noticeList',
+          '/questionnaireList',
+          '/contact',
+          '/paymentHistoryList/property',
+          '/MyCommunityDetail',
+          '/personalInformation'
+        ];
+        const log = us.map(function (u) {
+          let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + process.env.app_id;
+          const params = new Map([
+            ['redirect_uri', window.encodeURIComponent(process.env.back_auth_url)],
+            ['response_type', 'code'],
+            ['scope', 'snsapi_userinfo'],
+            ['state', window.encodeURIComponent(process.env.front_base_url + window.decodeURIComponent(u))]
+          ]);
+          params.forEach((v, key) => {
+            url += '&' + key + '=' + v;
+          });
+          url += '#wechat_redirect';
+          return url;
+        });
+        console.log(log);
+      }
+      f();
     });
   },
   template: '<App/>'
