@@ -1,4 +1,52 @@
+import {axGet} from '@/lib/ajax';
+import router from '@/router';
 export default {
+  beforeRouteEnter (to, from, next) {
+    function check () {
+      const noAuthPages = [
+        'MyCommunityList',
+        'CommunityList',
+        'BuildingList',
+        'UnitList',
+        'RoomList',
+        'BindUserChoose',
+        'BindUser',
+        'PersonalInformation'
+      ];
+      if (!sessionStorage.getItem('simpleCode')) {
+        if (!noAuthPages.includes(to.name)) {
+          // 没有绑定小区直接到添加小区页面
+          router.replace({
+            name: 'MyCommunityList'
+          });
+        }
+      }
+    }
+    if (sessionStorage.getItem('hadGetWXInf') === '1') {
+      check();
+      next();
+      return;
+    }
+    axGet(
+      'communityInfo/wxGetAllInfoByWx',
+      {
+        requestNoToast: true,
+        wxUid: localStorage.getItem('uid')
+      }
+    ).then(r => {
+      if (r.code === '200') {
+        const data = r.value;
+        sessionStorage.setItem('hadGetWXInf', '1');
+        sessionStorage.setItem('ownerCode', data.ownerCode);
+        sessionStorage.setItem('roomCode', data.roomCode);
+        sessionStorage.setItem('simpleCode', data.simpleCode);
+        sessionStorage.setItem('communityName', data.communityName);
+        sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
+      }
+      check();
+      next();
+    });
+  },
   data: function () {
     return {
       pageCfg: {

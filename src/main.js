@@ -39,54 +39,39 @@ new Vue({
   el: '#app',
   router,
   components: {App},
-  async created () {
+  created () {
     // auth.check();
-    await axGet(
-      'communityInfo/wxGetAllInfoByWx',
-      {
-        requestNoToast: true,
-        wxUid: localStorage.getItem('uid')
+    /* const noAuthPages = [
+      'MyCommunityList',
+      'CommunityList',
+      'BuildingList',
+      'UnitList',
+      'RoomList',
+      'BindUserChoose',
+      'BindUser',
+      'PersonalInformation'
+    ];
+    /!* const routeName = this.$router.history.current.name || this.$router.history.pending.name;
+    if (!sessionStorage.getItem('simpleCode')) {
+      if (!noAuthPages.includes(routeName)) {
+        // 没有绑定小区直接到添加小区页面
+        this.$router.replace({
+          name: 'MyCommunityList'
+        });
       }
-    ).then(r => {
-      const noAuthPages = [
-        'MyCommunityList',
-        'CommunityList',
-        'BuildingList',
-        'UnitList',
-        'RoomList',
-        'BindUserChoose',
-        'BindUser',
-        'PersonalInformation'
-      ];
-      if (r.code === '200') {
-        const data = r.value;
-        sessionStorage.setItem('ownerCode', data.ownerCode);
-        sessionStorage.setItem('roomCode', data.roomCode);
-        sessionStorage.setItem('simpleCode', data.simpleCode);
-        sessionStorage.setItem('communityName', data.communityName);
-        sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
-      }
-      const routeName = this.$router.history.current.name || this.$router.history.pending.name;
+    } *!/
+    router.beforeEach((to, from, next) => {
       if (!sessionStorage.getItem('simpleCode')) {
-        if (!noAuthPages.includes(routeName)) {
+        if (!noAuthPages.includes(to.name)) {
           // 没有绑定小区直接到添加小区页面
           this.$router.replace({
             name: 'MyCommunityList'
           });
         }
       }
-      router.beforeEach((to, from, next) => {
-        if (!sessionStorage.getItem('simpleCode')) {
-          if (!noAuthPages.includes(to.name)) {
-            // 没有绑定小区直接到添加小区页面
-            this.$router.replace({
-              name: 'MyCommunityList'
-            });
-          }
-        }
-        next();
-      });
-      /* function f () {
+      next();
+    }); */
+    /* function f () {
         const us = [
           '/paymentDetail/parking',
           '/paymentDetail/property',
@@ -115,8 +100,6 @@ new Vue({
         console.log(log);
       }
       f(); */
-    });
-    alert(sessionStorage.getItem('simpleCode'));
   },
   template: '<App/>'
 });
