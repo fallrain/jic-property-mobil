@@ -24,12 +24,15 @@ ax.interceptors.request.use(config => {
 ax.interceptors.response.use(function (response) {
   // 关闭遮罩
   Vue.$vux.loading.hide();
-  if (response.data.code !== '200') {
-    Vue.$vux.toast.show({
-      type: 'text',
-      text: response.data.message || '请求失败'
-    });
+  if (!(response.config.params && response.config.params.requestNoToast)) {
+    if (response.data.code !== '200') {
+      Vue.$vux.toast.show({
+        type: 'text',
+        text: response.data.message || '请求失败'
+      });
+    }
   }
+
   return response.data;
 }, function (error) {
   Vue.$vux.loading.hide();

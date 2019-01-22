@@ -172,6 +172,8 @@ export default {
   activated () {
     // 切换时重新创建验证对象
     this.genVdt();
+    // 设置详细房子名
+    this.getRoomDetail();
     this.queryHost();
   },
   methods: {
@@ -277,12 +279,13 @@ export default {
     },
     valid () {
       if (this.vdt.valid()) {
+        let ownerName = this.isMaster ? this.masterForm.name : this.form.ownerName;
         this.$vux.confirm.show({
           title: '系统通知',
           hideOnBlur: true,
           content: `
                  您绑定的房子为：<span class="jic-weui-dialog-val">${this.name}</span><br>
-                 房子房主为：<span class="jic-weui-dialog-val">${this.form.ownerName}</span>
+                 房子房主为：<span class="jic-weui-dialog-val">${ownerName}</span>
               `,
           onConfirm: () => {
             let validResult;

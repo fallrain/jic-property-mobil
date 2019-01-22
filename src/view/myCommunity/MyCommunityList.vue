@@ -49,11 +49,15 @@ export default {
     },
     queryMyRooms () {
       /* 查询我的房产 */
+      const ownerCode = sessionStorage.getItem('ownerCode');
+      if (!ownerCode) {
+        return;
+      }
       this.axPost(
         'roomOwnerRel/wxGetAllList',
         {
           wxUid: localStorage.getItem('uid'),
-          ownerCode: sessionStorage.getItem('ownerCode')
+          ownerCode: ownerCode
         }
       ).then(r => {
         if (r.code === '200') {

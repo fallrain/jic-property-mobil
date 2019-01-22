@@ -10,13 +10,15 @@ import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
 
 import {
-  WechatPlugin
+  WechatPlugin,
+  ConfirmPlugin
 } from 'vux';
 // 跳转回来的时候，重置uid等信息
 if (util.getUrlVal('uid')) {
   util.setUserInfToStorage();
 }
 Vue.use(WechatPlugin);
+Vue.use(ConfirmPlugin);
 
 Vue.config.productionTip = false;
 // 注册filter
@@ -42,6 +44,7 @@ new Vue({
     await axGet(
       'communityInfo/wxGetAllInfoByWx',
       {
+        requestNoToast: true,
         wxUid: localStorage.getItem('uid')
       }
     ).then(r => {
@@ -62,14 +65,14 @@ new Vue({
         sessionStorage.setItem('simpleCode', data.simpleCode);
         sessionStorage.setItem('communityName', data.communityName);
         sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
-        const routeName = this.$router.history.current.name || this.$router.history.pending.name;
-        if (!data || (data && !data.simpleCode)) {
-          if (!noAuthPages.includes(routeName)) {
-            // 没有绑定小区直接到添加小区页面
-            this.$router.replace({
-              name: 'MyCommunityList'
-            });
-          }
+      }
+      const routeName = this.$router.history.current.name || this.$router.history.pending.name;
+      if (!sessionStorage.getItem('simpleCode')) {
+        if (!noAuthPages.includes(routeName)) {
+          // 没有绑定小区直接到添加小区页面
+          this.$router.replace({
+            name: 'MyCommunityList'
+          });
         }
       }
       router.beforeEach((to, from, next) => {
