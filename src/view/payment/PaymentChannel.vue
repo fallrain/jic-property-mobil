@@ -72,13 +72,16 @@ import {
   HButton,
   HChecklist
 } from '@/components/common';
+import wxMix from '@/mixin/weixin';
 
 export default {
   components: {
     HButton,
     HChecklist
   },
+  mixins: [wxMix],
   activated () {
+    this.getSdkCfg();
     this.parseData();
   },
   data () {
@@ -88,18 +91,15 @@ export default {
         company: '鸿宗物业',
         totalMoney: '',
         address: [
-          '龙道葡萄泊园小区2号楼3单元202室',
-          '龙道葡萄泊园小区2号楼3单元402室'
         ],
         paymentItems: [
-          '2017物业费',
-          '2018物业费'
         ]
       },
       type: '',
       checkList: [
         {
           key: '1',
+          checked: true,
           value: '微信支付'
         }
       ],
@@ -112,7 +112,7 @@ export default {
       let channelData = JSON.parse(sessionStorage.getItem('PaymentDetail.payData') || '{}');
       this.form.totalMoney = channelData.totalMoney;
       this.type = channelData.type;
-      const chargeName = channelData.type === 'paring' ? '车位费' : '物业费';
+      const chargeName = channelData.type === 'parking' ? '车位费' : '物业费';
       let addressTemp = [];
       let chargeCodesTemp = [];
       channelData.checkedList.forEach(function (place) {
@@ -128,20 +128,71 @@ export default {
     },
     tpPay () {
       /* 调用支付 */
-
+      if (this.checkList[0].checked) {
+        this.axPost(
+          'property/wxpay/createOrder',
+          {
+            uid: localStorage.getItem('uid'),
+            orderType: this.type,
+            chargeCodes: this.chargeCodes
+          },
+          {
+            j_sub_system: sessionStorage.getItem('simpleCode')
+          }
+        ).then(r => {
+          if (r.code === '200') {
+            const data = r.value;
+            this.$wechat.chooseWXPay({
+              timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+              nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+              package: data.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+              signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+              paySign: data.paySign, // 支付签名
+              success: res => {
+                if (res.errMsg === 'chooseWXPay:ok') {
+                  this.$router.replace({
+                    name: 'PaymentSucess'
+                  });
+                } else {
+                  this.$vux.toast.show({
+                    type: 'text',
+                    text: '支付失败'
+                  });
+                  this.cancelOrder(data.orderCode);
+                }
+              },
+              cencel: res => { // 支付取消回调函数
+                this.cancelOrder(data.orderCode);
+              },
+              fail: res => { // 支付失败回调函数
+                this.$vux.toast.show({
+                  type: 'text',
+                  text: '支付失败'
+                });
+                this.cancelOrder(data.orderCode);
+              }
+            });
+          }
+        });
+      } else {
+        this.$vux.toast.show({
+          type: 'text',
+          text: '请选择支付渠道'
+        });
+      }
+    },
+    cancelOrder (orderCode) {
       this.axPost(
-        'property/wxpay/createOrder',
+        'property/wxpay/cancelOrder',
         {
           uid: localStorage.getItem('uid'),
-          orderType: this.type,
-          chargeCodes: this.chargeCodes
+          orderCode: orderCode
         },
         {
-          j_sub_system: localStorage.getItem('uid')
+          j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
         if (r.code === '200') {
-
         }
       });
     }

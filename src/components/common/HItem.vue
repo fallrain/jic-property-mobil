@@ -1,18 +1,17 @@
 <template>
   <div class="HItem">
     <p class="HItem-title">{{title}}</p>
-    <p class="HItem-val">{{val}}</p>
+    <p class="HItem-val">{{val}}
+      <slot name="val">
+      </slot>
+    </p>
   </div>
 </template>
 <script>
 export default {
   props: {
-    title: {
-
-    },
-    val: {
-
-    }
+    title: {},
+    val: {}
   }
 };
 </script>
@@ -26,10 +25,15 @@ export default {
   }
 
   .HItem-title {
+    flex-shrink: 0;
+    margin-right: 10px;
     color: #999;
   }
 
   .HItem-val {
     color: #333;
+    .val-item {
+
+    }
   }
 </style>

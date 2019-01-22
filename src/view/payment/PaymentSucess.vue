@@ -12,13 +12,22 @@
         :key="i"
         :title="item.title"
         :val="item.val"
-      ></h-item>
+      >
+        <template slot="val" v-if="item.vals">
+          <p
+            v-for="(valsItem,j) in item.vals"
+            :key="j"
+            class="val-item"
+          >{{valsItem}}</p>
+        </template>
+      </h-item>
     </div>
     <div class="PaymentSucess-btn-par">
       <h-button
         width="263"
         height="39"
         cnt="返回"
+        @click.native="closeWxWindow"
       ></h-button>
     </div>
   </div>
@@ -33,16 +42,19 @@ export default {
     HButton,
     HItem
   },
+  activated () {
+    this.setInf();
+  },
   data () {
     return {
       paymentItemList: [
         {
           title: '缴费项目',
-          val: '物业管理费'
+          val: ''
         },
         {
           title: '缴费地址',
-          val: '龙道葡泊园小区 2号楼 3单元 202室'
+          vals: []
         },
         {
           title: '收款方',
@@ -50,10 +62,22 @@ export default {
         },
         {
           title: '收款总额',
-          val: '3021.93 元'
+          val: ''
         }
       ]
     };
+  },
+  methods: {
+    setInf () {
+      let channelData = JSON.parse(sessionStorage.getItem('PaymentDetail.payData') || '{}');
+      let addressTemp = [];
+      addressTemp = channelData.checkedList.forEach(function (place) {
+        return place.room;
+      });
+      this.paymentItemList[0].val = channelData.type === 'parking' ? '车位管理费' : '物业管理费';
+      this.paymentItemList[1].vals = addressTemp;
+      this.paymentItemList[3].val = channelData.totalMoney + ' 元';
+    }
   }
 };
 </script>

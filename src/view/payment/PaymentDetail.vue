@@ -101,7 +101,7 @@ export default {
       if (this.type === 'parking') {
         url = 'charge/parking/listByUser';
       } else {
-        url = 'charge/property/listByUse';
+        url = 'charge/property/listByUser';
       }
 
       this.axGet(
@@ -116,27 +116,31 @@ export default {
           if (!data || !data.length) {
             this.toPaymentHome();
           } else {
-            if (this.type === 'parking') {
-              const checkListTemp = {};
-              data.forEach(function (v) {
-                if (!checkListTemp[v.parkingCode]) {
-                  checkListTemp[v.parkingCode] = {
-                    checked: false,
-                    room: v.parkingName,
-                    money: 0,
-                    yearAmount: []
-                  };
-                }
-                const room = checkListTemp[v.parkingCode];
-                room.money += v.charge.replace('元', '') * 1;
-                room.yearAmount.push({
-                  chargeCode: v.chargeCode,
-                  value: v.batchName,
-                  money: v.charge
-                });
+            const checkListTemp = {};
+            data.forEach(v => {
+              let key;
+              if (this.type === 'parking') {
+                key = v.parkingCode;
+              } else {
+                key = v.buildingName + '号楼' + v.unitName + '单元' + v.roomName + '室';
+              }
+              if (!checkListTemp[key]) {
+                checkListTemp[key] = {
+                  checked: false,
+                  room: this.type === 'parking' ? v.parkingName : key,
+                  money: 0,
+                  yearAmount: []
+                };
+              }
+              const room = checkListTemp[key];
+              room.money += v.charge.replace('元', '') * 1;
+              room.yearAmount.push({
+                chargeCode: v.chargeCode,
+                value: v.batchName + (this.type === 'parking' ? '车位费' : '物业费'),
+                money: v.charge
               });
-              this.checkList = checkListTemp;
-            }
+            });
+            this.checkList = checkListTemp;
           }
         }
       });
