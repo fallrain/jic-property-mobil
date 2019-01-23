@@ -33,7 +33,7 @@ export default {
       if (i === -1) {
         this.value.push(index);
       } else {
-        this.value.splice(index, 1);
+        this.value.splice(i, 1);
       }
       this.$emit('input', this.value);
     }

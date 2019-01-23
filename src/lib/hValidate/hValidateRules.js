@@ -3,6 +3,9 @@ export default {
     required (val) {
       return val != null && /\S+/.test(val);
     },
+    arrayRequired (val) {
+      return val && val.length;
+    },
     number (val) {
       return /^\d+$/.test(val);
     },

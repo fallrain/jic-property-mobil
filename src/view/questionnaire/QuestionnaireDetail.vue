@@ -48,7 +48,7 @@
     </div>
     <div class="QuestionnaireDetail-btn-par">
       <button
-        v-if="showBtn"
+        :v-if="true"
         type="button"
         class="h-btn-primary"
         @click="submit"
@@ -109,18 +109,29 @@ export default {
                   return question.infoCode === v.infoCode;
                 });
                 const curQuestion = this.questions[questionIndex];
+                if (!curQuestion) {
+                  console.log(this.questions);
+                  console.log(questionIndex);
+                }
                 // 问题的答案，用索引来表示
                 let value;
                 if (type[0] === '1') {
                   // 汉字答案在汉字内容中的索引...
-                  value = v.content.split(',').findIndex(cnt => {
+                  const valueIndex = v.content.split(',').findIndex(cnt => {
                     return cnt === v.answer;
                   });
+                  valueIndex !== -1 && (value = valueIndex);
                 } else if (type[0] === '2') {
                   value = v.answer.split(',').map(as => {
-                    return v.content.split(',').findIndex(cnt => {
+                    const valueIndex = v.content.split(',').findIndex(cnt => {
                       return as === cnt;
                     });
+                    if (valueIndex !== -1) {
+                      return valueIndex;
+                    }
+                  });
+                  value = value.filter(function (v) {
+                    return v !== null && v !== undefined;
                   });
                 } else {
                   value = v.answer;
@@ -136,7 +147,7 @@ export default {
     },
     queryDetail () {
       /* 查询题目详情 */
-      this.axGet(
+      return this.axGet(
         'questionSurveyInfo/wxInfo',
         {
           j_sub_system: sessionStorage.getItem('simpleCode'),
@@ -174,11 +185,42 @@ export default {
             });
             this.questions = this.questions.concat(questionsTemp);
           });
+          if (this.questions.length) {
+            this.genVdt();
+          }
+        }
+      });
+    },
+    genVdt () {
+      this.vdt = new this.HValidate({
+        _this: this,
+        formData: this.questions,
+        rules: {},
+        messages: {}
+      });
+      this.questions.forEach((v, i) => {
+        if (v.type === 'radio' || v.type === 'text') {
+          this.vdt.option.rules[i] = {
+            required: true
+          };
+          this.vdt.option.messages[i] = {
+            required: '第' + (i + 1) + '题不能为空'
+          };
+        } else if (v.type === 'checkbox') {
+          this.vdt.option.rules[i] = {
+            arrayRequired: true
+          };
+          this.vdt.option.messages[i] = {
+            arrayRequired: '第' + (i + 1) + '题不能为空'
+          };
         }
       });
     },
     submit () {
       /* 提交题目 */
+      if (!this.vdt.valid()) {
+        return;
+      }
       const data = {
         wxUid: localStorage.getItem('uid'),
         surveyCode: this.surveyCode,
