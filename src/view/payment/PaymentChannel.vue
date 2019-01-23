@@ -117,7 +117,7 @@ export default {
       let chargeCodesTemp = [];
       channelData.checkedList.forEach(function (place) {
         addressTemp = addressTemp.concat(place.yearAmount.map(function (batch) {
-          return place.room + batch.value + chargeName;
+          return place.room + batch.value;
         }));
         chargeCodesTemp = chargeCodesTemp.concat(place.yearAmount.map(function (batch) {
           return batch.chargeCode;
@@ -140,6 +140,7 @@ export default {
             j_sub_system: sessionStorage.getItem('simpleCode')
           }
         ).then(r => {
+          const _this = this;
           if (r.code === '200') {
             const data = r.value;
             this.$wechat.chooseWXPay({
@@ -148,28 +149,28 @@ export default {
               package: data.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
               signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
               paySign: data.paySign, // 支付签名
-              success: res => {
+              success (res) {
                 if (res.errMsg === 'chooseWXPay:ok') {
-                  this.$router.replace({
+                  _this.$router.replace({
                     name: 'PaymentSucess'
                   });
                 } else {
-                  this.$vux.toast.show({
+                  _this.$vux.toast.show({
                     type: 'text',
                     text: '支付失败'
                   });
-                  this.cancelOrder(data.orderCode);
+                  _this.cancelOrder(data.orderCode);
                 }
               },
-              cencel: res => { // 支付取消回调函数
-                this.cancelOrder(data.orderCode);
+              cancel (res) { // 支付取消回调函数
+                _this.cancelOrder(data.orderCode);
               },
-              fail: res => { // 支付失败回调函数
-                this.$vux.toast.show({
+              fail (res) { // 支付失败回调函数
+                _this.$vux.toast.show({
                   type: 'text',
                   text: '支付失败'
                 });
-                this.cancelOrder(data.orderCode);
+                _this.cancelOrder(data.orderCode);
               }
             });
           }
@@ -184,11 +185,10 @@ export default {
     cancelOrder (orderCode) {
       this.axPost(
         'property/wxpay/cancelOrder',
+        null,
         {
           uid: localStorage.getItem('uid'),
-          orderCode: orderCode
-        },
-        {
+          orderCode: orderCode,
           j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {

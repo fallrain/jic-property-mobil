@@ -52,7 +52,7 @@ export default {
           this.list = data.list.map(function (v) {
             return {
               id: v.buildingCode,
-              name: v.buildingName + '号楼'
+              name: v.buildingName
             };
           });
         }

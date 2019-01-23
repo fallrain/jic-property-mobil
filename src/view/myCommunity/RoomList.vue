@@ -23,7 +23,7 @@ export default {
   props: ['communityCode', 'unitCode'],
   data () {
     return {
-      name: '2单元',
+      name: '',
       list: [
       ]
     };
@@ -60,7 +60,7 @@ export default {
           this.list = data.list.map(function (v) {
             return {
               id: v.roomCode,
-              name: v.roomName + '室'
+              name: v.roomName
             };
           });
         }

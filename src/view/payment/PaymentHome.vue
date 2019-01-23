@@ -26,6 +26,7 @@
         :width="263"
         :height="39"
         cnt="点我查看缴费历史记录"
+        @click.native="showHis"
       ></h-button>
     </div>
   </div>
@@ -57,7 +58,17 @@ export default {
       this.payInf = '暂无待缴物业费账单';
     }
   },
-  methods: {}
+  methods: {
+    showHis () {
+      const tabType = this.hUtil.getUrlVal('type');
+      this.$router.push({
+        name: 'PaymentHistoryList',
+        params: {
+          tabType
+        }
+      });
+    }
+  }
 };
 </script>
 

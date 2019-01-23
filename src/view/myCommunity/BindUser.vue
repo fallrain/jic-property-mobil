@@ -147,7 +147,7 @@ export default {
   },
   data () {
     return {
-      name: '2单元',
+      name: '',
       isMaster: this.master === '1',
       halfTel: '',
       masterForm: {
@@ -233,7 +233,8 @@ export default {
             },
             phone: {
               'required': '手机号后四位不能为空',
-              length: '最大长度为4位'
+              number: '手机号后四位必须为数字',
+              length: '手机号后四位最大长度为4位'
             }
           }
         });
@@ -279,6 +280,7 @@ export default {
     },
     valid () {
       if (this.vdt.valid()) {
+        const _this = this;
         let ownerName = this.isMaster ? this.masterForm.name : this.form.ownerName;
         this.$vux.confirm.show({
           title: '系统通知',
@@ -287,49 +289,50 @@ export default {
                  您绑定的房子为：<span class="jic-weui-dialog-val">${this.name}</span><br>
                  房子房主为：<span class="jic-weui-dialog-val">${ownerName}</span>
               `,
-          onConfirm: () => {
+          onConfirm () {
             let validResult;
-            if (this.isMaster) {
-              validResult = this.axPost(
+            if (_this.isMaster) {
+              validResult = _this.axPost(
                 'roomOwner/wxValidateHost',
                 {
-                  simpleCode: this.communityCode,
-                  roomCode: this.roomCode,
-                  ownerName: this.masterForm.name,
-                  tel: this.halfTel + this.masterForm.phone,
-                  ownerCode: this.ownerCode,
+                  simpleCode: _this.communityCode,
+                  roomCode: _this.roomCode,
+                  ownerName: _this.masterForm.name,
+                  tel: _this.halfTel + _this.masterForm.phone,
+                  ownerCode: _this.ownerCode,
                   wxUid: localStorage.getItem('uid')
                 },
                 {
-                  j_sub_system: this.communityCode
+                  j_sub_system: _this.communityCode
                 }
               );
             } else {
-              validResult = this.axPost(
+              validResult = _this.axPost(
                 'roomOwner/wxValidateLease',
                 {
-                  simpleCode: this.communityCode,
-                  roomCode: this.roomCode,
-                  ownerName: this.form.ownerName,
-                  leaseName: this.form.name,
-                  tel: this.form.phone,
-                  idCard: this.form.idCard,
-                  // ownerCode: this.ownerCode,
+                  simpleCode: _this.communityCode,
+                  roomCode: _this.roomCode,
+                  ownerName: _this.form.ownerName,
+                  leaseName: _this.form.name,
+                  tel: _this.form.phone,
+                  idCard: _this.form.idCard,
+                  // ownerCode: _this.ownerCode,
                   wxUid: localStorage.getItem('uid')
                 },
                 {
-                  j_sub_system: this.communityCode
+                  j_sub_system: _this.communityCode
                 }
               );
             }
             validResult.then(r => {
               if (r.code === '200') {
+                const _this = this;
                 this.$vux.toast.show({
                   type: 'text',
                   text: '绑定成功',
-                  onHide: () => {
+                  onHide () {
                     sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
-                    this.$router.replace({
+                    _this.$router.replace({
                       name: 'MyCommunityList'
                     });
                   }

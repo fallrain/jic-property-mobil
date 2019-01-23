@@ -16,7 +16,6 @@
               v-for="(item,i) in checkList"
               :key="i"
               :checkVal.sync="item.checked"
-              @check-click="checkClick"
             >
               <div class="PaymentDetail-checklist-cnt">
                 <p class="PaymentDetail-checklist-cnt-total">
@@ -86,6 +85,20 @@ export default {
   },
   created () {
     this.query();
+  },
+  watch: {
+    'checkList': {
+      handler (checkList) {
+        this.form.totalMoney = 0;
+        for (let p in checkList) {
+          const data = checkList[p];
+          if (data.checked) {
+            this.form.totalMoney += checkList[p].money;
+          }
+        }
+      },
+      deep: true
+    }
   },
   methods: {
     toPaymentHome () {

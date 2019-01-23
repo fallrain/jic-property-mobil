@@ -143,10 +143,11 @@ export default {
           }
         ).then(r => {
           if (r.code === '200') {
+            const _this = this;
             this.$vux.toast.show({
               text: '发布成功',
-              onHide: () => {
-                this.$router.push({
+              onHide () {
+                _this.$router.push({
                   name: 'InformationWallList',
                   params: {
                     all: 'self'

@@ -44,6 +44,9 @@ export default {
     },
     IDCard (val) {
       /* 身份证号 */
+      if (!val && val !== 0) {
+        return true;
+      }
       let aCity = {
         11: '北京',
         12: '天津',

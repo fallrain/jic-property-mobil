@@ -204,7 +204,7 @@ export default {
         'questionSurveyAnswer/wxSubmitList',
         data,
         {
-          j_sub_system: localStorage.getItem('simpleCode')// todo 需要获取到默认小区code
+          j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

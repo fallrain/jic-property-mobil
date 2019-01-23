@@ -94,6 +94,7 @@ import {
 } from '@/components/common';
 
 export default {
+  name: 'PaymentHistoryList',
   components: {
     HLoadmore,
     Tab,
