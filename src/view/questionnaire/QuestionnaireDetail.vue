@@ -201,14 +201,14 @@ export default {
       this.questions.forEach((v, i) => {
         if (v.type === 'radio' || v.type === 'text') {
           this.vdt.option.rules[i] = {
-            required: true
+            objRequired: 'value'
           };
           this.vdt.option.messages[i] = {
-            required: '第' + (i + 1) + '题不能为空'
+            objRequired: '第' + (i + 1) + '题不能为空'
           };
         } else if (v.type === 'checkbox') {
           this.vdt.option.rules[i] = {
-            arrayRequired: true
+            arrayRequired: 'value'
           };
           this.vdt.option.messages[i] = {
             arrayRequired: '第' + (i + 1) + '题不能为空'
