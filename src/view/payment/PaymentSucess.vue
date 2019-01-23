@@ -71,7 +71,7 @@ export default {
     setInf () {
       let channelData = JSON.parse(sessionStorage.getItem('PaymentDetail.payData') || '{}');
       let addressTemp = [];
-      addressTemp = channelData.checkedList.forEach(function (place) {
+      addressTemp = channelData.checkedList.map(function (place) {
         return place.room;
       });
       this.paymentItemList[0].val = channelData.type === 'parking' ? '车位管理费' : '物业管理费';

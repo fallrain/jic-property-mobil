@@ -112,7 +112,7 @@ export default {
       let channelData = JSON.parse(sessionStorage.getItem('PaymentDetail.payData') || '{}');
       this.form.totalMoney = channelData.totalMoney;
       this.type = channelData.type;
-      const chargeName = channelData.type === 'parking' ? '车位费' : '物业费';
+      // const chargeName = channelData.type === 'parking' ? '车位费' : '物业费';
       let addressTemp = [];
       let chargeCodesTemp = [];
       channelData.checkedList.forEach(function (place) {

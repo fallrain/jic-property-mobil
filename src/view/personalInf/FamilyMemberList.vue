@@ -12,7 +12,7 @@
             <span class="name">{{item.name}}</span>
             <span class="tel">{{item.tel}}</span>
           </p>
-          <p class="FamilyMemberList-cnt-type">{{item.type===1?'房东':'租客'}}</p>
+          <p class="FamilyMemberList-cnt-type">{{item.ownerType===1?'房东':'租客'}}</p>
         </div>
       </h-left-slide>
     </div>
@@ -84,6 +84,9 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           this.list.splice(index, 1);
+          if (!this.list.length) {
+            this.pageCfg.loadingType = 3;
+          }
         }
       });
     }
