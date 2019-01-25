@@ -80,8 +80,8 @@ export default {
     };
   },
   activated () {
-    // this.reset();
-    // this.queryanswer();
+    this.reset();
+    this.queryanswer();
   },
   methods: {
     reset () {
