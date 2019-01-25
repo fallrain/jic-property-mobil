@@ -80,8 +80,8 @@ export default {
     };
   },
   activated () {
-    this.reset();
-    this.queryanswer();
+    // this.reset();
+    // this.queryanswer();
   },
   methods: {
     reset () {
@@ -250,8 +250,15 @@ export default {
         }
       ).then(r => {
         if (r.code === '200') {
-          this.$router.push({
-            name: 'QuestionnaireList'
+          const _this = this;
+          this.$vux.toast.show({
+            type: 'text',
+            text: '提交成功',
+            onHide () {
+              _this.$router.push({
+                name: 'QuestionnaireList'
+              });
+            }
           });
         }
       });

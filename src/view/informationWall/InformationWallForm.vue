@@ -25,6 +25,7 @@
           >
         </div>
         <vue-core-image-upload
+          v-show="!form.imgUrl"
           class="btn btn-primary"
           :crop="false"
           inputOfFile="file"

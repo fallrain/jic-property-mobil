@@ -54,11 +54,12 @@ export default {
   .HCheckbox-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // justify-content: space-between;
   }
 
   .HCheckbox-item {
     font-size: 0;
     min-width: 80px;
+    margin-right: 4px;
   }
 </style>

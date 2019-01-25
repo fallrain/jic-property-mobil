@@ -14,10 +14,22 @@
         <p class="QuestionnaireList-item-cnt">{{item.cnt}}</p>
       </li>
     </ol>
+    <h-loadmore
+      ref="hloadmore"
+      :show="true"
+      :loadingType="pageCfg.loadingType"
+      :data="pageCfg.page"
+    ></h-loadmore>
   </div>
 </template>
 <script>
+import {
+  HLoadmore
+} from '@/components/common';
 export default {
+  components: {
+    HLoadmore
+  },
   data () {
     return {
       questionnaireList: []
@@ -44,6 +56,11 @@ export default {
               surveyCode: v.surveyCode
             };
           });
+        }
+        if (this.questionnaireList && this.questionnaireList.length) {
+          this.pageCfg.loadingType = 2;
+        } else {
+          this.pageCfg.loadingType = 3;
         }
       });
     },
