@@ -24,7 +24,7 @@
           v-for="(item,i) in propertyList"
           :key="i"
         >
-          <p class="PaymentHistoryList-item-money">{{item.amount}}<span>元</span></p>
+          <p class="PaymentHistoryList-item-money">{{item.amount | yuanToCent}}<span>元</span></p>
           <div class="PaymentHistoryList-item-common">
             <span class="PaymentHistoryList-item-common-name">支付项目：</span>
             <div class="PaymentHistoryList-item-common-right">
@@ -56,7 +56,7 @@
           v-for="(item,i) in parkingList"
           :key="i"
         >
-          <p class="PaymentHistoryList-item-money">{{item.amount}}<span>元</span></p>
+          <p class="PaymentHistoryList-item-money">{{item.amount | yuanToCent}}<span>元</span></p>
           <div class="PaymentHistoryList-item-common">
             <span class="PaymentHistoryList-item-common-name">支付项目：</span>
             <div class="PaymentHistoryList-item-common-right">
@@ -105,7 +105,23 @@ export default {
     return {
       chargeType: this.tabType,
       pageCfg2: {},
-      propertyList: [],
+      propertyList: [
+        /* {
+          amount: 1,
+          item: ['2019年车位费'],
+          time: '2017年5月7日'
+        },
+        {
+          amount: 20,
+          item: ['2019年车位费'],
+          time: '2017年5月7日'
+        },
+        {
+          amount: 1878,
+          item: ['2019年车位费'],
+          time: '2017年5月7日'
+        } */
+      ],
       parkingList: []
     };
   },

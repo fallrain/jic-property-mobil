@@ -5,5 +5,16 @@ export default {
   },
   toUpperCase (value) {
     return value.toLocaleUpperCase();
+  },
+  yuanToCent (value) {
+    let returnStr = (value / 100) + '';
+    let len = returnStr.split('.')[1];
+    if (len) {
+      len = len.length;
+    } else {
+      len = 0;
+    }
+    returnStr += ['.00', '0', ''][len];
+    return returnStr;
   }
 };
