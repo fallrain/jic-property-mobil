@@ -252,7 +252,8 @@ export default {
               'cn': true
             },
             idCard: {
-              // IDCard: true
+              'required': true,
+              IDCard: true
             },
             phone: {
               'required': true,
@@ -266,9 +267,10 @@ export default {
             },
             name: {
               'required': '姓名不能为空',
-              'cn': '姓名必须为汉字'
+              'cn': '姓名必须为汉字'ge
             },
             idCard: {
+              'required': '请输入身份证',
               IDCard: '请输入合法的身份证'
             },
             phone: {
