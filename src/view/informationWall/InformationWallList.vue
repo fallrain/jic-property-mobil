@@ -56,6 +56,7 @@ import {
 } from '@/components/common';
 
 export default {
+  name: 'InformationWallList',
   props: ['all'],
   components: {
     HLoadmore

@@ -267,7 +267,7 @@ export default {
             },
             name: {
               'required': '姓名不能为空',
-              'cn': '姓名必须为汉字'ge
+              'cn': '姓名必须为汉字'
             },
             idCard: {
               'required': '请输入身份证',

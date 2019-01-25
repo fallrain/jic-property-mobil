@@ -135,7 +135,7 @@ export default {
               if (this.type === 'parking') {
                 key = v.parkingCode;
               } else {
-                key = v.buildingName + '号楼' + v.unitName + '单元' + v.roomName + '室';
+                key = v.buildingName + v.unitName + v.roomName;
               }
               if (!checkListTemp[key]) {
                 checkListTemp[key] = {

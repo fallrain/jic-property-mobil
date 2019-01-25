@@ -73,6 +73,7 @@ import {
 import Icon from 'vux/src/components/icon/index';
 
 export default {
+  name: 'PersonalInformation',
   components: {
     Icon,
     HGroup,

@@ -195,7 +195,7 @@ export default {
               });
             } else {
               returnObj.item = batch.items.map(v => {
-                return v.buildingName + '号楼' + v.unitName + '单元' + v.roomName + '室' + ' ' + (v.monthStart + '').substr(0, 4) + '年' + this.chargeTypeName;
+                return v.buildingName + v.unitName + v.roomName + ' ' + (v.monthStart + '').substr(0, 4) + '年' + this.chargeTypeName;
               });
             }
 

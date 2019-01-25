@@ -41,7 +41,7 @@ export default {
         sessionStorage.setItem('roomCode', data.roomCode);
         sessionStorage.setItem('simpleCode', data.simpleCode);
         sessionStorage.setItem('communityName', data.communityName);
-        sessionStorage.setItem('address', data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室');
+        sessionStorage.setItem('address', data.communityName + data.buildingName + data.unitName + data.roomName);
       }
       check();
       next();

@@ -45,7 +45,7 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
-          this.address = data.communityName + data.buildingName + '号楼' + data.unitName + '单元' + data.roomName + '室';
+          this.address = data.communityName + data.buildingName + data.unitName + data.roomName;
           this.cnt = data.content;
         }
       });

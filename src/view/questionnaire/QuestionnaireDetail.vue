@@ -10,7 +10,7 @@
       >
         <div class="QuestionnaireDetail-paper-cnt">
           <span class="title">物业工作满意度调查</span>
-          <p class="cnt">您好，感谢您在百忙之中填写这份调查问卷，请根据您的实际情况如实填写，以便我们更好的提高服务.</p>
+          <pre class="cnt">您好，感谢您在百忙之中填写这份调查问卷，请根据您的实际情况如实填写，以便我们更好的提高服务.</pre>
         </div>
       </h-paper>
     </div>
@@ -156,6 +156,7 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
+          console.log(data);
           Object.entries(data).map(v => {
             const questionsTemp = v[1].map(function (item) {
               const obj = {
