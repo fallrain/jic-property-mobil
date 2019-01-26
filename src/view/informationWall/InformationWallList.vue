@@ -62,6 +62,7 @@ export default {
     HLoadmore
   },
   activated () {
+    this.pageCfg.page.pageNum = 1;
     this.query();
   },
   data () {
@@ -81,27 +82,38 @@ export default {
       /* 查询上墙信息 */
       const data = {
         j_sub_system: sessionStorage.getItem('simpleCode'),
+        ownerCode: sessionStorage.getItem('ownerCode'),
         ...this.pageCfg.page
       };
+      let url = 'infoWall/wxList';
       if (this.all === 'self') {
-        data.ownerCode = sessionStorage.getItem('ownerCode'); // todo 本住户的code 需获取
+        url = 'infoWall/wxOwnerList';
       }
       this.axGet(
-        'infoWall/wxList',
+        url,
         data
       ).then(r => {
         if (r.code === '200') {
-          this.list = this.list.concat(r.value.list.map(function (v) {
-            return {
-              name: v.manName,
-              time: v.createdTime,
-              content: v.content,
-              img: v.img,
-              follows: v.follow,
-              isFollow: v.isFollow,
-              infoCode: v.infoCode
-            };
-          }));
+          if (r.value.list) {
+            let rows = r.value.list.map(function (v) {
+              return {
+                name: v.manName,
+                time: v.createdTime,
+                content: v.content,
+                img: v.img,
+                follows: v.follow,
+                isFollow: v.isFollow,
+                infoCode: v.infoCode
+              };
+            });
+            if (data.pageNum === 1) {
+              this.list = rows;
+            } else {
+              this.list = this.list.concat(rows);
+            }
+          } else {
+            this.list = [];
+          }
           this.$refs.hloadmore.queryBack(r, this);
         }
       });
@@ -118,8 +130,8 @@ export default {
         }
       ).then(r => {
         if (r.code === '200') {
-          item.isFollow = item.isFollow === 1 ? 0 : 1;
-          if (item.isFollow === 1) {
+          item.isFollow = r.value.follow === true ? 1 : 0;
+          if (r.value.follow === true) {
             item.follows++;
           } else {
             item.follows = item.follows - 1 < 0 ? 0 : item.follows - 1;

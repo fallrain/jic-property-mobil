@@ -70,7 +70,8 @@ export default {
     return {
       form: {
         advice: '',
-        imgUrl: ''
+        imgUrl: '',
+        imgCode: ''
       },
       uploadUrl: process.env.base_url + 'document/upload',
       uploadData: {}
@@ -108,6 +109,7 @@ export default {
       if (r.code === '200') {
         const data = r.value;
         this.form.imgUrl = data[0].url;
+        this.form.imgCode = data[0].docId;
       }
     },
     uploadError (res) {
@@ -135,7 +137,7 @@ export default {
           'infoWall/wxInsert',
           {
             title: '1',
-            img: this.form.imgUrl,
+            img: this.form.imgCode,
             content: this.form.advice,
             ownerCode: sessionStorage.getItem('ownerCode')
           },
