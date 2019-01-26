@@ -46,7 +46,15 @@ export default {
         if (r.code === '200') {
           const data = r.value;
           this.address = data.communityName + data.buildingName + data.unitName + data.roomName;
-          this.cnt = data.content;
+          if (data.content) {
+            if (data.content.indexOf('<img') !== -1) {
+              this.cnt = data.content.replace(/<img\s/g, '<img style="max-width:100%;height:auto;"');
+            } else {
+              this.cnt = data.content;
+            }
+          } else {
+            this.cnt = '';
+          }
         }
       });
       /* } */

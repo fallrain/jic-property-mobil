@@ -9,7 +9,8 @@
         @click="setDefault(item)"
       >
         <p class="MyCommunityList-item-cnt">{{item.address}}</p>
-        <i class="MyCommunityList-item-icon iconfont icon-htmal5icon14"></i>
+        <i v-if="item.isDefault === true" class="MyCommunityList-item-icon iconfont icon-htmal5icon14" style="color: #537cdb;" ></i>
+        <i v-else class="MyCommunityList-item-icon iconfont icon-htmal5icon14"></i>
       </li>
     </ol>
     <div
@@ -65,7 +66,7 @@ export default {
             return {
               communityCode: v.communityCode,
               roomCode: v.roomCode,
-              isDefault: v.isDefault === '1',
+              isDefault: v.isDefault === 1,
               address: v.communityName + v.buildingName + v.unitName + v.roomName
             };
           });
@@ -73,23 +74,33 @@ export default {
       });
     },
     setDefault (item) {
-      /* 设置默认房产 */
-      this.axPost(
-        'roomOwnerRel/wxChangeCommunity',
-        {
-          'roomCode': item.roomCode,
-          'wxUid': localStorage.getItem('uid')
-        }
-      ).then(r => {
-        if (r.code === '200') {
-          this.$router.push({
-            name: 'MyCommunityDetail',
-            params: {
-              communityCode: 'change'
-            }
-          });
-        }
-      });
+      if (item.isDefault === 1) {
+        this.$router.push({
+          name: 'MyCommunityDetail',
+          params: {
+            communityCode: 'change'
+          }
+        });
+      } else {
+        /* 设置默认房产 */
+        this.axPost(
+          'roomOwnerRel/wxChangeCommunity',
+          {
+            'roomCode': item.roomCode,
+            'wxUid': localStorage.getItem('uid')
+          }
+        ).then(r => {
+          if (r.code === '200') {
+            sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
+            this.$router.push({
+              name: 'MyCommunityDetail',
+              params: {
+                communityCode: 'change'
+              }
+            });
+          }
+        });
+      }
     }
   }
 };

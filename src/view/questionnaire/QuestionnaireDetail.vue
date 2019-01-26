@@ -9,8 +9,8 @@
         :headTransition="false"
       >
         <div class="QuestionnaireDetail-paper-cnt">
-          <span class="title">物业工作满意度调查</span>
-          <pre class="cnt">您好，感谢您在百忙之中填写这份调查问卷，请根据您的实际情况如实填写，以便我们更好的提高服务.</pre>
+          <span class="title">{{ aTitle }}</span>
+          <pre class="cnt" v-html="aDescription" ></pre>
         </div>
       </h-paper>
     </div>
@@ -76,6 +76,8 @@ export default {
   data () {
     return {
       showBtn: false,
+      aTitle: null,
+      aDescription: null,
       questions: []
     };
   },
@@ -98,47 +100,47 @@ export default {
           j_sub_system: sessionStorage.getItem('simpleCode')
         }
       ).then(r => {
-        if (r.code === '200') {
-          const data = r.value;
-          if (data) {
+        if (r.code === '200' && r.value) {
+          const questions = r.value.contentList;
+          if (questions) {
             this.showBtn = false;
-            Object.entries(data).forEach(type => {
-              type[1].forEach(v => {
-                // 匹配到的索引
-                const questionIndex = this.questions.findIndex(question => {
-                  return question.infoCode === v.infoCode;
-                });
-                const curQuestion = this.questions[questionIndex];
-                if (!curQuestion) {
-                  console.log(this.questions);
-                  console.log(questionIndex);
-                }
-                // 问题的答案，用索引来表示
-                let value;
-                if (type[0] === '1') {
-                  // 汉字答案在汉字内容中的索引...
-                  const valueIndex = v.content.split(',').findIndex(cnt => {
-                    return cnt === v.answer;
-                  });
-                  valueIndex !== -1 && (value = valueIndex);
-                } else if (type[0] === '2') {
-                  value = v.answer.split(',').map(as => {
-                    const valueIndex = v.content.split(',').findIndex(cnt => {
-                      return as === cnt;
-                    });
-                    if (valueIndex !== -1) {
-                      return valueIndex;
-                    }
-                  });
-                  value = value.filter(function (v) {
-                    return v !== null && v !== undefined;
-                  });
-                } else {
-                  value = v.answer;
-                }
-                curQuestion.value = value;
+            // Object.entries(data).forEach(type => {
+            questions.forEach(v => {
+              // 匹配到的索引
+              const questionIndex = this.questions.findIndex(question => {
+                return question.infoCode === v.infoCode;
               });
+              const curQuestion = this.questions[questionIndex];
+              if (!curQuestion) {
+                console.log(this.questions);
+                console.log(questionIndex);
+              }
+              // 问题的答案，用索引来表示
+              let value;
+              if (v.type === '1') {
+                // 汉字答案在汉字内容中的索引...
+                const valueIndex = v.content.split(',').findIndex(cnt => {
+                  return cnt === v.answer;
+                });
+                valueIndex !== -1 && (value = valueIndex);
+              } else if (v.type === '2') {
+                value = v.answer.split(',').map(as => {
+                  const valueIndex = v.content.split(',').findIndex(cnt => {
+                    return as === cnt;
+                  });
+                  if (valueIndex !== -1) {
+                    return valueIndex;
+                  }
+                });
+                value = value.filter(function (v) {
+                  return v !== null && v !== undefined;
+                });
+              } else {
+                value = v.answer;
+              }
+              curQuestion.value = value;
             });
+            // });
           } else {
             this.showBtn = true;
           }
@@ -154,38 +156,39 @@ export default {
           surveyCode: this.surveyCode
         }
       ).then(r => {
-        if (r.code === '200') {
-          const data = r.value;
-          console.log(data);
-          Object.entries(data).map(v => {
-            const questionsTemp = v[1].map(function (item) {
-              const obj = {
-                title: item.title,
-                type: {
-                  1: 'radio',
-                  2: 'checkbox',
-                  3: 'text'
-                }[v[0]],
-                infoCode: item.infoCode
-              };
-              if (v[0] === '1') {
-                obj.value = null;
-              } else if (v[0] === '2') {
-                obj.value = [];
-              } else {
-                obj.value = '';
-              }
-              if (v[0] !== '3') {
-                obj.data = item.content.split(',').map(function (label) {
-                  return {
-                    label: label
-                  };
-                });
-              }
-              return obj;
-            });
-            this.questions = this.questions.concat(questionsTemp);
+        if (r.code === '200' && r.value) {
+          this.aTitle = r.value.title;
+          this.aDescription = r.value.description;
+          const questions = r.value.contentList;
+          // Object.entries(data).map(v => {
+          const questionsTemp = questions.map(function (item) {
+            const obj = {
+              title: item.title,
+              type: {
+                1: 'radio',
+                2: 'checkbox',
+                3: 'text'
+              }[item.type],
+              infoCode: item.infoCode
+            };
+            if (item.type === '1') {
+              obj.value = null;
+            } else if (item.type === '2') {
+              obj.value = [];
+            } else {
+              obj.value = '';
+            }
+            if (item.type !== '3') {
+              obj.data = item.content.split(',').map(function (label) {
+                return {
+                  label: label
+                };
+              });
+            }
+            return obj;
           });
+          this.questions = this.questions.concat(questionsTemp);
+          // });
           if (this.questions.length) {
             this.genVdt();
           }
