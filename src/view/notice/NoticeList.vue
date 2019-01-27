@@ -54,17 +54,21 @@ export default {
         if (r.code === '200') {
           const data = r.value;
           this.noticeList = this.noticeList.concat(data.list.map(v => {
+            let outerChain = false;
+            if (v.outerChain === 1) {
+              outerChain = true;
+            }
             return {
-              contentHtml: true,
+              contentHtml: !outerChain,
               type: {
-                'system_notice': 'sys',
-                'urgent_notice': 'urgent',
-                'ordinary_notice': 'news'
+                'sys': 'sys',
+                'urgent': 'urgent'
               }[v.subType],
               isRead: true,
-              time: this.hUtil.formatNoSplitTime(v.messageSendTime),
+              time: this.hUtil.formatNoSplitTime(v.pushTime),
               title: v.title,
-              articleCode: v.articleCode
+              articleCode: v.articleCode,
+              url: v.url
             };
           }));
           this.$refs.hloadmore.queryBack(r, this);
@@ -72,12 +76,16 @@ export default {
       });
     },
     toDetail (item) {
-      this.$router.push({
-        name: 'NoticeDetail',
-        params: {
-          articleCode: item.articleCode
-        }
-      });
+      if (item.contentHtml === false) {
+        window.location.href = item.url;
+      } else {
+        this.$router.push({
+          name: 'NoticeDetail',
+          params: {
+            articleCode: item.articleCode
+          }
+        });
+      }
     }
   }
 };

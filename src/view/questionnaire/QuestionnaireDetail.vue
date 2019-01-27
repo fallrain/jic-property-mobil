@@ -10,7 +10,7 @@
       >
         <div class="QuestionnaireDetail-paper-cnt">
           <span class="title">{{ aTitle }}</span>
-          <pre class="cnt" v-html="aDescription" ></pre>
+          <pre class="cnt" style="white-space: pre-wrap;"  v-html="aDescription" ></pre>
         </div>
       </h-paper>
     </div>
@@ -46,9 +46,8 @@
         </li>
       </ul>
     </div>
-    <div class="QuestionnaireDetail-btn-par">
+    <div v-if="showBtn" class="QuestionnaireDetail-btn-par">
       <button
-        :v-if="true"
         type="button"
         class="h-btn-primary"
         @click="submit"
@@ -83,69 +82,12 @@ export default {
   },
   activated () {
     this.reset();
-    this.queryanswer();
+    this.queryDetail();
   },
   methods: {
     reset () {
       this.questions = [];
       this.showBtn = false;
-    },
-    async queryanswer () {
-      await this.queryDetail();
-      this.axGet(
-        'questionSurveyInfo/wxCheckSubmit',
-        {
-          surveyCode: this.surveyCode,
-          wxUid: localStorage.getItem('uid'),
-          j_sub_system: sessionStorage.getItem('simpleCode')
-        }
-      ).then(r => {
-        if (r.code === '200' && r.value) {
-          const questions = r.value.contentList;
-          if (questions) {
-            this.showBtn = false;
-            // Object.entries(data).forEach(type => {
-            questions.forEach(v => {
-              // 匹配到的索引
-              const questionIndex = this.questions.findIndex(question => {
-                return question.infoCode === v.infoCode;
-              });
-              const curQuestion = this.questions[questionIndex];
-              if (!curQuestion) {
-                console.log(this.questions);
-                console.log(questionIndex);
-              }
-              // 问题的答案，用索引来表示
-              let value;
-              if (v.type === '1') {
-                // 汉字答案在汉字内容中的索引...
-                const valueIndex = v.content.split(',').findIndex(cnt => {
-                  return cnt === v.answer;
-                });
-                valueIndex !== -1 && (value = valueIndex);
-              } else if (v.type === '2') {
-                value = v.answer.split(',').map(as => {
-                  const valueIndex = v.content.split(',').findIndex(cnt => {
-                    return as === cnt;
-                  });
-                  if (valueIndex !== -1) {
-                    return valueIndex;
-                  }
-                });
-                value = value.filter(function (v) {
-                  return v !== null && v !== undefined;
-                });
-              } else {
-                value = v.answer;
-              }
-              curQuestion.value = value;
-            });
-            // });
-          } else {
-            this.showBtn = true;
-          }
-        }
-      });
     },
     queryDetail () {
       /* 查询题目详情 */
@@ -153,14 +95,14 @@ export default {
         'questionSurveyInfo/wxInfo',
         {
           j_sub_system: sessionStorage.getItem('simpleCode'),
-          surveyCode: this.surveyCode
+          surveyCode: this.surveyCode,
+          wxUid: localStorage.getItem('uid')
         }
       ).then(r => {
         if (r.code === '200' && r.value) {
           this.aTitle = r.value.title;
           this.aDescription = r.value.description;
           const questions = r.value.contentList;
-          // Object.entries(data).map(v => {
           const questionsTemp = questions.map(function (item) {
             const obj = {
               title: item.title,
@@ -171,9 +113,9 @@ export default {
               }[item.type],
               infoCode: item.infoCode
             };
-            if (item.type === '1') {
+            if (item.type === 1) {
               obj.value = null;
-            } else if (item.type === '2') {
+            } else if (item.type === 2) {
               obj.value = [];
             } else {
               obj.value = '';
@@ -187,10 +129,34 @@ export default {
             }
             return obj;
           });
-          this.questions = this.questions.concat(questionsTemp);
-          // });
+          this.questions = questionsTemp;
           if (this.questions.length) {
             this.genVdt();
+          }
+          this.showBtn = true;
+          // 如果存在答案
+          if (r.value && r.value.answers && r.value.answers.length > 0) {
+            this.showBtn = false;
+            r.value.answers.forEach((answer, idx) => {
+              let question = this.questions[idx];
+              if (question.type === 'checkbox') {
+                let ansArry = answer.split(',');
+                let ansIndexs = [];
+                question.data.forEach((row, rowIdx) => {
+                  if (ansArry.includes(row.label)) {
+                    ansIndexs.push(rowIdx);
+                  }
+                });
+                question.value = ansIndexs;
+              } else if (question.type === 'radio') {
+                let answerIndex = question.data.findIndex(row => { return row.label === answer; });
+                if (answerIndex !== -1) {
+                  question.value = answerIndex;
+                }
+              } else {
+                question.value = answer;
+              }
+            });
           }
         }
       });

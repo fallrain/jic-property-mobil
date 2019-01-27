@@ -51,9 +51,8 @@ export default {
     },
     iconTypeInf () {
       const iconTypeInf = {
-        urgent: '紧急通知',
-        'sys': '系统通知',
-        'news': '我院动态'
+        'urgent': '紧急通知',
+        'sys': '系统通知'
       };
       return iconTypeInf[this.iconType];
     }

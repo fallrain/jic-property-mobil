@@ -26,7 +26,7 @@ export default {
     return {
       title: '',
       articleAuthor: {
-        authorName: '献县人民医院',
+        authorName: '物业办公室',
         accountName: '',
         date: ''
       },

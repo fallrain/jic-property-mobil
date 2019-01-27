@@ -30,9 +30,11 @@
           :crop="false"
           inputOfFile="file"
           @imageuploaded="imageUploaded"
-          :max-file-size="1024*1024*10"
-          :compress="60"
-          extensions="png,jpg,gif"
+          :max-file-size="1024*1024*20"
+          :maxWidth="1280"
+          :compress="70"
+          extensions="png,jpg,jpeg"
+          inputAccept="image/jpg,image/jpeg,image/png"
           :url="uploadUrl"
           :multiple-size="1"
           @errorhandle="uploadError"
@@ -80,6 +82,11 @@ export default {
   created () {
     this.genVdt();
   },
+  activated () {
+    this.form.advice = '';
+    this.form.imgUrl = '';
+    this.form.imgCode = '';
+  },
   methods: {
     genVdt () {
       this.vdt = new this.HValidate({
@@ -114,7 +121,7 @@ export default {
     },
     uploadError (res) {
       const errorObj = {
-        'FILE IS TOO LARGER MAX FILE IS': '图片最大不能超过10M'
+        'FILE IS TOO LARGER MAX FILE IS': '图片最大不能超过20M'
       };
       for (let p in errorObj) {
         if (new RegExp(p).test(res)) {

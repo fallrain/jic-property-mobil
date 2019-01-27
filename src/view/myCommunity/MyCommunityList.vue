@@ -92,12 +92,13 @@ export default {
         ).then(r => {
           if (r.code === '200') {
             sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
-            this.$router.push({
-              name: 'MyCommunityDetail',
-              params: {
-                communityCode: 'change'
-              }
-            });
+            this.$router.back();
+            // this.$router.push({
+            //   name: 'MyCommunityDetail',
+            //   params: {
+            //     communityCode: 'change'
+            //   }
+            // });
           }
         });
       }
