@@ -286,7 +286,7 @@ export default {
         let ownerName = this.isMaster ? this.masterForm.name : this.form.ownerName;
         this.$vux.confirm.show({
           title: '系统通知',
-          hideOnBlur: true,
+          hideOnBlur: false,
           content: `
                  您绑定的房子为：<span class="jic-weui-dialog-val">${this.name}</span><br>
                  房子房主为：<span class="jic-weui-dialog-val">${ownerName}</span>
