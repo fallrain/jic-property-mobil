@@ -23,21 +23,22 @@
 </template>
 <script>
 export default {
+  name: 'MyCommunityList',
   data () {
     return {
       communityList: []
     };
   },
   created () {
-    this.queryMyRooms();
+    // this.queryMyRooms();
   },
   activated () {
     // 重置请求
-    if (sessionStorage.getItem('BindUser.refreshMyCommunityList') === '1') {
-      this.communityList = [];
-      this.queryMyRooms();
-      sessionStorage.removeItem('BindUser.refreshMyCommunityList');
-    }
+    // if (sessionStorage.getItem('BindUser.refreshMyCommunityList') === '1') {
+    this.communityList = [];
+    this.queryMyRooms();
+    sessionStorage.removeItem('BindUser.refreshMyCommunityList');
+    // }
   },
   methods: {
     addCommunity () {
