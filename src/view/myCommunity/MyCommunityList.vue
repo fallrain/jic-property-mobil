@@ -37,7 +37,7 @@ export default {
     // if (sessionStorage.getItem('BindUser.refreshMyCommunityList') === '1') {
     this.communityList = [];
     this.queryMyRooms();
-    sessionStorage.removeItem('BindUser.refreshMyCommunityList');
+    // sessionStorage.removeItem('BindUser.refreshMyCommunityList');
     // }
   },
   methods: {
