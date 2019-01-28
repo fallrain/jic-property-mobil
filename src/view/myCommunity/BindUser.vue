@@ -256,7 +256,7 @@ export default {
               'cn': true
             },
             idCard: {
-              'required': true,
+              'required': false,
               IDCard: true
             },
             phone: {
@@ -332,12 +332,11 @@ export default {
             }
             validResult.then(r => {
               if (r.code === '200') {
-                const _this = this;
-                this.$vux.toast.show({
+                _this.$vux.toast.show({
                   type: 'text',
                   text: '绑定成功',
                   onHide () {
-                    sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
+                    // sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
                     _this.$router.replace({
                       name: 'MyCommunityList'
                     });

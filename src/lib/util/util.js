@@ -83,4 +83,13 @@ util.setUserInfToStorage = function () {
   localStorage.setItem('nickname', util.getUrlVal('nickname'));
   localStorage.setItem('headimg', util.getUrlVal('headimg'));
 };
+
+util.updateUserCommunity = function (data) {
+  sessionStorage.setItem('ownerCode', data.ownerCode);
+  sessionStorage.setItem('roomCode', data.roomCode);
+  sessionStorage.setItem('simpleCode', data.simpleCode);
+  sessionStorage.setItem('communityName', data.communityName);
+  sessionStorage.setItem('address', data.communityName + data.buildingName + data.unitName + data.roomName);
+};
+
 export default util;

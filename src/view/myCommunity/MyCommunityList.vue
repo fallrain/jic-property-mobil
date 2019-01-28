@@ -64,7 +64,11 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           this.communityList = r.value.map(function (v) {
+            console.log('abbbb......', v);
             return {
+              simpleCode: v.simpleCode,
+              ownerCode: v.ownerCode,
+              communityName: v.communityName,
               communityCode: v.communityCode,
               roomCode: v.roomCode,
               isDefault: v.isDefault === 1,
@@ -75,6 +79,7 @@ export default {
       });
     },
     setDefault (item) {
+      let _this = this;
       if (item.isDefault === 1) {
         this.$router.push({
           name: 'MyCommunityDetail',
@@ -92,7 +97,17 @@ export default {
           }
         ).then(r => {
           if (r.code === '200') {
-            sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
+            // 此处需要更新小区的配置
+            let data = {
+              ownerCode: item.ownerCode,
+              roomCode: item.roomCode,
+              simpleCode: item.simpleCode,
+              communityName: item.communityName,
+              address: item.address
+            };
+            _this.hUtil.updateUserCommunity(data);
+
+            // sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
             this.$router.back();
             // this.$router.push({
             //   name: 'MyCommunityDetail',
