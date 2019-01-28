@@ -22,11 +22,6 @@ export default {
         }
       }
     }
-    if (sessionStorage.getItem('hadGetWXInf') === '1') {
-      check();
-      next();
-      return;
-    }
     axGet(
       'communityInfo/wxGetAllInfoByWx',
       {
@@ -36,7 +31,6 @@ export default {
     ).then(r => {
       if (r.code === '200') {
         const data = r.value;
-        sessionStorage.setItem('hadGetWXInf', '1');
         sessionStorage.setItem('ownerCode', data.ownerCode);
         sessionStorage.setItem('roomCode', data.roomCode);
         sessionStorage.setItem('simpleCode', data.simpleCode);
