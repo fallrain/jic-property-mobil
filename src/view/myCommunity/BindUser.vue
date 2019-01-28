@@ -170,6 +170,10 @@ export default {
     }
   },
   activated () {
+    this.form.ownerName = '';
+    this.form.name = '';
+    this.form.idCard = '';
+    this.form.phone = '';
     // 切换时重新创建验证对象
     this.genVdt();
     // 设置详细房子名

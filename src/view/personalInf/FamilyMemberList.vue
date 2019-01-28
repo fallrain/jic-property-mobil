@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="FamilyMemberList">
+      <div v-for="(item,i) in list" :key="i">
       <h-left-slide
-        v-for="(item,i) in list"
-        :key="i"
+        v-if="item.ownerType !== 1"
         @remove-item="remove(item,i)"
       >
         <div class="FamilyMemberList-cnt">
@@ -12,9 +12,18 @@
             <span class="name">{{item.name}}</span>
             <span class="tel">{{item.tel}}</span>
           </p>
-          <p class="FamilyMemberList-cnt-type">{{item.ownerType===1?'房东':'租客'}}</p>
+          <p class="FamilyMemberList-cnt-type">租客</p>
         </div>
       </h-left-slide>
+      <div v-else class="FamilyMemberList-cnt">
+        <p class="FamilyMemberList-cnt-inf">
+          <img src="@/assets/img/Mask Copy 2@2x.png">
+          <span class="name">{{item.name}}</span>
+          <span class="tel">{{item.tel}}</span>
+        </p>
+        <p class="FamilyMemberList-cnt-type">房东</p>
+      </div>
+      </div>
     </div>
     <h-loadmore
       ref="hloadmore"
