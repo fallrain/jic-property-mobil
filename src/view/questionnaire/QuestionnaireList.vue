@@ -26,6 +26,7 @@
 import {
   HLoadmore
 } from '@/components/common';
+
 export default {
   components: {
     HLoadmore
@@ -50,17 +51,13 @@ export default {
       ).then(r => {
         if (r.code === '200') {
           const data = r.value;
-          this.questionnaireList = data.list.map(function (v) {
+          this.questionnaireList = this.questionnaireList.concat(data.list.map(function (v) {
             return {
               cnt: v.title,
               surveyCode: v.surveyCode
             };
-          });
-        }
-        if (this.questionnaireList && this.questionnaireList.length) {
-          this.pageCfg.loadingType = 2;
-        } else {
-          this.pageCfg.loadingType = 3;
+          }));
+          this.$refs.hloadmore.queryBack(r, this);
         }
       });
     },
