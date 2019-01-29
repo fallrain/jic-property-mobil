@@ -109,8 +109,7 @@ export default {
           title: '系统通知',
           hideOnBlur: false,
           content: `
-                 <span class="jic-weui-dialog-val">${communityName}</span>不是公众号默认设置的小区，
-                 是否进行切换？
+                 <span class="jic-weui-dialog-val">${communityName}</span>不是公众号默认设置的小区，是否进行切换？
               `,
           onConfirm () {
             _this.$router.push({
