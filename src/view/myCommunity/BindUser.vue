@@ -174,6 +174,9 @@ export default {
     this.form.name = '';
     this.form.idCard = '';
     this.form.phone = '';
+    this.masterForm.name = '';
+    this.masterForm.idCard = '';
+    this.masterForm.phone = '';
     // 切换时重新创建验证对象
     this.genVdt();
     // 设置详细房子名

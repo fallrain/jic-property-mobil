@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/wuye':'http://localhost:9096/'
+      '/wuye':'http://hospital.nonggaogroup.com/'
     },
 
     // Various Dev Server settings

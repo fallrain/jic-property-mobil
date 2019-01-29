@@ -89,7 +89,7 @@ util.updateUserCommunity = function (data) {
   sessionStorage.setItem('roomCode', data.roomCode);
   sessionStorage.setItem('simpleCode', data.simpleCode);
   sessionStorage.setItem('communityName', data.communityName);
-  sessionStorage.setItem('address', data.communityName + data.buildingName + data.unitName + data.roomName);
+  sessionStorage.setItem('address', data.address);
 };
 
 export default util;
