@@ -76,20 +76,57 @@ let util = {
   shallowCopyObject (obj) {
     /* 浅拷贝 */
     return JSON.parse(JSON.stringify(obj));
+  },
+  arithmetic (val1, val2, arithmetic = 1, floatNum = 2) {
+    val1 += '';
+    val2 += '';
+    const val1Split = val1.split('.');
+    const val2Split = val2.split('.');
+    const val1Len = val1Split[1] ? val1Split[1].length : 0;
+    const val2Len = val2Split[1] ? val2Split[1].length : 0;
+    const multiple = Math.pow(10, val1Len > val2Len ? val1Len : val2Len);
+    val1 = val1.replace('.', '') * (val1Len ? 1 : multiple);
+    val2 = val2.replace('.', '') * (val2Len ? 1 : multiple);
+    let returnValue;
+    switch (arithmetic) {
+      case 1:
+        returnValue = (val1 + val2) / multiple;
+        break;
+      case 2:
+        returnValue = (val1 - val2) / multiple;
+        break;
+      case 3:
+        returnValue = (val1 * val2) / multiple / multiple;
+        break;
+      case 4:
+        returnValue = val1 / val2;
+        break;
+    }
+    return this.formatFloat(returnValue, floatNum);
+  },
+  addZero (value) {
+    let returnStr = value + '';
+    let len = returnStr.split('.')[1];
+    if (len) {
+      len = len.length;
+    } else {
+      len = 0;
+    }
+    returnStr += ['.00', '0', ''][len] || '';
+    return returnStr;
+  },
+  updateUserCommunity (data) {
+    sessionStorage.setItem('ownerCode', data.ownerCode);
+    sessionStorage.setItem('roomCode', data.roomCode);
+    sessionStorage.setItem('simpleCode', data.simpleCode);
+    sessionStorage.setItem('communityName', data.communityName);
+    sessionStorage.setItem('address', data.address);
   }
 };
 util.setUserInfToStorage = function () {
   localStorage.setItem('uid', util.getUrlVal('uid'));
   localStorage.setItem('nickname', util.getUrlVal('nickname'));
   localStorage.setItem('headimg', util.getUrlVal('headimg'));
-};
-
-util.updateUserCommunity = function (data) {
-  sessionStorage.setItem('ownerCode', data.ownerCode);
-  sessionStorage.setItem('roomCode', data.roomCode);
-  sessionStorage.setItem('simpleCode', data.simpleCode);
-  sessionStorage.setItem('communityName', data.communityName);
-  sessionStorage.setItem('address', data.address);
 };
 
 export default util;

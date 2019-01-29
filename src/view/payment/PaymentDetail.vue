@@ -59,14 +59,13 @@ import {
   HChecklist,
   HPaper
 } from '@/components/common';
-import wxMix from '@/mixin/weixin';
 
 export default {
+  name: 'PaymentDetail',
   components: {
     HChecklist,
     HPaper
   },
-  mixins: [wxMix],
   props: ['type'],
   data () {
     return {
@@ -79,11 +78,9 @@ export default {
       checkedList: []
     };
   },
-  activated () {
-    sessionStorage.removeItem('PaymentDetail.payData');
-    this.getSdkCfg();
-  },
   created () {
+    sessionStorage.removeItem('PaymentDetail.payData');
+    this.check();
     this.query();
   },
   watch: {
@@ -93,7 +90,7 @@ export default {
         for (let p in checkList) {
           const data = checkList[p];
           if (data.checked) {
-            this.form.totalMoney += checkList[p].money;
+            this.form.totalMoney = this.hUtil.arithmetic(this.form.totalMoney, checkList[p].money);
           }
         }
       },
@@ -101,6 +98,28 @@ export default {
     }
   },
   methods: {
+    check () {
+      /* 检查是否需要切换小区 */
+      const _this = this;
+      const simpleCode = this.hUtil.getUrlVal('r_sys') ? decodeURIComponent(this.hUtil.getUrlVal('r_sys')) : '';
+      const communityName = this.hUtil.getUrlVal('r_sysname') ? decodeURIComponent(this.hUtil.getUrlVal('r_sysname')) : '';
+      const curCommunityName = sessionStorage.getItem('communityName');
+      if (simpleCode && simpleCode !== sessionStorage.getItem('simpleCode')) {
+        this.$vux.confirm.show({
+          title: '系统通知',
+          hideOnBlur: false,
+          content: `
+                 您查询的小区与默认小区不一致，当前是：<span class="jic-weui-dialog-val">${communityName}</span><br>
+                 默认是：<span class="jic-weui-dialog-val">${curCommunityName}</span>,要去切换默认小区吗？
+              `,
+          onConfirm () {
+            _this.$router.push({
+              name: 'MyCommunityList'
+            });
+          }
+        });
+      }
+    },
     toPaymentHome () {
       this.$router.replace({
         name: 'PaymentHome',

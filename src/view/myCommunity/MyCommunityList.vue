@@ -79,7 +79,6 @@ export default {
       });
     },
     setDefault (item) {
-      let _this = this;
       if (item.isDefault === 1) {
         this.$router.push({
           name: 'MyCommunityDetail',
@@ -105,16 +104,15 @@ export default {
               communityName: item.communityName,
               address: item.address
             };
-            _this.hUtil.updateUserCommunity(data);
+            this.hUtil.updateUserCommunity(data);
 
             // sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
-            this.$router.back();
-            // this.$router.push({
-            //   name: 'MyCommunityDetail',
-            //   params: {
-            //     communityCode: 'change'
-            //   }
-            // });
+            this.$router.push({
+              name: 'MyCommunityDetail',
+              params: {
+                communityCode: 'change'
+              }
+            });
           }
         });
       }

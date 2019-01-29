@@ -126,6 +126,7 @@ export default {
     };
   },
   created () {
+    this.check();
     this.pageCfg2 = this.hUtil.shallowCopyObject(this.pageCfg);
     this.query();
   },
@@ -135,6 +136,28 @@ export default {
     }
   },
   methods: {
+    check () {
+      /* 检查是否需要切换小区 */
+      const _this = this;
+      const simpleCode = this.hUtil.getUrlVal('r_sys') ? decodeURIComponent(this.hUtil.getUrlVal('r_sys')) : '';
+      const communityName = this.hUtil.getUrlVal('r_sysname') ? decodeURIComponent(this.hUtil.getUrlVal('r_sysname')) : '';
+      const curCommunityName = sessionStorage.getItem('communityName');
+      if (simpleCode && simpleCode !== sessionStorage.getItem('simpleCode')) {
+        this.$vux.confirm.show({
+          title: '系统通知',
+          hideOnBlur: false,
+          content: `
+                 您查询的小区与默认小区不一致，当前是：<span class="jic-weui-dialog-val">${communityName}</span><br>
+                 默认是：<span class="jic-weui-dialog-val">${curCommunityName}</span>,要去切换默认小区吗？
+              `,
+          onConfirm () {
+            _this.$router.push({
+              name: 'MyCommunityList'
+            });
+          }
+        });
+      }
+    },
     reset () {
       // 重置页码,页码可能已经缓存过
       // 现在废弃
