@@ -10,6 +10,7 @@ import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
 
 import {
+  AlertPlugin,
   WechatPlugin,
   ConfirmPlugin
 } from 'vux';
@@ -17,6 +18,7 @@ import {
 if (util.getUrlVal('uid')) {
   util.setUserInfToStorage();
 }
+Vue.use(AlertPlugin);
 Vue.use(WechatPlugin);
 Vue.use(ConfirmPlugin);
 
