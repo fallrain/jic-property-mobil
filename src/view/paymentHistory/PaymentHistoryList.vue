@@ -141,7 +141,6 @@ export default {
       const _this = this;
       const simpleCode = this.hUtil.getUrlVal('r_sys') ? decodeURIComponent(this.hUtil.getUrlVal('r_sys')) : '';
       const communityName = this.hUtil.getUrlVal('r_sysname') ? decodeURIComponent(this.hUtil.getUrlVal('r_sysname')) : '';
-      const curCommunityName = sessionStorage.getItem('communityName');
       if (simpleCode && simpleCode !== sessionStorage.getItem('simpleCode')) {
         this.$vux.confirm.show({
           title: '系统通知',
@@ -151,7 +150,11 @@ export default {
               `,
           onConfirm () {
             _this.$router.push({
-              name: 'MyCommunityList'
+              name: 'MyCommunityList',
+              query: {
+                redirect: 'PaymentHistoryList',
+                param: _this.chargeType
+              }
             });
           }
         });

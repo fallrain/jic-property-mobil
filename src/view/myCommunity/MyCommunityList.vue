@@ -105,14 +105,24 @@ export default {
               address: item.address
             };
             this.hUtil.updateUserCommunity(data);
-
-            // sessionStorage.setItem('BindUser.refreshMyCommunityList', '1');
-            this.$router.push({
-              name: 'MyCommunityDetail',
-              params: {
-                communityCode: 'change'
-              }
-            });
+            const redirect = this.hUtil.getUrlVal('redirect');
+            const param = this.hUtil.getUrlVal('param');
+            if (redirect) {
+              const paramName = redirect === 'PaymentHistoryList' ? 'tabType' : 'type';
+              this.$router.push({
+                name: redirect,
+                params: {
+                  [paramName]: param
+                }
+              });
+            } else {
+              this.$router.push({
+                name: 'MyCommunityDetail',
+                params: {
+                  communityCode: 'change'
+                }
+              });
+            }
           }
         });
       }
