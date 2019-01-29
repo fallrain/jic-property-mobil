@@ -103,14 +103,14 @@ export default {
       const _this = this;
       const simpleCode = this.hUtil.getUrlVal('r_sys') ? decodeURIComponent(this.hUtil.getUrlVal('r_sys')) : '';
       const communityName = this.hUtil.getUrlVal('r_sysname') ? decodeURIComponent(this.hUtil.getUrlVal('r_sysname')) : '';
-      const curCommunityName = sessionStorage.getItem('communityName');
+      // const curCommunityName = sessionStorage.getItem('communityName');
       if (simpleCode && simpleCode !== sessionStorage.getItem('simpleCode')) {
         this.$vux.confirm.show({
           title: '系统通知',
           hideOnBlur: false,
           content: `
-                 您查询的小区与默认小区不一致，当前是：<span class="jic-weui-dialog-val">${communityName}</span><br>
-                 默认是：<span class="jic-weui-dialog-val">${curCommunityName}</span>,要去切换默认小区吗？
+                 <span class="jic-weui-dialog-val">${communityName}</span>不是公众号默认设置的小区，
+                 是否进行切换？
               `,
           onConfirm () {
             _this.$router.push({
