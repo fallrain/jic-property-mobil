@@ -602,6 +602,9 @@
   border-top: 1px solid #D7D7D7;
   padding-top: 14px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   &-word {
     color: #666;
     font-size: 14px;
