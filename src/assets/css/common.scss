@@ -249,6 +249,33 @@
 /*border end*/
 
 /*公共*/
+.app-container {
+  min-height: calc(100vh - 50px);
+  border: 0.1px solid transparent;
+}
+
+.app-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  font-size: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.app-footer-img {
+  width: 18px;
+  height: 20px;
+}
+
+.app-footer-inf {
+  font-size: 12px;
+  margin-left: 8px;
+  color: #999;
+}
+
 @mixin mix-img100per {
   img {
     max-width: 100%;

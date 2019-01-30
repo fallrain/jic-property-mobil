@@ -190,6 +190,7 @@ export default {
       });
     },
     showPhoneNotice () {
+      window.scrollTo(0, 0);
       this.$vux.alert.show({
         title: '系统通知',
         content: '手机号码为您交房时提供给物业的手机号。'
@@ -288,6 +289,7 @@ export default {
       }
     },
     valid () {
+      window.scrollTo(0, 0);
       if (this.vdt.valid()) {
         const _this = this;
         let ownerName = this.isMaster ? this.masterForm.name : this.form.ownerName;

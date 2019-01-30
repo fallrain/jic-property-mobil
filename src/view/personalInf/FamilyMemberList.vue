@@ -27,7 +27,7 @@
     </div>
     <h-loadmore
       ref="hloadmore"
-      :show="true"
+      :show="pageCfg.loadingShow"
       :loadingType="pageCfg.loadingType"
       :data="pageCfg.page"
     ></h-loadmore>
@@ -84,7 +84,7 @@ export default {
       this.axPost(
         'roomOwner/wxUpdateOwner',
         {
-          roomCode: '59513c8c33cc4085a99cbef192698bbe', // todo
+          roomCode: sessionStorage.getItem('roomCode'),
           ownerCode: item.ownerCode
         },
         {

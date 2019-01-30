@@ -16,7 +16,7 @@
     </ol>
     <h-loadmore
       ref="hloadmore"
-      :show="true"
+      :show="pageCfg.loadingShow"
       :loadingType="pageCfg.loadingType"
       :data="pageCfg.page"
     ></h-loadmore>

@@ -1,10 +1,18 @@
 <template>
   <div id="app" class="app">
-    <keep-alive
-      :exclude="['PaymentHistoryList','PaymentDetail']"
-    >
-      <router-view/>
-    </keep-alive>
+    <div class="app-container">
+      <keep-alive
+        :exclude="['PaymentHistoryList','PaymentDetail']"
+      >
+        <router-view/>
+      </keep-alive>
+    </div>
+    <footer class="app-footer">
+      <img
+        class="app-footer-img"
+        src="@/assets/img/zjkbank-logo@2x.png"
+      ><span class="app-footer-inf">张家口银行提供技术支持</span>
+    </footer>
   </div>
 </template>
 

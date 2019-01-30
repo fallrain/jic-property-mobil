@@ -70,6 +70,10 @@ export default {
 </script>
 <style lang="scss">
   .HLoadmore {
+    .weui-loadmore {
+      margin-bottom: 0;
+      padding-bottom: 17px;
+    }
     .vux-loadmore.weui-loadmore_line:after,
     .vux-loadmore.weui-loadmore_line:before {
       content: "";
