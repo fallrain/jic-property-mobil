@@ -88,7 +88,7 @@ export default {
     return {
       form: {
         communityName: sessionStorage.getItem('communityName'),
-        company: '鸿宗物业',
+        company: '鸿棕物业',
         totalMoney: '',
         address: [
         ],
