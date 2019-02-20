@@ -66,12 +66,17 @@ let util = {
     let m = Math.pow(10, digit);
     return Math.round(f * m, 10) / m;
   },
-  formatNoSplitTime (val) {
+  formatNoSplitTime (val, isDate) {
     if (!val) {
       return '';
     }
     val += '';
-    return val.substr(0, 4) + '-' + val.substr(4, 2) + '-' + val.substr(6, 2) + ' ' + val.substr(8, 2) + ':' + val.substr(10, 2);
+    let returnStr = '';
+    returnStr += val.substr(0, 4) + '-' + val.substr(4, 2) + '-' + val.substr(6, 2);
+    if (val.length > 8 && !isDate) {
+      returnStr += ' ' + val.substr(8, 2) + ':' + val.substr(10, 2);
+    }
+    return returnStr;
   },
   shallowCopyObject (obj) {
     /* 浅拷贝 */
@@ -124,9 +129,9 @@ let util = {
   }
 };
 util.setUserInfToStorage = function () {
-  localStorage.setItem('uid', util.getUrlVal('uid'));
-  localStorage.setItem('nickname', util.getUrlVal('nickname'));
-  localStorage.setItem('headimg', util.getUrlVal('headimg'));
+  localStorage.setItem('uid', util.getUrlVal('uid') || '');
+  localStorage.setItem('nickname', util.getUrlVal('nickname') || '');
+  localStorage.setItem('headimg', util.getUrlVal('headimg') || '');
 };
 
 export default util;

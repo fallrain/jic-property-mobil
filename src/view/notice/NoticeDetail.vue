@@ -52,7 +52,8 @@ export default {
           const data = r.value;
           this.title = data.title;
           this.articleAuthor.accountName = data.author;
-          this.articleAuthor.date = this.hUtil.getCurDate() === data.createdTime.split(' ')[0] ? '今天' : data.createdTime.split(' ')[0];
+          const curDate = this.hUtil.formatNoSplitTime(data.pushTime, true);
+          this.articleAuthor.date = this.hUtil.getCurDate() === curDate.replace(/-/g, '') ? '今天' : curDate;
           this.cnt = data.content;
         }
       });
