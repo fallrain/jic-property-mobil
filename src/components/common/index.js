@@ -12,6 +12,7 @@ import HLoadmore from './HLoadmore';
 import HNotice from './HNotice';
 import HPaper from './HPaper';
 import HRadio from './HRadio';
+import HSuggestion from './HSuggestion';
 import HTextarea from './HTextarea';
 import HTitleItem from './HTitleItem';
 import HUpload from './HUpload';
@@ -31,6 +32,7 @@ export {
   HNotice,
   HPaper,
   HRadio,
+  HSuggestion,
   HTextarea,
   HTitleItem,
   HUpload

@@ -24,6 +24,7 @@ const BindUserChoose = () => import(/* webpackChunkName: "BindUserChoose" */ '@/
 const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommunity/BindUser');
 const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/Contact');
 const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobind');
+const SuggestionList = () => import(/* webpackChunkName: "SuggestionList" */ '@/view/suggestion/SuggestionList');
 
 let data = [
   {
@@ -214,11 +215,19 @@ let data = [
     }
   },
   {
-    path: '/Nobind',
+    path: '/nobind',
     name: 'Nobind',
     component: Nobind,
     meta: {
       title: '未绑定'
+    }
+  },
+  {
+    path: '/suggestionList',
+    name: 'SuggestionList',
+    component: SuggestionList,
+    meta: {
+      title: '意见建议列表'
     }
   }
 ];

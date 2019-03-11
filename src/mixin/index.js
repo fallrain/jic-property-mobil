@@ -1,5 +1,5 @@
 import {axGet} from '@/lib/ajax';
-import router from '@/router';
+
 export default {
   beforeRouteEnter (to, from, next) {
     function check () {
@@ -17,12 +17,13 @@ export default {
       if (!sessionStorage.getItem('simpleCode')) {
         if (!noAuthPages.includes(to.name)) {
           // 没有绑定小区直接到添加小区页面
-          router.replace({
+          /* router.replace({
             name: 'Nobind'
-          });
+          }); */
         }
       }
     }
+
     axGet(
       'communityInfo/wxGetAllInfoByWx',
       {
