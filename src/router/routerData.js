@@ -23,6 +23,7 @@ const RoomList = () => import(/* webpackChunkName: "RoomList" */ '@/view/myCommu
 const BindUserChoose = () => import(/* webpackChunkName: "BindUserChoose" */ '@/view/myCommunity/BindUserChoose');
 const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommunity/BindUser');
 const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/Contact');
+const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobind');
 
 let data = [
   {
@@ -210,6 +211,14 @@ let data = [
     component: Contact,
     meta: {
       title: '联系我们'
+    }
+  },
+  {
+    path: '/Nobind',
+    name: 'Nobind',
+    component: Nobind,
+    meta: {
+      title: '未绑定'
     }
   }
 ];

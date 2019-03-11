@@ -308,12 +308,15 @@
   color: #666;
   word-break: break-all;
   overflow: hidden;
+
   &.px16 {
     font-size: 16px;
   }
+
   img {
     display: block;
   }
+
   @include mix-img100per;
 }
 
@@ -395,6 +398,7 @@
   bottom: -6.5px;
   height: 6.5px;
   font-size: 0;
+
   img {
     width: 100%;
     height: 100%;
@@ -411,25 +415,31 @@
   padding-bottom: 11px;
   padding-left: 7px;
   border-bottom: 1px solid #DDD;
+
   .vux-check-icon > .weui-icon-success-circle:before,
   .vux-check-icon > .weui-icon-success:before {
     color: #5E8CF8;
   }
+
   &.sucesss {
     .vux-check-icon > .weui-icon-success-circle:before,
     .vux-check-icon > .weui-icon-success:before {
       color: #09bb07;
     }
   }
+
   &.reverse {
     flex-direction: row-reverse;
+
     .HChecklist-cnt {
       margin-left: 0;
     }
+
     .vux-check-icon {
       margin-left: 10px;
     }
   }
+
   [class*=" weui-icon-"]:before {
     margin-left: 0;
     margin-right: 0;
@@ -471,6 +481,7 @@
 
 .PaymentHome-cnt {
   text-align: center;
+
   img {
     margin-top: 46px;
     width: 190px;
@@ -501,14 +512,17 @@
   margin-top: 36px;
   padding-right: 13px;
   padding-left: 13px;
+
   .weui-cell__bd {
     color: #333;
     font-size: 14px;
   }
+
   .weui-cells_checkbox {
     .weui-check:checked + .vux-checklist-icon-checked:before {
       color: #5E8CF8;
     }
+
     .weui-check:checked + .weui-icon-checked:before {
       color: #5E8CF8;
     }
@@ -520,19 +534,23 @@
     color: #333;
     font-size: 14px;
   }
+
   .weui-cells_checkbox {
     .weui-check:checked + .vux-checklist-icon-checked:before {
       color: #5E8CF8;
     }
+
     .weui-check:checked + .weui-icon-checked:before {
       color: #5E8CF8;
     }
   }
+
   .weui-cells:after,
   .weui-cells:before,
   .weui-cell:before {
     display: none;
   }
+
   .weui-cell {
     border-bottom: 1px solid #DDD;
     padding: 18px 9px 11px 9px;
@@ -542,6 +560,7 @@
 .PaymentHome-btn-par {
   margin-top: 98px;
   text-align: center;
+
   .HButton {
     font-size: 14px;
   }
@@ -561,11 +580,13 @@
   height: 86px;
   border-bottom: 6px solid #EFEEF5;
   background: #fff;
+
   img {
     width: 40px;
     height: 40px;
     margin-left: 36px;
   }
+
   p {
     color: #333;
     font-size: 20px;
@@ -587,16 +608,19 @@
   padding-top: 18px;
   padding-left: 12px;
   padding-right: 12px;
+
   .title {
     font-weight: 600;
     color: #383838;
     font-size: 18px;
   }
+
   .name {
     font-size: 16px;
     color: #999;
     margin-right: 19px;
   }
+
   .val {
     flex-shrink: 0;
   }
@@ -605,10 +629,12 @@
 
 .PaymentDetail-checklist {
   padding-top: 22px;
+
   .weui-cell {
     padding-right: 1px;
     padding-left: 0;
   }
+
   .HChecklist {
     align-items: flex-start;
   }
@@ -632,10 +658,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
   &-word {
     color: #666;
     font-size: 14px;
   }
+
   &-money {
     color: #5E8CF8;
     font-size: 24px;
@@ -658,10 +686,12 @@
 .PaymentDetail-checklist-cnt-total {
   display: flex;
   justify-content: space-between;
+
   & > .name {
     font-size: 16px;
     color: #333;
   }
+
   & > .val {
     font-size: 16px;
     color: #5e8cf8;
@@ -689,6 +719,7 @@
   align-items: center;
   border-bottom: 6px solid #EFEEF5;
   height: 76px;
+
   img {
     width: 40px;
     height: 40px;
@@ -718,6 +749,7 @@
   padding-top: 13px;
   padding-left: 12px;
   padding-right: 12px;
+
   .HChecklist {
     padding-top: 23px;
     padding-bottom: 23px;
@@ -732,10 +764,12 @@
 
 .PaymentChannel-checklist-cnt {
   display: flex;
+
   .iconfont {
     font-size: 24px;
     color: #00C802;
   }
+
   p {
     margin-left: 30px;
     font-size: 18px;
@@ -761,16 +795,19 @@
   padding-bottom: 17px;
   padding-left: 10px;
   border-bottom: 1px solid #ccc;
+
   .name {
     flex-shrink: 0;
     font-size: 14px;
     color: #999;
     margin-right: 10px;
   }
+
   .money {
     font-size: 24px;
     color: #5E8CF8;
   }
+
   .val {
     font-size: 12px;
     color: #333;
@@ -782,6 +819,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+
   .val {
 
   }
@@ -805,10 +843,12 @@
   padding-top: 66px;
   text-align: center;
   color: #fff;
+
   .iconfont {
     font-size: 30px;
     margin-right: 18px;
   }
+
   p {
     font-size: 22px;
   }
@@ -834,6 +874,7 @@
       border-bottom: 2px solid #5E8CF8;
     }
   }
+
   .vux-tab-bar-inner {
     background: #5E8CF8;
   }
@@ -862,18 +903,22 @@
   float: right;
   color: #666;
   font-size: 12px;
+
   .icon-rili {
     font-size: 18px;
     color: #3778FF;
   }
+
   .icon-jiantou9 {
     font-size: 12px;
     color: #666;
+
     &::before {
       display: inline-block;
       transform: scaleX(.6);
     }
   }
+
   span {
     margin-left: 6px;
     margin-right: 4px;
@@ -887,6 +932,7 @@
 .PaymentHistoryList-item {
   padding: 12px 6px;
   border-bottom: 1px solid #ddd;
+
   &:first-child {
     border-top: 1px solid #ddd;
   }
@@ -896,6 +942,7 @@
   line-height: 37px;
   color: #5E8CF8;
   font-size: 26px;
+
   span {
     color: #999;
     font-size: 14px;
@@ -968,6 +1015,7 @@
   width: 50px;
   height: 50px;
   margin-right: 20px;
+
   img {
     border-radius: 100%;
     width: 100%;
@@ -986,10 +1034,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 7px;
+
   .name {
     color: #333;
     font-size: 14px;
   }
+
   .time {
     color: #999;
     font-size: 12px;
@@ -1013,11 +1063,13 @@
   width: 100%;
   margin-top: 10px;
   text-align: right;
+
   .iconfont {
     margin-right: 6px;
     color: #5E8CF8;
     font-size: 14px;
   }
+
   .count {
     color: #999;
     font-size: 12px;
@@ -1045,10 +1097,12 @@
   height: 56px;
   margin-right: 20px;
   justify-content: space-between;
+
   img {
     width: 100%;
     height: 100%;
   }
+
   .del {
     font-size: 18px;
     position: absolute;
@@ -1068,11 +1122,13 @@
   padding-left: 25px;
   padding-right: 25px;
   padding-top: 4px;
+
   .HNotice-item {
     margin-top: 32px;
     margin-right: auto;
     margin-left: auto;
   }
+
   .HNotice-btm {
     // padding-left: 37px;
     // padding-right: 29px;
@@ -1136,6 +1192,7 @@
 
 .QuestionnaireDetail-paper-cnt {
   text-align: center;
+
   .title {
     display: inline-block;
     width: 178px;
@@ -1145,6 +1202,7 @@
     margin-top: 16px;
     margin-bottom: 16px;
   }
+
   .cnt {
     padding-right: 23px;
     padding-left: 23px;
@@ -1160,6 +1218,7 @@
   margin-top: 14px;
   padding-right: 34px;
   padding-left: 34px;
+
   .HTextarea-ta {
     height: 62px;
     border-radius: 3px;
@@ -1170,6 +1229,7 @@
   padding-top: 18px;
   padding-bottom: 18px;
   border-bottom: 1px solid #EDEDED;
+
   ol {
     padding-left: 14px;
   }
@@ -1180,6 +1240,7 @@
   color: #666;
   letter-spacing: 1px;
   margin-bottom: 10px;
+
   .iconfont {
     font-size: 14px;
     color: #479FE3;
@@ -1286,12 +1347,14 @@
 
 .PersonalInformation-item-cnt {
   padding-left: 18px;
+
   & > .title {
     color: #333;
     font-weight: 600;
     font-size: 17px;
     margin-bottom: 2px;
   }
+
   & > .introduction {
     color: #999;
     font-size: 14px;
@@ -1324,11 +1387,13 @@
     height: 23px;
     margin-right: 13px;
   }
+
   .name {
     margin-right: 34px;
     color: #282727;
     font-size: 18px;
   }
+
   .tel {
     color: #666;
     font-size: 14px;
@@ -1352,8 +1417,10 @@
   padding-left: 32px;
   height: 50px;
   background: #fff;
+
   &.active {
     background: #E6EDFF;
+
     .MyCommunityList-item-icon {
       color: #537CDB;
     }
@@ -1379,6 +1446,7 @@
   color: #5884E9;
   font-size: 16px;
   text-align: center;
+
   .iconfont {
     font-size: 14px;
     margin-right: 8px;
@@ -1406,11 +1474,13 @@
   color: #333232;
   white-space: nowrap;
   overflow: hidden;
+
   .iconfont {
     color: #537CDB;
     font-size: 28px;
     margin-right: 4px;
   }
+
   span {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1423,6 +1493,7 @@
   align-items: center;
   color: #5884E9;
   font-size: 16px;
+
   .iconfont {
     font-size: 23px;
     margin-right: 2px;
@@ -1450,6 +1521,7 @@
   color: #5884E9;
   font-size: 18px;
   padding-left: 20px;
+
   .iconfont {
     font-size: 28px;
     margin-right: 4px;
@@ -1477,6 +1549,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 20px;
+
   .iconfont {
     font-size: 22px;
     color: #537CDB;
@@ -1530,6 +1603,7 @@
   color: #333232;
   font-size: 16px;
   margin-bottom: 20px;
+
   .iconfont {
     font-size: 20px;
     color: #5E8CF8;
@@ -1543,23 +1617,28 @@
   justify-content: space-between;
   border-bottom: 1px solid #999;
   padding: 15px 8px;
+
   .name {
     flex-shrink: 0;
     font-size: 16px;
     color: #C4C4C4;
   }
+
   .val {
     text-align: right;
     font-size: 16px;
     color: #333;
+
     .iconfont {
       color: #5E8CF8;
     }
   }
+
   .multVal {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
     .BindUser-valid-item-ipt {
       width: 64px;
       margin-left: 2px;
@@ -1591,6 +1670,7 @@
   justify-content: space-between;
   padding: 20px 32px 20px 22px;
   border-bottom: 1px solid #ddd;
+
   .iconfont {
     font-size: 28px;
     color: #55ABEE;
@@ -1608,11 +1688,13 @@
 .Contact-item-cnt {
   display: flex;
   align-items: center;
+
   .title {
     font-size: 17px;
     color: #333;
     line-height: 24px;
   }
+
   .tel {
     font-size: 14px;
     color: #999;
@@ -1621,3 +1703,30 @@
 }
 
 /*联系我们 end*/
+
+/*无绑定用户提示*/
+.Nobind {
+  text-align: center;
+}
+
+.Nobind-img-par {
+}
+
+.Nobind-img {
+  margin-top: 175*100/667 + vh;
+  width: 228px;
+  height: 149px;
+}
+
+.Nobind-img-inf {
+  color: #C0C0C0;
+  font-size: 18px;
+  margin-top: 15px;
+  line-height: 1;
+}
+
+.Nobind-btn {
+  margin-top: 8000/667 + vh;
+}
+
+/*无绑定用户提示*/

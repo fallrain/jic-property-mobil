@@ -11,13 +11,14 @@ export default {
         'RoomList',
         'BindUserChoose',
         'BindUser',
+        'Nobind',
         'PersonalInformation'
       ];
       if (!sessionStorage.getItem('simpleCode')) {
         if (!noAuthPages.includes(to.name)) {
           // 没有绑定小区直接到添加小区页面
           router.replace({
-            name: 'MyCommunityList'
+            name: 'Nobind'
           });
         }
       }
