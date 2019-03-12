@@ -1770,3 +1770,33 @@
 }
 
 /*事件上报 end*/
+
+/*我要打分*/
+.HScore {
+  .HTextarea-ta {
+    border: 0;
+  }
+}
+
+.HScore-ta-par {
+  margin-top: 2px;
+  box-shadow:0 3px 3px 0 rgba(204,204,204,0.3);
+}
+
+.HScore-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border-bottom: 1px solid #F8F8F8;
+  box-shadow: 0 1px 1px 0 rgba(208, 208, 208, 0.39);
+}
+
+.HScore-name {
+  font-size: 16px;
+  color: #333;
+}
+
+/*我要打分 end*/

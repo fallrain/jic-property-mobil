@@ -13,6 +13,7 @@ import HNotice from './HNotice';
 import HPaper from './HPaper';
 import HPicker from './HPicker';
 import HRadio from './HRadio';
+import HScore from './HScore';
 import HSuggestion from './HSuggestion';
 import HTextarea from './HTextarea';
 import HTitleItem from './HTitleItem';
@@ -34,6 +35,7 @@ export {
   HPaper,
   HPicker,
   HRadio,
+  HScore,
   HSuggestion,
   HTextarea,
   HTitleItem,

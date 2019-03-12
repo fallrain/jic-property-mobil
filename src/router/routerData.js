@@ -27,6 +27,7 @@ const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobi
 const SuggestionList = () => import(/* webpackChunkName: "SuggestionList" */ '@/view/suggestion/SuggestionList');
 const SuggestionForm = () => import(/* webpackChunkName: "SuggestionForm" */ '@/view/suggestion/SuggestionForm');
 const EventReport = () => import(/* webpackChunkName: "EventReport" */ '@/view/event/EventReport');
+const Score = () => import(/* webpackChunkName: "Score" */ '@/view/event/Score');
 
 let data = [
   {
@@ -246,6 +247,14 @@ let data = [
     component: EventReport,
     meta: {
       title: '事件上报'
+    }
+  },
+  {
+    path: '/score',
+    name: 'Score',
+    component: Score,
+    meta: {
+      title: '我要评分'
     }
   }
 ];
