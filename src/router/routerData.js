@@ -26,6 +26,7 @@ const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/C
 const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobind');
 const SuggestionList = () => import(/* webpackChunkName: "SuggestionList" */ '@/view/suggestion/SuggestionList');
 const SuggestionForm = () => import(/* webpackChunkName: "SuggestionForm" */ '@/view/suggestion/SuggestionForm');
+const EventReport = () => import(/* webpackChunkName: "EventReport" */ '@/view/event/EventReport');
 
 let data = [
   {
@@ -232,11 +233,19 @@ let data = [
     }
   },
   {
-    path: '/SuggestionForm',
+    path: '/suggestionForm',
     name: 'SuggestionForm',
     component: SuggestionForm,
     meta: {
       title: '意见建议'
+    }
+  },
+  {
+    path: '/eventReport',
+    name: 'EventReport',
+    component: EventReport,
+    meta: {
+      title: '事件上报'
     }
   }
 ];
