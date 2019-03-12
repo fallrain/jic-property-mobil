@@ -11,6 +11,7 @@ import HLeftSlide from './HLeftSlide';
 import HLoadmore from './HLoadmore';
 import HNotice from './HNotice';
 import HPaper from './HPaper';
+import HPicker from './HPicker';
 import HRadio from './HRadio';
 import HSuggestion from './HSuggestion';
 import HTextarea from './HTextarea';
@@ -31,6 +32,7 @@ export {
   HLoadmore,
   HNotice,
   HPaper,
+  HPicker,
   HRadio,
   HSuggestion,
   HTextarea,

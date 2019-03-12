@@ -25,6 +25,7 @@ const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommu
 const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/Contact');
 const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobind');
 const SuggestionList = () => import(/* webpackChunkName: "SuggestionList" */ '@/view/suggestion/SuggestionList');
+const SuggestionForm = () => import(/* webpackChunkName: "SuggestionForm" */ '@/view/suggestion/SuggestionForm');
 
 let data = [
   {
@@ -228,6 +229,14 @@ let data = [
     component: SuggestionList,
     meta: {
       title: '意见建议列表'
+    }
+  },
+  {
+    path: '/SuggestionForm',
+    name: 'SuggestionForm',
+    component: SuggestionForm,
+    meta: {
+      title: '意见建议'
     }
   }
 ];

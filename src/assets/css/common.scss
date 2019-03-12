@@ -1730,3 +1730,27 @@
 }
 
 /*无绑定用户提示*/
+
+/*建议列表*/
+.SuggestionForm {
+  padding-right: 20px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  box-shadow: 0 3px 3px 0 rgba(204, 204, 204, 0.3);
+
+  .HTextarea-ta {
+    margin-top: 4px;
+    border: 0;
+
+    &::-webkit-input-placeholder {
+      color: #C4C4C4;
+    }
+  }
+}
+
+.SuggestionForm-btm {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/*建议列表 end*/
