@@ -4,7 +4,8 @@
   type="button"
   :style="{
     width:width+'px',
-    height:height+'px'
+    height:height+'px',
+    color:color
   }"
 >
   {{cnt}}
@@ -13,6 +14,9 @@
 <script>
 export default {
   props: {
+    color: {
+      type: String
+    },
     width: {
       default: 100
     },

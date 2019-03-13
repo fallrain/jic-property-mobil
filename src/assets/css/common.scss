@@ -1732,11 +1732,12 @@
 /*无绑定用户提示*/
 
 /*建议列表*/
-@mixin ipt-placeholder-c4{
+@mixin ipt-placeholder-c4 {
   &::-webkit-input-placeholder {
     color: #C4C4C4;
   }
 }
+
 .SuggestionForm {
   padding-right: 20px;
   padding-bottom: 12px;
@@ -1783,7 +1784,7 @@
 
 .HScore-ta-par {
   margin-top: 2px;
-  box-shadow:0 3px 3px 0 rgba(204,204,204,0.3);
+  box-shadow: 0 3px 3px 0 rgba(204, 204, 204, 0.3);
 }
 
 .HScore-title {
@@ -1806,9 +1807,94 @@
 
 /*我的事件*/
 
-.MyEventList{
+.MyEventList {
   padding: 17px 20px;
   background: #F8F8F8;
   min-height: 100vh;
 }
+
 /*我的事件 end*/
+
+/*事件详情*/
+
+.EventDetail-form {
+
+}
+
+.EventDetail-form-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-size: 16px;
+  border-bottom: 1px solid #D0D0D0;
+
+  .name {
+    flex-shrink: 0;
+    color: #999;
+  }
+
+  .val {
+    color: #333;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.EventDetail-answer {
+  background: #F8F8F8;
+  color: #5E8CF8;
+  font-size: 14px;
+  padding: 16px 20px;
+}
+
+.EventDetail-answer-item {
+  line-height: 30px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.EventDetail-evaluate {
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+
+.EventDetail-evaluate-btn-par {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 22px;
+}
+
+.EventDetail-evaluate-btn {
+  width: 83px;
+  height: 30px;
+  border: 1px solid #5E8CF8;
+  border-radius: 15px;
+  background: #fff;
+  color: #5E8CF8;
+  font-size: 13px;
+}
+
+.EventDetail-evaluate-inf {
+  font-size: 13px;
+  color: #333;
+  margin-top: 13px;
+  padding-left: 26px;
+  padding-right: 26px;
+}
+
+.EventDetail-btm {
+  margin-bottom: 20px;
+
+  .HButton {
+    background: #FF6666;
+  }
+}
+
+/*事件详情end*/

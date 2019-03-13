@@ -29,6 +29,7 @@ const SuggestionForm = () => import(/* webpackChunkName: "SuggestionForm" */ '@/
 const EventReport = () => import(/* webpackChunkName: "EventReport" */ '@/view/event/EventReport');
 const Score = () => import(/* webpackChunkName: "Score" */ '@/view/event/Score');
 const MyEventList = () => import(/* webpackChunkName: "MyEventList" */ '@/view/event/MyEventList');
+const EventDetail = () => import(/* webpackChunkName: "EventDetail" */ '@/view/event/EventDetail');
 
 let data = [
   {
@@ -264,6 +265,14 @@ let data = [
     component: MyEventList,
     meta: {
       title: '我的上报事件'
+    }
+  },
+  {
+    path: '/eventDetail',
+    name: 'EventDetail',
+    component: EventDetail,
+    meta: {
+      title: '事件详情'
     }
   }
 ];
