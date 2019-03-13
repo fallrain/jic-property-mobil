@@ -5,6 +5,7 @@ import HButton from './HButton';
 import HCell from './HCell';
 import HCheckbox from './HCheckbox';
 import HChecklist from './HChecklist';
+import HEvent from './HEvent';
 import HGroup from './HGroup';
 import HItem from './HItem';
 import HLeftSlide from './HLeftSlide';
@@ -27,6 +28,7 @@ export {
   HCell,
   HCheckbox,
   HChecklist,
+  HEvent,
   HGroup,
   HItem,
   HLeftSlide,

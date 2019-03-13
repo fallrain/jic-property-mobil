@@ -22,10 +22,17 @@ export default {
     value: {
       type: Number,
       default: 0
+    },
+    noClick: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     setStar (index) {
+      if (this.noClick) {
+        return;
+      }
       /* 设置星星数 */
       this.$emit('input', index + 1);
     }

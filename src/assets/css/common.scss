@@ -1732,6 +1732,11 @@
 /*无绑定用户提示*/
 
 /*建议列表*/
+@mixin ipt-placeholder-c4{
+  &::-webkit-input-placeholder {
+    color: #C4C4C4;
+  }
+}
 .SuggestionForm {
   padding-right: 20px;
   padding-bottom: 12px;
@@ -1741,10 +1746,7 @@
   .HTextarea-ta {
     margin-top: 4px;
     border: 0;
-
-    &::-webkit-input-placeholder {
-      color: #C4C4C4;
-    }
+    @include ipt-placeholder-c4;
   }
 }
 
@@ -1775,6 +1777,7 @@
 .HScore {
   .HTextarea-ta {
     border: 0;
+    @include ipt-placeholder-c4;
   }
 }
 
@@ -1800,3 +1803,12 @@
 }
 
 /*我要打分 end*/
+
+/*我的事件*/
+
+.MyEventList{
+  padding: 17px 20px;
+  background: #F8F8F8;
+  min-height: 100vh;
+}
+/*我的事件 end*/
