@@ -3,7 +3,7 @@
     <header class="HEvent-head">
       <span class="HEvent-head-eId">{{eId}}</span>
       <button
-        v-if="isTask && processed"
+        v-if="isTask && !processed"
         type="button"
         class="handle"
       >处理

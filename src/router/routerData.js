@@ -31,6 +31,7 @@ const Score = () => import(/* webpackChunkName: "Score" */ '@/view/event/Score')
 const MyEventList = () => import(/* webpackChunkName: "MyEventList" */ '@/view/event/MyEventList');
 const EventDetail = () => import(/* webpackChunkName: "EventDetail" */ '@/view/event/EventDetail');
 const TaskList = () => import(/* webpackChunkName: "TaskList" */ '@/view/task/TaskList');
+const TaskDetail = () => import(/* webpackChunkName: "TaskDetail" */ '@/view/task/TaskDetail');
 
 let data = [
   {
@@ -282,6 +283,15 @@ let data = [
     component: TaskList,
     meta: {
       title: '我收到的任务'
+    }
+  },
+  {
+    path: '/taskDetail/:isProcessed',
+    name: 'TaskDetail',
+    props: true,
+    component: TaskDetail,
+    meta: {
+      title: '事件详情'
     }
   }
 ];

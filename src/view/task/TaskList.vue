@@ -17,6 +17,7 @@
           :question="item.question"
           :handlerInfo="item.handlerInfo"
           :level="item.level"
+          @click.native="toDetail('0')"
         ></h-event>
       </ol>
     </div>
@@ -31,6 +32,7 @@
           :question="item.question"
           :handlerInfo="item.handlerInfo"
           :level="item.level"
+          @click.native="toDetail('1')"
         ></h-event>
       </ol>
     </div>
@@ -154,15 +156,11 @@ export default {
         }
       });
     },
-    toDetail (item) {
-      if (item.outerChain === 1) {
-        window.location.href = item.url;
-        return;
-      }
+    toDetail (isProcessed) {
       this.$router.push({
-        name: 'NewsPar',
+        name: 'TaskDetail',
         params: {
-          cpntName: 'NewsDetail-' + item.articleCode
+          isProcessed
         }
       });
     }

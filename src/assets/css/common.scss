@@ -365,6 +365,21 @@
   color: #5E8CF8;
 }
 
+.common-kv-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+
+  .name {
+    color: #999;
+  }
+
+  .val {
+    color: #333;
+  }
+}
+
 /*公共 end*/
 
 /*公共组件*/
@@ -1903,7 +1918,8 @@
 .TaskList {
   background: #F8F8F8;
   min-height: calc(100vh - 50px);
-  .TaskCard{
+
+  .TaskCard {
     margin-top: 15px;
   }
 }
@@ -1936,8 +1952,44 @@
     border-radius: 15px;
   }
 }
-.TaskList-card-par{
+
+.TaskList-card-par {
   padding-right: 20px;
   padding-left: 20px;
 }
+
 /*任务列表end*/
+
+/*任务详情*/
+.TaskDetail-handleform-par {
+  padding: 20px;
+  background: #f8f8f8;
+}
+
+.TaskDetail-handleform {
+  box-shadow: 0 3px 3px 0 rgba(204, 204, 204, 0.3);
+  border-radius: 10px;
+  background: #fff;
+  padding-bottom: 13px;
+
+  .HTextarea-ta {
+    border: 0;
+  }
+}
+
+.TaskDetail-handleform-ta-par {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.TaskDetail-handleform-title {
+  padding-left: 25px;
+  padding-right: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.TaskDetail-img-par {
+  margin-top: 15px;
+}
+
+/*任务详情 end*/
