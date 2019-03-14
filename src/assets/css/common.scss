@@ -1898,3 +1898,46 @@
 }
 
 /*事件详情end*/
+
+/*任务列表*/
+.TaskList {
+  background: #F8F8F8;
+  min-height: calc(100vh - 50px);
+  .TaskCard{
+    margin-top: 15px;
+  }
+}
+
+.TaskList-tab-par {
+  .vux-tab .vux-tab-item {
+    font-size: 18px;
+  }
+
+  .vux-tab .vux-tab-item.vux-tab-selected {
+    color: #5E8CF8;
+  }
+
+  .vux-tab-ink-bar {
+    background: #5E8CF8;
+  }
+}
+
+.TaskCard-cnt-item {
+  .name {
+    color: #999;
+  }
+
+  .handle {
+    width: 83px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #5E8CF8;
+    color: #5E8CF8;
+    border-radius: 15px;
+  }
+}
+.TaskList-card-par{
+  padding-right: 20px;
+  padding-left: 20px;
+}
+/*任务列表end*/

@@ -30,6 +30,7 @@ const EventReport = () => import(/* webpackChunkName: "EventReport" */ '@/view/e
 const Score = () => import(/* webpackChunkName: "Score" */ '@/view/event/Score');
 const MyEventList = () => import(/* webpackChunkName: "MyEventList" */ '@/view/event/MyEventList');
 const EventDetail = () => import(/* webpackChunkName: "EventDetail" */ '@/view/event/EventDetail');
+const TaskList = () => import(/* webpackChunkName: "TaskList" */ '@/view/task/TaskList');
 
 let data = [
   {
@@ -273,6 +274,14 @@ let data = [
     component: EventDetail,
     meta: {
       title: '事件详情'
+    }
+  },
+  {
+    path: '/taskList',
+    name: 'TaskList',
+    component: TaskList,
+    meta: {
+      title: '我收到的任务'
     }
   }
 ];

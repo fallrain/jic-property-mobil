@@ -2,6 +2,7 @@ import HAbcList from './HAbcList';
 import HArticleAuthor from './HArticleAuthor';
 import HArticleTitle from './HArticleTitle';
 import HButton from './HButton';
+import HButtonTab from './HButtonTab';
 import HCell from './HCell';
 import HCheckbox from './HCheckbox';
 import HChecklist from './HChecklist';
@@ -25,6 +26,7 @@ export {
   HArticleAuthor,
   HArticleTitle,
   HButton,
+  HButtonTab,
   HCell,
   HCheckbox,
   HChecklist,

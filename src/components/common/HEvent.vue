@@ -2,13 +2,25 @@
   <div class="HEvent">
     <header class="HEvent-head">
       <span class="HEvent-head-eId">{{eId}}</span>
-      <span :class="['HEvent-head-tag',headTag.cls]">{{headTag.val}}</span>
+      <button
+        v-if="isTask && processed"
+        type="button"
+        class="handle"
+      >处理
+      </button>
+      <span
+        v-if="!isTask"
+        :class="['HEvent-head-tag',headTag.cls]"
+      >{{headTag.val}}</span>
     </header>
     <div
       class="HEvent-cnt"
       v-if="question"
     >
       <ol>
+        <li class="HEvent-cnt-item" v-if="isTask">
+          <label class="name">上报人：</label><span class="val">{{question.reporter}}</span>
+        </li>
         <li class="HEvent-cnt-item">
           <label class="name">上报时间：</label><span class="val">{{question.reportTime}}</span>
         </li>
@@ -38,7 +50,7 @@
     </div>
     <footer class="HEvent-footer">
       <div
-        v-if="processed"
+        v-if="!isTask && processed"
         class="HEvent-footer-btn-par active"
       >
         <h-score
@@ -46,6 +58,7 @@
           :noClick="true"
         ></h-score>
         <button
+          v-if="!isTask"
           type="button"
           class="HEvent-footer-btn"
         >重新评价
@@ -53,7 +66,7 @@
       </div>
       <div
         class="HEvent-footer-btn-par"
-        v-else
+        v-if="!isTask && !processed"
       >
         <button
           class="HEvent-footer-btn"
@@ -72,6 +85,10 @@ export default {
   name: 'HEvent',
   components: {HScore},
   props: {
+    isTask: {
+      type: Boolean,
+      default: false
+    },
     eId: {
       type: String
     },
@@ -121,9 +138,20 @@ export default {
     padding-left: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+
+    .handle {
+      color: #5E8CF8;
+      border: 1px solid #5E8CF8;
+      width: 82px;
+      height: 30px;
+      border-radius: 15px;
+      background: #fff;
+      font-size: 14px;
+    }
   }
 
   .HEvent-head-eId {
+    font-size: 14px;
     color: #999;
   }
 
@@ -185,8 +213,10 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
     &.active {
       justify-content: space-between;
+
       .HEvent-footer-btn {
         color: #5E8CF8;
         border: 1px solid #5E8CF8;
