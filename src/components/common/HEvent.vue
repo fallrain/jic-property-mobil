@@ -50,6 +50,15 @@
     </div>
     <footer class="HEvent-footer">
       <div
+        v-if="isTask && processed"
+        class="HEvent-footer-btn-par active"
+      >
+        <h-score
+          v-model="level"
+          :noClick="true"
+        ></h-score>
+      </div>
+      <div
         v-if="!isTask && processed"
         class="HEvent-footer-btn-par active"
       >
