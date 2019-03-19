@@ -8,7 +8,7 @@ import mixin from './mixin';
 import ax, {axGet, axPost} from '@/lib/ajax';
 import util from '@/lib/util/util';
 import hValidate from '@/lib/hValidate/hValidate';
-
+import store from './store';
 import {
   AlertPlugin,
   WechatPlugin,
@@ -40,6 +40,7 @@ Vue.prototype.HValidate = hValidate;
 new Vue({
   el: '#app',
   router,
+  store,
   components: {App},
   created () {
     // auth.check();

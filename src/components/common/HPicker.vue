@@ -3,12 +3,13 @@
     <label class="HPicker-header" :for="id">
       <label class="HPicker-header-title">{{title}}</label>
       <div class="HPicker-header-slt">
-        <span class="HPicker-header-val"></span>
+        <span class="HPicker-header-val">{{name}}</span>
         <i class="iconfont icon-jiantou9"></i>
       </div>
       <select
         :id="id"
         class="HPicker-header-select"
+        v-model="sltValue"
       >
         <option value="">请选择</option>
         <option
@@ -25,6 +26,7 @@
 export default {
   name: 'HPicker',
   props: {
+    value: {},
     title: {
       type: String
     },
@@ -34,8 +36,23 @@ export default {
   },
   data () {
     return {
-      id: new Date().getTime()
+      id: new Date().getTime(),
+      name: ''
     };
+  },
+  computed: {
+    sltValue: {
+      get () {
+        return this.value;
+      },
+      set (val) {
+        const selectOption = this.options.find(v => v.key === val);
+        if (selectOption) {
+          this.name = selectOption.val;
+        }
+        this.$emit('input', val);
+      }
+    }
   }
 };
 </script>

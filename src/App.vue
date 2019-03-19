@@ -2,7 +2,7 @@
   <div id="app" class="app">
     <div class="app-container">
       <keep-alive
-        :exclude="['PaymentHistoryList','PaymentDetail']"
+        :exclude="aliveExclude"
       >
         <router-view/>
       </keep-alive>
@@ -17,8 +17,12 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 export default {
-  name: 'App'
+  name: 'App',
+  computed: mapState([
+    'aliveExclude'
+  ])
 };
 </script>
 <style lang="less">
