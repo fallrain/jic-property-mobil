@@ -33,6 +33,27 @@ export default {
         }
       ]
     };
+  },
+  created () {
+    this.query();
+  },
+  activated () {
+
+  },
+  methods: {
+    async query () {
+      const {code, value} = await this.axGet(
+        'feedback/list',
+        {
+          uid: localStorage.getItem('uid'),
+          ...this.pageCfg.page
+        }
+      );
+      if (code === '200') {
+        this.list = value.map(function (v) {
+        });
+      }
+    }
   }
 };
 </script>

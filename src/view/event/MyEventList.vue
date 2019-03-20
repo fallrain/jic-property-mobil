@@ -18,6 +18,9 @@ import HEvent from '../../components/common/HEvent';
 export default {
   name: 'MyEventList',
   components: {HEvent},
+  created () {
+    this.query();
+  },
   data () {
     return {
       list: [
@@ -49,6 +52,30 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    async query () {
+      /* 查询我上报的事件 */
+      const {code, value} = await this.axGet(
+        'event/listByUser',
+        {
+          uid: localStorage.getItem('uid')
+        }
+      );
+      if (code === '200') {
+        this.list = value.list.map(function (v) {
+          return {
+            eventCode: v.eventCode,
+            state: !!v.state,
+            question: {
+              reportTime: v.reportTime,
+              eventTypeName: v.eventTypeName,
+              description: v.description
+            }
+          };
+        });
+      }
+    }
   }
 };
 </script>

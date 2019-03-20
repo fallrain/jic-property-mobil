@@ -34,7 +34,7 @@
     </div>
     <div
       class="HEvent-cnt"
-      v-if="handlerInfo"
+      v-if="processed"
     >
       <ol>
         <li class="HEvent-cnt-item">

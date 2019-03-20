@@ -7,9 +7,10 @@
       <h-picker
         title="事件分类"
         :options="options"
+        v-model="form.eventTypeCode"
       ></h-picker>
       <h-textarea
-        v-model="form.question"
+        v-model="form.description"
         :maxNumber="100"
         placeHolder="有什么问题 ,简单说明下吧"
       ></h-textarea>
@@ -48,7 +49,7 @@
         :width="264"
         :height="39"
         cnt="我要上报"
-        @click.native="sbumit"
+        @click.native="submit"
       ></h-button>
     </div>
   </div>
@@ -67,40 +68,68 @@ export default {
   data () {
     return {
       form: {
-        question: '',
+        eventTypeCode: '',
+        description: '',
         imgUrl: ''
       },
       uploadUrl: process.env.base_url + 'document/upload',
-      options: [
-        {
-          key: '1',
-          val: '物业服务'
-        },
-        {
-          key: '2',
-          val: '物业质量'
-        },
-        {
-          key: '3',
-          val: '一二三四'
-        },
-        {
-          key: '4',
-          val: '测试长度长度差怒测试长度长度差怒测试长度长度差怒测试长度长度差怒测试长度长度差怒测试长度长度差怒'
-        }
-      ]
+      options: []
     };
   },
+  created () {
+    this.queryType();
+    this.genVdt();
+  },
   methods: {
+    async queryType () {
+      /* 查询事件类型 */
+      const {code, value} = await this.axGet(
+        'metadata/findByGroupCode',
+        {
+          groupCode: 'eventType'
+        }
+      );
+      if (code === '200') {
+        this.options = value.map(function (v) {
+          return {
+            key: v.metaCode,
+            val: v.metaName
+          };
+        });
+      }
+    },
+    genVdt () {
+      this.vdt = new this.HValidate({
+        _this: this,
+        formData: this.form,
+        rules: {
+          eventTypeCode: {
+            'required': true
+          },
+          description: {
+            'required': true,
+            maxLength: 100
+          }
+        },
+        messages: {
+          eventTypeCode: {
+            'required': '请选择事件类型'
+          },
+          description: {
+            'required': '请输入问题说明',
+            maxLength: '问题说明最多输入100字'
+          }
+        }
+      });
+    },
     delImg () {
       /* 删除图片 */
       this.form.imgUrl = '';
     },
-    imageUploaded (r) {
-      if (r.code === '200') {
-        const data = r.value;
-        this.form.imgUrl = data[0].url;
-        this.form.imgCode = data[0].docId;
+    imageUploaded ({code, value}) {
+      if (code === '200') {
+        this.form.imgUrl = value[0].url;
+        this.form.imgCode = value[0].docId;
       }
     },
     uploadError (res) {
@@ -121,8 +150,31 @@ export default {
         text: '上传失败'
       });
     },
-    submit () {
-
+    async submit () {
+      if (!this.vdt.valid()) {
+        return;
+      }
+      const {code} = await this.axPost(
+        'event/report/submit',
+        {
+          'uid': localStorage.getItem('uid'),
+          'eventTypeCode': this.form.eventTypeCode,
+          'description': this.form.description,
+          'images': [
+            this.form.imgCode
+          ].join(',')
+        }
+      );
+      if (code === '200') {
+        this.$vux.toast.show({
+          text: '上报成功',
+          onHide: () => {
+            this.$router.push({
+              name: 'MyEventList'
+            });
+          }
+        });
+      }
     }
   }
 };

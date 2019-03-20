@@ -18,7 +18,7 @@
         :width='264'
         :height='39'
         cnt='提交'
-        @click.native='sbumit'
+        @click.native='submit'
       ></h-button>
     </div>
   </div>
@@ -70,7 +70,7 @@ export default {
         }
       });
     },
-    async sbumit () {
+    async submit () {
       if (!this.vdt.valid()) {
         return;
       }

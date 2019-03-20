@@ -6,7 +6,8 @@ export default new Vuex.Store({
     aliveExclude: [
       'PaymentHistoryList',
       'PaymentDetail',
-      'SuggestionForm'
+      'SuggestionForm',
+      'EventReport'
     ]
   },
   mutations: {
