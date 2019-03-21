@@ -18,6 +18,10 @@ ax.defaults = Object.assign(
   }
 );
 ax.interceptors.request.use(config => {
+  if (!config.params) {
+    config.params = {};
+  }
+  config.params.j_sub_system = sessionStorage.getItem('simpleCode') || undefined;
   Vue.$vux.loading.show();
   return config;
 });

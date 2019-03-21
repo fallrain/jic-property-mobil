@@ -21,17 +21,7 @@ export default {
   },
   data () {
     return {
-      list: [
-        {
-          time: '2019-1-15 13:20:18',
-          question: '希望物业能够加强安何方面的工作，最近经常看到不明人员随意进出小区，可能会带来很大的安全隐患。'
-        },
-        {
-          time: '2019-1-15 13:20:18',
-          question: '希望物业能够加强安何方面的工作，最近经常看到不明人员随意进出小区，可能会带来很大的安全隐患。',
-          answer: '尊敬的住户您好,感谢您提出宝贵的意见,我们正落实并加强相关安全工作培训，增加人手，感谢您对我们工作的支持。'
-        }
-      ]
+      list: []
     };
   },
   created () {
@@ -50,7 +40,12 @@ export default {
         }
       );
       if (code === '200') {
-        this.list = value.map(function (v) {
+        this.list = value.list.map(function (v) {
+          return {
+            time: v.createdTime,
+            question: v.question,
+            answer: v.reply
+          };
         });
       }
     }

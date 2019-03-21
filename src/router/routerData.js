@@ -255,9 +255,10 @@ let data = [
     }
   },
   {
-    path: '/score',
+    path: '/score/:eventCode/:level',
     name: 'Score',
     component: Score,
+    props: true,
     meta: {
       title: '我要评分'
     }

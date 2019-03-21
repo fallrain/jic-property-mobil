@@ -70,6 +70,7 @@
           v-if="!isTask"
           type="button"
           class="HEvent-footer-btn"
+          @click="toScore(eId,level)"
         >重新评价
         </button>
       </div>
@@ -112,6 +113,9 @@ export default {
     },
     level: {
       type: Number
+    },
+    toScore: {
+      type: Function
     }
   },
   computed: {

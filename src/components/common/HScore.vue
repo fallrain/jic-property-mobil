@@ -6,7 +6,7 @@
       :key="index"
       @click="setStar(index)"
     >
-      <i :class="['iconfont','icon-iconfontxingxing',index<value && 'active']"></i>
+      <i :class="['iconfont','icon-iconfontxingxing',index <= value && 'active']"></i>
     </li>
   </ol>
 </template>
@@ -34,7 +34,7 @@ export default {
         return;
       }
       /* 设置星星数 */
-      this.$emit('input', index + 1);
+      this.$emit('input', index);
     }
   }
 };
@@ -58,7 +58,8 @@ export default {
 
     .iconfont {
       font-size: 24px;
-      &.active{
+
+      &.active {
         color: #F0C000;
       }
     }

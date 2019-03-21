@@ -8,6 +8,7 @@
       :question="item.question"
       :handlerInfo="item.handlerInfo"
       :level="item.level"
+      :toScore="toScore"
     ></h-event>
   </div>
 </template>
@@ -71,10 +72,21 @@ export default {
               reportTime: v.reportTime,
               eventTypeName: v.eventTypeName,
               description: v.description
-            }
+            },
+            handlerInfo: v.handlerinfo
           };
         });
       }
+    },
+    toScore (eventCode, level) {
+      /* 评分 */
+      this.$router.push({
+        name: 'Score',
+        params: {
+          eventCode,
+          level
+        }
+      });
     }
   }
 };

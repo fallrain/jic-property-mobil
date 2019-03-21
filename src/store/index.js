@@ -7,7 +7,8 @@ export default new Vuex.Store({
       'PaymentHistoryList',
       'PaymentDetail',
       'SuggestionForm',
-      'EventReport'
+      'EventReport',
+      'Score'
     ]
   },
   mutations: {
