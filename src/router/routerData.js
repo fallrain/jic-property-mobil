@@ -255,7 +255,7 @@ let data = [
     }
   },
   {
-    path: '/score/:eventCode/:level',
+    path: '/score',
     name: 'Score',
     component: Score,
     props: true,

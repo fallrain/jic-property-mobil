@@ -37,19 +37,30 @@ import HButton from '../../components/common/HButton';
 export default {
   name: 'Score',
   components: {HButton, HTextarea, HScore},
-  props: ['eventCode', 'level'],
+  // props: ['eventCode', 'level'],
   created () {
+    this.init();
     this.genVdt();
   },
   data () {
     return {
       form: {
+        eventCode: '',
         content: '',
-        starsNum: this.level * 1
+        starsNum: 0
       }
     };
   },
   methods: {
+    init () {
+      let detail = sessionStorage.getItem('Score.detail');
+      if (detail) {
+        detail = JSON.parse(detail);
+        this.form.eventCode = detail.eventCode;
+        this.form.content = detail.evaluateContent;
+        this.form.starsNum = detail.level;
+      }
+    },
     genVdt () {
       this.vdt = new this.HValidate({
         _this: this,
@@ -80,7 +91,7 @@ export default {
         'event/evaluate',
         {
           uid: localStorage.getItem('uid'),
-          'eventCode': this.eventCode,
+          'eventCode': this.form.eventCode,
           'level': this.form.starsNum,
           'content': this.form.content
         }
@@ -89,7 +100,13 @@ export default {
         this.$vux.toast.show({
           text: '评价成功',
           onHide: () => {
-            this.$router.push({
+            sessionStorage.removeItem('Score.detail');
+            sessionStorage.setItem('MyEventList.level', JSON.stringify({
+              'eventCode': this.form.eventCode,
+              'level': this.form.starsNum,
+              'evaluateContent': this.form.content
+            }));
+            this.$router.replace({
               name: 'MyEventList'
             });
           }

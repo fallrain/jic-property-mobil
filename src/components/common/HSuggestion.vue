@@ -5,6 +5,7 @@
       <button
         type="button"
         class="HSuggestion-del-btn"
+        @click="delHandler(id)"
       ><i class="iconfont icon-shanchu1"></i>删除
       </button>
     </div>
@@ -24,6 +25,8 @@
 export default {
   name: 'HSuggestion',
   props: {
+    id: {
+    },
     titleVal: {
       type: String
     },
@@ -32,6 +35,9 @@ export default {
     },
     answer: {
       type: String
+    },
+    delHandler: {
+      type: Function
     }
   }
 };

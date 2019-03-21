@@ -1,14 +1,17 @@
 <template>
   <div class="MyEventList">
     <h-event
-      v-for="(item,i) in list"
-      :key="i"
+      v-for="(item) in list"
+      :key="item.eventCode"
       :eId="item.eventCode"
       :processed="item.state"
       :question="item.question"
       :handlerInfo="item.handlerInfo"
+      :evaluateInfo="item.evaluateInfo"
       :level="item.level"
       :toScore="toScore"
+      :delEvent="delEvent"
+      :toDeatil="toDetail"
     ></h-event>
   </div>
 </template>
@@ -19,42 +22,38 @@ import HEvent from '../../components/common/HEvent';
 export default {
   name: 'MyEventList',
   components: {HEvent},
+  provide () {
+    return {
+      updateLevelByEventCode (eventCode, level) {
+        /* 更新单个事件的评分（星星） */
+        this.list.find(v => v.eventCode === eventCode).level = level;
+      }
+    };
+  },
   created () {
+    this.updateLevelByEventCode();
     this.query();
+  },
+  activated () {
+    this.updateLevelByEventCode();
   },
   data () {
     return {
-      list: [
-        {
-          eventCode: '2121323232',
-          state: true,
-          question: {
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过\n' +
-              '了，夏天味道太大了。'
-          },
-          handlerInfo: {
-            handler: '李伟',
-            handlerTime: '2019-1-13 14:20:38',
-            replay: '楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过'
-          },
-          level: 3
-        },
-        {
-          eventCode: '265656623232',
-          state: false,
-          question: {
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过\n' +
-              '了，夏天味道太大了。'
-          }
-        }
-      ]
+      list: []
     };
   },
   methods: {
+    updateLevelByEventCode () {
+      /* 打分后重新进入此页面更新星星 */
+      let levelDetail = sessionStorage.getItem('MyEventList.level');
+      if (levelDetail) {
+        levelDetail = JSON.parse(levelDetail);
+        const event = this.list.find(v => v.eventCode === levelDetail.eventCode);
+        event.level = levelDetail.level;
+        event.evaluateInfo.evaluateContent = levelDetail.evaluateContent;
+        sessionStorage.removeItem('MyEventList.level');
+      }
+    },
     async query () {
       /* 查询我上报的事件 */
       const {code, value} = await this.axGet(
@@ -73,19 +72,48 @@ export default {
               eventTypeName: v.eventTypeName,
               description: v.description
             },
-            handlerInfo: v.handlerinfo
+            handlerInfo: v.handlerinfo,
+            evaluateInfo: v.evaluateInfo,
+            level: v.evaluateInfo && v.evaluateInfo.level ? v.evaluateInfo.level : undefined
           };
         });
       }
     },
-    toScore (eventCode, level) {
+    toScore (eventCode, level, evaluateContent) {
       /* 评分 */
+      sessionStorage.setItem('Score.detail', JSON.stringify({
+        eventCode,
+        level,
+        evaluateContent
+      }));
       this.$router.push({
-        name: 'Score',
-        params: {
-          eventCode,
-          level
+        name: 'Score'
+      });
+    },
+    delEvent (eventCode) {
+      /* 删除事件 */
+      this.$vux.confirm.show({
+        title: '系统通知',
+        hideOnBlur: false,
+        content: '确定要删除吗？',
+        onConfirm: () => {
+          this.axGet(
+            'event/delete',
+            {
+              eventCode
+            }
+          ).then(({code}) => {
+            if (code === '200') {
+              this.list.splice(this.list.findIndex(v => v.eventCode === eventCode), 1);
+            }
+          });
         }
+      });
+    },
+    toDetail () {
+      /* 跳转事件详情 */
+      this.$router.push({
+        name: 'EventDetail'
       });
     }
   }

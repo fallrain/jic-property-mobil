@@ -13,40 +13,42 @@
         :class="['HEvent-head-tag',headTag.cls]"
       >{{headTag.val}}</span>
     </header>
-    <div
-      class="HEvent-cnt"
-      v-if="question"
-    >
-      <ol>
-        <li class="HEvent-cnt-item" v-if="isTask">
-          <label class="name">上报人：</label><span class="val">{{question.reporter}}</span>
-        </li>
-        <li class="HEvent-cnt-item">
-          <label class="name">上报时间：</label><span class="val">{{question.reportTime}}</span>
-        </li>
-        <li class="HEvent-cnt-item">
-          <label class="name">事件分类：</label><span class="val">{{question.eventTypeName}}</span>
-        </li>
-        <li class="HEvent-cnt-item">
-          <label class="name">上报留言：</label><span class="val">{{question.description}}</span>
-        </li>
-      </ol>
-    </div>
-    <div
-      class="HEvent-cnt"
-      v-if="processed"
-    >
-      <ol>
-        <li class="HEvent-cnt-item">
-          <label class="name">处理人：</label><span class="answerVal">{{handlerInfo.handler}}</span>
-        </li>
-        <li class="HEvent-cnt-item">
-          <label class="name">处理时间：</label><span class="answerVal">{{handlerInfo.handlerTime}}</span>
-        </li>
-        <li class="HEvent-cnt-item">
-          <label class="name">处理结果：</label><span class="answerVal">{{handlerInfo.replay}}</span>
-        </li>
-      </ol>
+    <div @click="toDeatil">
+      <div
+        class="HEvent-cnt"
+        v-if="question"
+      >
+        <ol>
+          <li class="HEvent-cnt-item" v-if="isTask">
+            <label class="name">上报人：</label><span class="val">{{question.reporter}}</span>
+          </li>
+          <li class="HEvent-cnt-item">
+            <label class="name">上报时间：</label><span class="val">{{question.reportTime}}</span>
+          </li>
+          <li class="HEvent-cnt-item">
+            <label class="name">事件分类：</label><span class="val">{{question.eventTypeName}}</span>
+          </li>
+          <li class="HEvent-cnt-item">
+            <label class="name">上报留言：</label><span class="val">{{question.description}}</span>
+          </li>
+        </ol>
+      </div>
+      <div
+        class="HEvent-cnt"
+        v-if="processed"
+      >
+        <ol>
+          <li class="HEvent-cnt-item">
+            <label class="name">处理人：</label><span class="answerVal">{{handlerInfo.handler}}</span>
+          </li>
+          <li class="HEvent-cnt-item">
+            <label class="name">处理时间：</label><span class="answerVal">{{handlerInfo.handlerTime}}</span>
+          </li>
+          <li class="HEvent-cnt-item">
+            <label class="name">处理结果：</label><span class="answerVal">{{handlerInfo.replay}}</span>
+          </li>
+        </ol>
+      </div>
     </div>
     <footer class="HEvent-footer">
       <div
@@ -70,7 +72,7 @@
           v-if="!isTask"
           type="button"
           class="HEvent-footer-btn"
-          @click="toScore(eId,level)"
+          @click="toScore(eId,level,evaluateInfo.evaluateContent)"
         >重新评价
         </button>
       </div>
@@ -81,6 +83,7 @@
         <button
           class="HEvent-footer-btn"
           type="button"
+          @click="delEvent(eId)"
         >删除
         </button>
       </div>
@@ -111,10 +114,19 @@ export default {
     handlerInfo: {
       type: Object
     },
+    evaluateInfo: {
+      type: Object
+    },
     level: {
       type: Number
     },
     toScore: {
+      type: Function
+    },
+    delEvent: {
+      type: Function
+    },
+    toDeatil: {
       type: Function
     }
   },
