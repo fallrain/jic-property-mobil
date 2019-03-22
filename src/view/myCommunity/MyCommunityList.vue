@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import store from '@/store';
 export default {
   name: 'MyCommunityList',
   data () {
@@ -104,7 +105,8 @@ export default {
               communityName: item.communityName,
               address: item.address
             };
-            this.hUtil.updateUserCommunity(data);
+            // this.hUtil.updateUserCommunity(data);
+            store.dispatch('updateUserCommunity', data);
             const redirect = this.hUtil.getUrlVal('redirect');
             const param = this.hUtil.getUrlVal('param');
             if (redirect) {

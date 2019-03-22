@@ -37,7 +37,7 @@ import HButton from '../../components/common/HButton';
 export default {
   name: 'Score',
   components: {HButton, HTextarea, HScore},
-  // props: ['eventCode', 'level'],
+  props: ['type'],
   created () {
     this.init();
     this.genVdt();
@@ -101,13 +101,13 @@ export default {
           text: '评价成功',
           onHide: () => {
             sessionStorage.removeItem('Score.detail');
-            sessionStorage.setItem('MyEventList.level', JSON.stringify({
+            sessionStorage.setItem(this.type + '.level', JSON.stringify({
               'eventCode': this.form.eventCode,
               'level': this.form.starsNum,
               'evaluateContent': this.form.content
             }));
             this.$router.replace({
-              name: 'MyEventList'
+              name: this.type
             });
           }
         });

@@ -2,6 +2,7 @@
   <div class="MyEventList">
     <h-event
       v-for="(item) in list"
+      :data="item"
       :key="item.eventCode"
       :eId="item.eventCode"
       :processed="item.state"
@@ -31,11 +32,11 @@ export default {
     };
   },
   created () {
-    this.updateLevelByEventCode();
     this.query();
   },
   activated () {
     this.updateLevelByEventCode();
+    this.updateList();
   },
   data () {
     return {
@@ -52,6 +53,13 @@ export default {
         event.level = levelDetail.level;
         event.evaluateInfo.evaluateContent = levelDetail.evaluateContent;
         sessionStorage.removeItem('MyEventList.level');
+      }
+    },
+    updateList () {
+      let deletedEventCode = sessionStorage.getItem('MyEventList.deletedEventCode');
+      if (deletedEventCode) {
+        this.list.splice(this.list.findIndex(v => v.eventCode === deletedEventCode), 1);
+        sessionStorage.removeItem('MyEventList.deletedEventCode');
       }
     },
     async query () {
@@ -74,7 +82,8 @@ export default {
             },
             handlerInfo: v.handlerinfo,
             evaluateInfo: v.evaluateInfo,
-            level: v.evaluateInfo && v.evaluateInfo.level ? v.evaluateInfo.level : undefined
+            level: v.evaluateInfo && v.evaluateInfo.level ? v.evaluateInfo.level : undefined,
+            images: v.images
           };
         });
       }
@@ -87,7 +96,10 @@ export default {
         evaluateContent
       }));
       this.$router.push({
-        name: 'Score'
+        name: 'Score',
+        params: {
+          type: 'MyEventList'
+        }
       });
     },
     delEvent (eventCode) {
@@ -110,8 +122,9 @@ export default {
         }
       });
     },
-    toDetail () {
+    toDetail (data) {
       /* 跳转事件详情 */
+      sessionStorage.setItem('EventDetail.detail', JSON.stringify(data));
       this.$router.push({
         name: 'EventDetail'
       });

@@ -1,7 +1,7 @@
-import {axGet} from '@/lib/ajax';
-
+import router from '@/router';
+import store from '@/store';
 export default {
-  beforeRouteEnter (to, from, next) {
+  async beforeRouteEnter (to, from, next) {
     function check () {
       const noAuthPages = [
         'MyCommunityList',
@@ -17,31 +17,16 @@ export default {
       if (!sessionStorage.getItem('simpleCode')) {
         if (!noAuthPages.includes(to.name)) {
           // 没有绑定小区直接到添加小区页面
-          /* router.replace({
+          router.replace({
             name: 'Nobind'
-          }); */
+          });
         }
       }
     }
 
-    axGet(
-      'communityInfo/wxGetAllInfoByWx',
-      {
-        requestNoToast: true,
-        wxUid: localStorage.getItem('uid')
-      }
-    ).then(r => {
-      if (r.code === '200') {
-        const data = r.value;
-        sessionStorage.setItem('ownerCode', data.ownerCode);
-        sessionStorage.setItem('roomCode', data.roomCode);
-        sessionStorage.setItem('simpleCode', data.simpleCode);
-        sessionStorage.setItem('communityName', data.communityName);
-        sessionStorage.setItem('address', data.communityName + data.buildingName + data.unitName + data.roomName);
-      }
-      check();
-      next();
-    });
+    await store.dispatch('getWxInfo');
+    check();
+    next();
   },
   data: function () {
     return {

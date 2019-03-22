@@ -14,6 +14,12 @@ router.beforeEach((to, from, next) => {
   } else {
     store.commit('delAliveExclude', 'SuggestionList');
   }
+
+  if (to.name === 'EventDetail' && from.name === 'MyEventList') {
+    store.commit('addAliveExclude', 'EventDetail');
+  } else {
+    store.commit('delAliveExclude', 'EventDetail');
+  }
   next();
 });
 export default router;

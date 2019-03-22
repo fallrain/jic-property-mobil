@@ -255,7 +255,7 @@ let data = [
     }
   },
   {
-    path: '/score',
+    path: '/score/:type',
     name: 'Score',
     component: Score,
     props: true,

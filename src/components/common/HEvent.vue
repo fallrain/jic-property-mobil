@@ -13,7 +13,7 @@
         :class="['HEvent-head-tag',headTag.cls]"
       >{{headTag.val}}</span>
     </header>
-    <div @click="toDeatil">
+    <div @click="toDeatil(data)">
       <div
         class="HEvent-cnt"
         v-if="question"
@@ -107,6 +107,9 @@ export default {
     },
     processed: {
       type: Boolean
+    },
+    data: {
+      type: Object
     },
     question: {
       type: Object

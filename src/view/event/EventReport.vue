@@ -169,9 +169,10 @@ export default {
         this.$vux.toast.show({
           text: '上报成功',
           onHide: () => {
-            this.$router.push({
+            /* this.$router.push({
               name: 'MyEventList'
-            });
+            }); */
+            this.close
           }
         });
       }
