@@ -194,7 +194,26 @@ export default {
         text: '上传失败'
       });
     },
+    genVdt () {
+      this.vdt = new this.HValidate({
+        _this: this,
+        formData: this.form,
+        rules: {
+          handleCnt: {
+            'required': true
+          }
+        },
+        messages: {
+          handleCnt: {
+            'required': '处理内容不能为空'
+          }
+        }
+      });
+    },
     async submit () {
+      if (!this.vdt.valid()) {
+        return;
+      }
       const handlerTime = this.hUtil.formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss');
       const {code} = await this.axPost(
         'event/handleWx',
