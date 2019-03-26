@@ -9,20 +9,32 @@
       :question="item.question"
       :handlerInfo="item.handlerInfo"
       :level="item.level"
+      @click.native="toDetail(item)"
     ></h-event>
+    <h-loadmore
+      ref="hloadmore"
+      :show="pageCfg.loadingShow"
+      :loadingType="pageCfg.loadingType"
+      :data="pageCfg.page"
+      :query="queryTask"
+    ></h-loadmore>
   </div>
 </template>
 
 <script>
 import HEvent from '../../components/common/HEvent';
+import HLoadmore from '../../components/common/HLoadmore';
 
 export default {
   name: 'MyTaskList',
-  components: {HEvent},
+  components: {HLoadmore, HEvent},
   data () {
     return {
       list: []
     };
+  },
+  created () {
+    this.queryTask();
   },
   methods: {
     queryTask () {
@@ -47,11 +59,20 @@ export default {
                 description: v.description
               },
               handlerInfo: v.handlerinfo,
-              level: v.evaluateInfo.level * 1
+              evaluateInfo: v.evaluateInfo,
+              level: v.evaluateInfo.level * 1,
+              images: v.images
             };
           }));
-          this.$refs['loadmore'].queryBack(r, this);
+          this.$refs['hloadmore'].queryBack(r, this);
         }
+      });
+    },
+    toDetail (data) {
+      /* 跳转事件详情 */
+      sessionStorage.setItem('TaskDetail.detail', JSON.stringify(data));
+      this.$router.push({
+        name: 'TaskDetail'
       });
     }
   }

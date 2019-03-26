@@ -283,6 +283,7 @@ let data = [
     path: '/taskList',
     name: 'TaskList',
     component: TaskList,
+    // props: (route) => ({ tabIndexOfQuery: route.query.tabIndex ? route.query.tabIndex * 1 : 0 }),
     meta: {
       title: '我收到的任务'
     }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="EventReport-see">
-      <span>查看我的上报记录</span>
+      <span @click="toHistory">查看我的上报记录</span>
     </div>
     <div class="SuggestionForm">
       <h-picker
@@ -177,6 +177,12 @@ export default {
           }
         });
       }
+    },
+    toHistory () {
+      /* 跳转历史记录 */
+      this.$router.push({
+        name: 'MyEventList'
+      });
     }
   }
 };

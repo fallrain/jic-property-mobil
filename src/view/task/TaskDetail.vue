@@ -112,6 +112,7 @@ import HTextarea from '../../components/common/HTextarea';
 import HUpload from '../../components/common/HUpload';
 import VueCoreImageUpload from 'vue-core-image-upload';
 import {mapState} from 'vuex';
+
 export default {
   name: 'TaskDetail',
   components: {VueCoreImageUpload, HTextarea, HButton, HScore, HUpload},
@@ -157,6 +158,7 @@ export default {
         this.eventTypeName = detail.question.eventTypeName;
         this.description = detail.question.description;
         this.handlerInfo = detail.handlerInfo;
+        detail.evaluateInfo.level *= 1;
         this.evaluateInfo = detail.evaluateInfo;
         this.state = detail.state;
         this.imgUrl = detail.images && detail.images[0] ? detail.images[0].url : null;
@@ -193,19 +195,36 @@ export default {
       });
     },
     async submit () {
+      const handlerTime = this.hUtil.formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss');
       const {code} = await this.axPost(
-        'event/handle',
+        'event/handleWx',
         {
           eventCode: this.eventCode,
           handlerUid: localStorage.getItem('uid'),
           handlerReplay: this.form.handleCnt,
-          handleTime: this.hUtil.formatDate(new Date()),
+          handleTime: handlerTime,
           handlerImages: this.form.imgCode
         }
       );
       if (code === '200') {
+        const detail = JSON.parse(sessionStorage.getItem('TaskDetail.detail'));
+        detail.handlerInfo = {
+          handler: '',
+          handlerTime,
+          images: [],
+          replay: this.form.handleCnt
+        };
+        if (this.form.imgUrl) {
+          detail.handlerInfo.images.push({
+            url: this.form.imgUrl
+          });
+        }
+        sessionStorage.setItem('TaskList.processed', JSON.stringify(detail));
         this.$router.push({
-          name: 'TaskList'
+          name: 'TaskList',
+          query: {
+            tabIndex: 1
+          }
         });
       }
     }

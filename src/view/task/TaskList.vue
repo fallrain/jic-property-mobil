@@ -2,8 +2,8 @@
   <div class="TaskList">
     <div class="TaskList-tab-par">
       <tab>
-        <tab-item selected @on-item-click="changeTab(0)">未处理</tab-item>
-        <tab-item @on-item-click="changeTab(1)">已处理</tab-item>
+        <tab-item :selected="tabIndex===0" @on-item-click="changeTab(0)">未处理</tab-item>
+        <tab-item :selected="tabIndex===1" @on-item-click="changeTab(1)">已处理</tab-item>
       </tab>
     </div>
     <div v-show="tabIndex===0">
@@ -69,6 +69,17 @@ export default {
     Tab,
     TabItem
   },
+  created () {
+    // 动态资讯的分页参数
+    this.newsPageCfg = {
+      pageCfg: this.hUtil.shallowCopyObject(this.pageCfg)
+    };
+    this.queryTask();
+  },
+  activated () {
+    this.unshiftList();
+    this.resetTabIndexByQuery();
+  },
   data () {
     return {
       newsPageCfg: {},
@@ -77,14 +88,29 @@ export default {
       processedList: []// 已处理
     };
   },
-  created () {
-    // 动态资讯的分页参数
-    this.newsPageCfg = {
-      pageCfg: this.hUtil.shallowCopyObject(this.pageCfg)
-    };
-    this.queryTask();
-  },
   methods: {
+    resetTabIndexByQuery () {
+      /* 如果带着查询参数，那么重置tabIndex */
+      const tabIndex = this.$route.query.tabIndex;
+      if (tabIndex === undefined || this.tabIndex === tabIndex) {
+        return;
+      }
+      this.tabIndex = tabIndex;
+      // 如果没数据的话，查一下，下面方法自带空数组检查
+      this.queryTask();
+    },
+    unshiftList () {
+      /* 检查有无处理过的事件 */
+      let detail = sessionStorage.getItem('TaskDetail.detail');
+      if (detail) {
+        detail = JSON.parse(detail);
+        // 头部新加，尾部删除，避免加载更多时数据重复
+        this.processedList.unshift(detail);
+        this.processedList.pop();
+        // 删除未处理列表对应对象
+        this.unprocessedList.splice(this.unprocessedList.findIndex(v => v.eventCode === detail.eventCode), 1);
+      }
+    },
     changeTab (index) {
       this.tabIndex = index;
       this.queryTask('init');
@@ -137,7 +163,8 @@ export default {
               },
               handlerInfo: v.handlerinfo,
               evaluateInfo: v.evaluateInfo,
-              level: v.evaluateInfo.level * 1
+              level: v.evaluateInfo.level * 1,
+              images: v.images
             };
           }));
           this.$refs[loadmoreName].queryBack(r, pageSelf);
