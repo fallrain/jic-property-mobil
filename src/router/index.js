@@ -6,7 +6,14 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   base: process.env.routerBase,
-  routes: routerData.data
+  routes: routerData.data,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });
 router.beforeEach((to, from, next) => {
   if (to.name === 'SuggestionList' && from.name === 'SuggestionForm') {
