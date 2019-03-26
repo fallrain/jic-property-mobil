@@ -288,9 +288,8 @@ let data = [
     }
   },
   {
-    path: '/taskDetail/:isProcessed',
+    path: '/taskDetail',
     name: 'TaskDetail',
-    props: true,
     component: TaskDetail,
     meta: {
       title: '事件详情'

@@ -13,7 +13,7 @@
         :class="['HEvent-head-tag',headTag.cls]"
       >{{headTag.val}}</span>
     </header>
-    <div @click="toDeatil(data)">
+    <div @click="toDetail(data)">
       <div
         class="HEvent-cnt"
         v-if="question"
@@ -124,13 +124,16 @@ export default {
       type: Number
     },
     toScore: {
-      type: Function
+      type: Function,
+      default: function () {}
     },
     delEvent: {
-      type: Function
+      type: Function,
+      default: function () {}
     },
-    toDeatil: {
-      type: Function
+    toDetail: {
+      type: Function,
+      default: function () {}
     }
   },
   computed: {

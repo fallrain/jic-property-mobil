@@ -10,7 +10,8 @@ export default new Vuex.Store({
       'SuggestionForm',
       'EventReport',
       'Score',
-      'EventDetail'
+      'EventDetail',
+      'TaskDetail'
     ],
     addresses: {
       communityName: '',

@@ -17,9 +17,16 @@
           :question="item.question"
           :handlerInfo="item.handlerInfo"
           :level="item.level"
-          @click.native="toDetail('0')"
+          @click.native="toDetail(item)"
         ></h-event>
       </ol>
+      <h-loadmore
+        ref="hloadmore"
+        :show="pageCfg.loadingShow"
+        :loadingType="pageCfg.loadingType"
+        :data="pageCfg.page"
+        :query="queryTask"
+      ></h-loadmore>
     </div>
     <div v-show="tabIndex===1">
       <ol class="TaskList-card-par">
@@ -32,9 +39,16 @@
           :question="item.question"
           :handlerInfo="item.handlerInfo"
           :level="item.level"
-          @click.native="toDetail('1')"
+          @click.native="toDetail(item)"
         ></h-event>
       </ol>
+      <h-loadmore
+        ref="hloadmore2"
+        :show="newsPageCfg.pageCfg.loadingShow"
+        :loadingType="newsPageCfg.pageCfg.loadingType"
+        :data="newsPageCfg.pageCfg.page"
+        :query="queryTask"
+      ></h-loadmore>
     </div>
 
   </div>
@@ -59,38 +73,8 @@ export default {
     return {
       newsPageCfg: {},
       tabIndex: 0,
-      unprocessedList: [
-        {
-          eventCode: '2121323232',
-          state: false,
-          question: {
-            reporter: '29号楼1单元302室 --李永',
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过' +
-              '了，夏天味道太大了。'
-          }
-        }
-      ], // 未处理
-      processedList: [
-        {
-          eventCode: '2121323232',
-          state: true,
-          question: {
-            reporter: '29号楼1单元302室 --李永',
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过' +
-              '了，夏天味道太大了。'
-          },
-          handlerInfo: {
-            handler: '李伟',
-            handlerTime: '2019-1-13 14:20:38',
-            replay: '楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过'
-          },
-          level: 3
-        }
-      ]// 已处理
+      unprocessedList: [], // 未处理
+      processedList: []// 已处理
     };
   },
   created () {
@@ -98,17 +82,17 @@ export default {
     this.newsPageCfg = {
       pageCfg: this.hUtil.shallowCopyObject(this.pageCfg)
     };
-    // this.queryArticle();
+    this.queryTask();
   },
   methods: {
     changeTab (index) {
       this.tabIndex = index;
-      // this.queryArticle('init');
+      this.queryTask('init');
     },
-    queryArticle (isInit) {
-      const subType = {
-        0: 'common',
-        1: 'dynamic'
+    queryTask (isInit) {
+      const stateType = {
+        0: '0',
+        1: '1'
       };
       let pageObj;
       // 分页需要的分页对象的父对象
@@ -119,12 +103,12 @@ export default {
       if (this.tabIndex === 0) {
         pageObj = this.pageCfg.page;
         pageSelf = this;
-        listName = 'nousList';
+        listName = 'unprocessedList';
         loadmoreName = 'hloadmore';
       } else {
         pageObj = this.newsPageCfg.pageCfg.page;
         pageSelf = this.newsPageCfg;
-        listName = 'newsList';
+        listName = 'processedList';
         loadmoreName = 'hloadmore2';
       }
       // 切换tab时有数据不再查询
@@ -132,11 +116,10 @@ export default {
         return;
       }
       this.axGet(
-        'article/list',
+        'event/listByHandlerGroup',
         {
-          isPush: 2,
-          subType: subType[this.tabIndex],
-          articleType: 'info',
+          uid: localStorage.getItem('uid'),
+          state: stateType[this.tabIndex],
           ...pageObj
         }
       ).then(r => {
@@ -144,24 +127,28 @@ export default {
           const data = r.value;
           this[listName] = this[listName].concat(data.list.map(function (v) {
             return {
-              outerChain: v.outerChain,
-              articleCode: v.articleCode,
-              title: v.title,
-              cnt: v.summary,
-              url: v.url
-              // imgSrc: v.messageImg && process.env.img_url + v.messageImg
+              eventCode: v.eventCode,
+              state: !!v.state,
+              question: {
+                reporter: v.reporter,
+                reportTime: v.reportTime,
+                eventTypeName: v.eventTypeName,
+                description: v.description
+              },
+              handlerInfo: v.handlerinfo,
+              evaluateInfo: v.evaluateInfo,
+              level: v.evaluateInfo.level * 1
             };
           }));
           this.$refs[loadmoreName].queryBack(r, pageSelf);
         }
       });
     },
-    toDetail (isProcessed) {
+    toDetail (data) {
+      /* 跳转事件详情 */
+      sessionStorage.setItem('TaskDetail.detail', JSON.stringify(data));
       this.$router.push({
-        name: 'TaskDetail',
-        params: {
-          isProcessed
-        }
+        name: 'TaskDetail'
       });
     }
   }

@@ -125,6 +125,7 @@ export default {
     delImg () {
       /* 删除图片 */
       this.form.imgUrl = '';
+      this.form.imgCode = '';
     },
     imageUploaded ({code, value}) {
       if (code === '200') {
@@ -172,7 +173,7 @@ export default {
             /* this.$router.push({
               name: 'MyEventList'
             }); */
-            this.close
+            this.closeWxWindow();
           }
         });
       }

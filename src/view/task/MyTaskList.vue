@@ -21,35 +21,39 @@ export default {
   components: {HEvent},
   data () {
     return {
-      list: [
-        {
-          eventCode: '2121323232',
-          state: true,
-          question: {
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过\n' +
-              '了，夏天味道太大了。'
-          },
-          handlerInfo: {
-            handler: '李伟',
-            handlerTime: '2019-1-13 14:20:38',
-            replay: '楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过楼下的垃圾桶已满了好几天没有处理过'
-          },
-          level: 3
-        },
-        {
-          eventCode: '265656623232',
-          state: true,
-          question: {
-            reportTime: '20191-13 10:23:50',
-            eventTypeName: '卫生环境',
-            description: ' 楼下的垃圾桶已满了好几天没有处理过\n' +
-              '了，夏天味道太大了。'
-          }
-        }
-      ]
+      list: []
     };
+  },
+  methods: {
+    queryTask () {
+      this.axGet(
+        'event/listByHandlerGroup',
+        {
+          uid: localStorage.getItem('uid'),
+          state: 1,
+          ...this.pageCfg.page
+        }
+      ).then(r => {
+        if (r.code === '200') {
+          const data = r.value;
+          this['list'] = this['list'].concat(data.list.map(function (v) {
+            return {
+              eventCode: v.eventCode,
+              state: !!v.state,
+              question: {
+                reporter: v.reporter,
+                reportTime: v.reportTime,
+                eventTypeName: v.eventTypeName,
+                description: v.description
+              },
+              handlerInfo: v.handlerinfo,
+              level: v.evaluateInfo.level * 1
+            };
+          }));
+          this.$refs['loadmore'].queryBack(r, this);
+        }
+      });
+    }
   }
 };
 </script>

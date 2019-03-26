@@ -111,6 +111,7 @@ export default {
     delImg () {
       /* 删除图片 */
       this.form.imgUrl = '';
+      this.form.imgCode = '';
     },
     imageUploaded (r) {
       if (r.code === '200') {

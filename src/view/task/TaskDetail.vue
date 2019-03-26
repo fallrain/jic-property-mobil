@@ -2,51 +2,53 @@
   <div>
     <ol class="EventDetail-form">
       <li class="EventDetail-form-item">
-        <label class="name">事件编号</label><span>201910230392</span>
+        <label class="name">事件编号</label><span>{{eventCode}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <label class="name">上报人</label><span>29号楼1单元2901室-李彬</span>
+        <label class="name">上报人</label>
+        <span>{{addresses.buildingName+addresses.unitName+addresses.roomName+'-'+addresses.ownerName}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <label class="name">上报时间</label><span>2019-01-13 12:20</span>
+        <label class="name">上报时间</label><span>{{reportTime}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <label class="name">事件分类</label><span>卫生环境</span>
+        <label class="name">事件分类</label><span>{{eventTypeName}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <span>门口有垃圾，很影响我们小区的生活，麻烦请尽快处理。 </span>
+        <span>{{description}}</span>
       </li>
       <li class="EventDetail-form-item" v-if="imgUrl">
         <img :src="imgUrl">
       </li>
     </ol>
-    <div v-if="isProcessed==='0'">
+    <div v-if="state">
       <ol class="EventDetail-answer">
         <li class="EventDetail-answer-item">
-          <label class="name">处理人：</label><span class="val">李伟</span>
+          <label class="name">处理人：</label><span class="val">{{handlerInfo.handler}}</span>
         </li>
         <li class="EventDetail-answer-item">
-          <label class="name">处理时间：</label><span class="val">李伟</span>
+          <label class="name">处理时间：</label><span class="val">{{handlerInfo.handlerTime}}</span>
         </li>
         <li class="EventDetail-answer-item">
-          <label class="name">已处理，但是大叔大婶大所多所多所多所但是大叔大婶大所多所多所多所但是大叔大婶大所多所多所多所但是大叔大婶大所多所多所多所但是大叔大婶大所多所多所多所</label>
+          <label class="name">{{handlerInfo.replay}}</label>
         </li>
         <li class="EventDetail-answer-item" v-if="answerImgUrl">
           <img :src="answerImgUrl">
         </li>
       </ol>
-      <div class="EventDetail-evaluate">
+      <div
+        class="EventDetail-evaluate"
+      >
         <div class="EventDetail-evaluate-btn-par">
           <h-score
             :no-click="true"
+            v-model="evaluateInfo.level"
           ></h-score>
-          <button
-            type="button"
-            class="EventDetail-evaluate-btn"
-          >重新评价
-          </button>
         </div>
-        <p class="EventDetail-evaluate-inf">响应及时，处理速度快，服务很好。</p>
+        <p
+          class="EventDetail-evaluate-inf"
+          v-show="evaluateInfo.evaluateContent"
+        >{{evaluateInfo.evaluateContent}}</p>
       </div>
     </div>
     <div v-else class="TaskDetail-handleform-par">
@@ -96,7 +98,7 @@
           :width="264"
           :height="39"
           cnt="提交处理结果"
-          @click.native="sbumit"
+          @click.native="submit"
         ></h-button>
       </div>
     </div>
@@ -109,7 +111,7 @@ import HButton from '../../components/common/HButton';
 import HTextarea from '../../components/common/HTextarea';
 import HUpload from '../../components/common/HUpload';
 import VueCoreImageUpload from 'vue-core-image-upload';
-
+import {mapState} from 'vuex';
 export default {
   name: 'TaskDetail',
   components: {VueCoreImageUpload, HTextarea, HButton, HScore, HUpload},
@@ -118,25 +120,56 @@ export default {
       type: String
     }
   },
+  created () {
+    this.init();
+  },
+  activated () {
+    // this.updateLevel();
+  },
   data () {
     return {
-      uploadUrl: '',
-      imgUrl: 'fdf',
-      answerImgUrl: 'sas',
+      eventCode: '',
+      reportTime: '',
+      eventTypeName: '',
+      description: '',
+      state: false,
+      handlerInfo: '',
+      evaluateInfo: {},
+      uploadUrl: process.env.base_url + 'document/upload',
+      imgUrl: '',
+      answerImgUrl: '',
       form: {
         imgUrl: '',
         handleCnt: ''
       }
     };
   },
+  computed: {
+    ...mapState(['addresses'])
+  },
   methods: {
+    init () {
+      let detail = sessionStorage.getItem('TaskDetail.detail');
+      if (detail) {
+        detail = JSON.parse(detail);
+        this.eventCode = detail.eventCode;
+        this.reportTime = detail.question.reportTime;
+        this.eventTypeName = detail.question.eventTypeName;
+        this.description = detail.question.description;
+        this.handlerInfo = detail.handlerInfo;
+        this.evaluateInfo = detail.evaluateInfo;
+        this.state = detail.state;
+        this.imgUrl = detail.images && detail.images[0] ? detail.images[0].url : null;
+        this.answerImgUrl = detail.handlerInfo && detail.handlerInfo.images && detail.handlerInfo.images[0] ? detail.handlerInfo.images[0].url : null;
+      }
+    },
     delImg () {
       /* 删除图片 */
       this.form.imgUrl = '';
+      this.form.imgCode = '';
     },
-    imageUploaded (r) {
-      if (r.code === '200') {
-        const data = r.value;
+    imageUploaded ({code, value: data}) {
+      if (code === '200') {
         this.form.imgUrl = data[0].url;
         this.form.imgCode = data[0].docId;
       }
@@ -159,8 +192,22 @@ export default {
         text: '上传失败'
       });
     },
-    submit () {
-
+    async submit () {
+      const {code} = await this.axPost(
+        'event/handle',
+        {
+          eventCode: this.eventCode,
+          handlerUid: localStorage.getItem('uid'),
+          handlerReplay: this.form.handleCnt,
+          handleTime: this.hUtil.formatDate(new Date()),
+          handlerImages: this.form.imgCode
+        }
+      );
+      if (code === '200') {
+        this.$router.push({
+          name: 'TaskList'
+        });
+      }
     }
   }
 };
