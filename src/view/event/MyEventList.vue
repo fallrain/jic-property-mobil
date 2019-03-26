@@ -14,15 +14,22 @@
       :delEvent="delEvent"
       :toDeatil="toDetail"
     ></h-event>
+    <h-loadmore
+      ref="hloadmore"
+      :show="pageCfg.loadingShow"
+      :loadingType="pageCfg.loadingType"
+      :data="pageCfg.page"
+    ></h-loadmore>
   </div>
 </template>
 
 <script>
 import HEvent from '../../components/common/HEvent';
+import HLoadmore from '../../components/common/HLoadmore';
 
 export default {
   name: 'MyEventList',
-  components: {HEvent},
+  components: {HLoadmore, HEvent},
   provide () {
     return {
       updateLevelByEventCode (eventCode, level) {
@@ -64,14 +71,15 @@ export default {
     },
     async query () {
       /* 查询我上报的事件 */
-      const {code, value} = await this.axGet(
+      const {code, value, ...r} = await this.axGet(
         'event/listByUser',
         {
-          uid: localStorage.getItem('uid')
+          uid: localStorage.getItem('uid'),
+          ...this.pageCfg.page
         }
       );
       if (code === '200') {
-        this.list = value.list.map(function (v) {
+        this.list = this.list.concat(value.list.map(function (v) {
           return {
             eventCode: v.eventCode,
             state: !!v.state,
@@ -85,7 +93,8 @@ export default {
             level: v.evaluateInfo && v.evaluateInfo.level ? v.evaluateInfo.level : undefined,
             images: v.images
           };
-        });
+        }));
+        this.$refs.hloadmore.queryBack(r, this);
       }
     },
     toScore (eventCode, level, evaluateContent) {
