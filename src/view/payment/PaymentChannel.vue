@@ -137,7 +137,7 @@ export default {
             chargeCodes: this.chargeCodes
           },
           {
-            j_sub_system: sessionStorage.getItem('simpleCode')
+            j_sub_system: sessionStorage.getItem('ownerSimpleCode')
           }
         ).then(r => {
           const _this = this;
@@ -189,7 +189,7 @@ export default {
         {
           uid: localStorage.getItem('uid'),
           orderCode: orderCode,
-          j_sub_system: sessionStorage.getItem('simpleCode')
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

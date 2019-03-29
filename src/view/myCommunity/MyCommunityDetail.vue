@@ -32,7 +32,7 @@ export default {
   methods: {
     queryDetail () {
       /* 查询小区详情 */
-      // const simpleCode = (!this.communityCode || this.communityCode === 'all') ? sessionStorage.getItem('simpleCode') : this.communityCode;
+      // const simpleCode = (!this.communityCode || this.communityCode === 'all') ? sessionStorage.getItem('ownerSimpleCode') : this.communityCode;
       /* if (!this.communityCode || this.communityCode === 'all') {
         this.address = sessionStorage.getItem('address');
       } else { */

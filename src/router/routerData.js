@@ -40,7 +40,8 @@ let data = [
     name: 'PaymentHome',
     component: PaymentHome,
     meta: {
-      title: '待缴费'
+      title: '待缴费',
+      role: 'owner'
     }
   },
   {
@@ -49,7 +50,8 @@ let data = [
     component: PaymentDetail,
     props: true,
     meta: {
-      title: '付费信息查看'
+      title: '付费信息查看',
+      role: 'owner'
     }
   },
   {
@@ -57,7 +59,8 @@ let data = [
     name: 'PaymentChannel',
     component: PaymentChannel,
     meta: {
-      title: '支付渠道'
+      title: '支付渠道',
+      role: 'owner'
     }
   },
   {
@@ -65,7 +68,8 @@ let data = [
     name: 'PaymentSucess',
     component: PaymentSucess,
     meta: {
-      title: '支付成功'
+      title: '支付成功',
+      role: 'owner'
     }
   },
   {
@@ -74,7 +78,8 @@ let data = [
     component: PaymentHistoryList,
     props: true,
     meta: {
-      title: '缴费历史'
+      title: '缴费历史',
+      role: 'owner'
     }
   },
   {
@@ -83,7 +88,8 @@ let data = [
     component: InformationWallList,
     props: true,
     meta: {
-      title: '信息上墙'
+      title: '信息上墙',
+      role: 'owner'
     }
   },
   {
@@ -91,7 +97,8 @@ let data = [
     name: 'InformationWallForm',
     component: InformationWallForm,
     meta: {
-      title: '发布信息'
+      title: '发布信息',
+      role: 'owner'
     }
   },
   {
@@ -99,7 +106,8 @@ let data = [
     name: 'NoticeList',
     component: NoticeList,
     meta: {
-      title: '物业通知'
+      title: '物业通知',
+      role: 'owner'
     }
   },
   {
@@ -108,7 +116,8 @@ let data = [
     props: true,
     component: NoticeDetail,
     meta: {
-      title: '物业通知详情'
+      title: '物业通知详情',
+      role: 'owner'
     }
   },
   {
@@ -116,7 +125,8 @@ let data = [
     name: 'QuestionnaireList',
     component: QuestionnaireList,
     meta: {
-      title: '调查问卷列表'
+      title: '调查问卷列表',
+      role: 'owner'
     }
   },
   {
@@ -125,7 +135,8 @@ let data = [
     props: true,
     component: QuestionnaireDetail,
     meta: {
-      title: '问卷详情'
+      title: '问卷详情',
+      role: 'owner'
     }
   },
   {
@@ -133,7 +144,8 @@ let data = [
     name: 'PersonalInformation',
     component: PersonalInformation,
     meta: {
-      title: '个人中心'
+      title: '个人中心',
+      role: 'owner'
     }
   },
   {
@@ -141,7 +153,8 @@ let data = [
     name: 'FamilyMemberList',
     component: FamilyMemberList,
     meta: {
-      title: '成员列表'
+      title: '成员列表',
+      role: 'owner'
     }
   },
   {
@@ -149,7 +162,8 @@ let data = [
     name: 'MyCommunityList',
     component: MyCommunityList,
     meta: {
-      title: '切换小区'
+      title: '切换小区',
+      role: 'owner'
     }
   },
   {
@@ -158,7 +172,8 @@ let data = [
     component: MyCommunityDetail,
     props: true,
     meta: {
-      title: '我的小区'
+      title: '我的小区',
+      role: 'owner'
     }
   },
   {
@@ -166,7 +181,8 @@ let data = [
     name: 'CommunityList',
     component: CommunityList,
     meta: {
-      title: '小区选择'
+      title: '小区选择',
+      role: 'owner'
     }
   },
   {
@@ -175,7 +191,8 @@ let data = [
     component: BuildingList,
     props: true,
     meta: {
-      title: '楼栋选择'
+      title: '楼栋选择',
+      role: 'owner'
     }
   },
   {
@@ -184,7 +201,8 @@ let data = [
     props: true,
     component: UnitList,
     meta: {
-      title: '单元选择'
+      title: '单元选择',
+      role: 'owner'
     }
   },
   {
@@ -193,7 +211,8 @@ let data = [
     props: true,
     component: RoomList,
     meta: {
-      title: '房间选择'
+      title: '房间选择',
+      role: 'owner'
     }
   },
   {
@@ -202,7 +221,8 @@ let data = [
     props: true,
     component: BindUserChoose,
     meta: {
-      title: '绑定用户'
+      title: '绑定用户',
+      role: 'owner'
     }
   },
   {
@@ -211,7 +231,8 @@ let data = [
     props: true,
     component: BindUser,
     meta: {
-      title: '绑定用户'
+      title: '绑定用户',
+      role: 'owner'
     }
   },
   {
@@ -219,7 +240,8 @@ let data = [
     name: 'Contact',
     component: Contact,
     meta: {
-      title: '联系我们'
+      title: '联系我们',
+      role: 'owner'
     }
   },
   {
@@ -227,7 +249,8 @@ let data = [
     name: 'Nobind',
     component: Nobind,
     meta: {
-      title: '未绑定'
+      title: '未绑定',
+      role: 'owner'
     }
   },
   {
@@ -235,7 +258,8 @@ let data = [
     name: 'SuggestionList',
     component: SuggestionList,
     meta: {
-      title: '意见建议列表'
+      title: '意见建议列表',
+      role: 'owner'
     }
   },
   {
@@ -243,7 +267,8 @@ let data = [
     name: 'SuggestionForm',
     component: SuggestionForm,
     meta: {
-      title: '意见建议'
+      title: '意见建议',
+      role: 'owner'
     }
   },
   {
@@ -251,7 +276,8 @@ let data = [
     name: 'EventReport',
     component: EventReport,
     meta: {
-      title: '事件上报'
+      title: '事件上报',
+      role: 'owner'
     }
   },
   {
@@ -260,7 +286,8 @@ let data = [
     component: Score,
     props: true,
     meta: {
-      title: '我要评分'
+      title: '我要评分',
+      role: 'owner'
     }
   },
   {
@@ -268,7 +295,8 @@ let data = [
     name: 'MyEventList',
     component: MyEventList,
     meta: {
-      title: '我的上报事件'
+      title: '我的上报事件',
+      role: 'owner'
     }
   },
   {
@@ -276,7 +304,8 @@ let data = [
     name: 'EventDetail',
     component: EventDetail,
     meta: {
-      title: '事件详情'
+      title: '事件详情',
+      role: 'owner'
     }
   },
   {
@@ -285,7 +314,8 @@ let data = [
     component: TaskList,
     // props: (route) => ({ tabIndexOfQuery: route.query.tabIndex ? route.query.tabIndex * 1 : 0 }),
     meta: {
-      title: '我收到的任务'
+      title: '我收到的任务',
+      role: 'property'
     }
   },
   {
@@ -293,7 +323,8 @@ let data = [
     name: 'TaskDetail',
     component: TaskDetail,
     meta: {
-      title: '事件详情'
+      title: '事件详情',
+      role: 'property'
     }
   },
   {
@@ -301,7 +332,8 @@ let data = [
     name: 'MyTaskList',
     component: MyTaskList,
     meta: {
-      title: '我处理的任务'
+      title: '我处理的任务',
+      role: 'property'
     }
   }
 ];

@@ -94,7 +94,7 @@ export default {
       return this.axGet(
         'questionSurveyInfo/wxInfo',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           surveyCode: this.surveyCode,
           wxUid: localStorage.getItem('uid')
         }
@@ -216,7 +216,7 @@ export default {
         'questionSurveyAnswer/wxSubmitList',
         data,
         {
-          j_sub_system: sessionStorage.getItem('simpleCode')
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

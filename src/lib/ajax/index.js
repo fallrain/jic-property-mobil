@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import ax from 'axios';
+import store from '@/store';
 import {
   LoadingPlugin,
   ToastPlugin
@@ -22,7 +23,8 @@ ax.interceptors.request.use(config => {
     config.params = {};
   }
   if (!config.params.j_sub_system) {
-    config.params.j_sub_system = sessionStorage.getItem('simpleCode') || undefined;
+    const simpleCodeKeyName = store.state.curRole === 'property' ? 'propertySimpleCode' : 'ownerSimpleCode';
+    config.params.j_sub_system = sessionStorage.getItem(simpleCodeKeyName) || undefined;
   }
   Vue.$vux.loading.show();
   return config;

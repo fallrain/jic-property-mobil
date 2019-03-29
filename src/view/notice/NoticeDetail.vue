@@ -44,7 +44,7 @@ export default {
       this.axGet(
         '/article/info',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           articleCode: this.articleCode
         }
       ).then(r => {

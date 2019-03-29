@@ -67,7 +67,7 @@ export default {
           this.communityList = r.value.map(function (v) {
             console.log('abbbb......', v);
             return {
-              simpleCode: v.simpleCode,
+              simpleCode: v.ownerSimpleCode,
               ownerCode: v.ownerCode,
               communityName: v.communityName,
               communityCode: v.communityCode,
@@ -101,7 +101,7 @@ export default {
             let data = {
               ownerCode: item.ownerCode,
               roomCode: item.roomCode,
-              simpleCode: item.simpleCode,
+              simpleCode: item.ownerSimpleCode,
               communityName: item.communityName,
               address: item.address
             };

@@ -92,16 +92,16 @@ export default {
     resetTabIndexByQuery () {
       /* 如果带着查询参数，那么重置tabIndex */
       const tabIndex = this.$route.query.tabIndex;
-      if (tabIndex === undefined || this.tabIndex === tabIndex) {
+      if (tabIndex === undefined || this.tabIndex === tabIndex * 1) {
         return;
       }
-      this.tabIndex = tabIndex;
+      this.tabIndex = tabIndex * 1;
       // 如果没数据的话，查一下，下面方法自带空数组检查
-      this.queryTask();
+      this.queryTask('init');
     },
     unshiftList () {
       /* 检查有无处理过的事件 */
-      let detail = sessionStorage.getItem('TaskDetail.detail');
+      let detail = sessionStorage.getItem('TaskDetail.processed');
       if (detail) {
         detail = JSON.parse(detail);
         // 头部新加，尾部删除，避免加载更多时数据重复
@@ -109,6 +109,7 @@ export default {
         this.processedList.pop();
         // 删除未处理列表对应对象
         this.unprocessedList.splice(this.unprocessedList.findIndex(v => v.eventCode === detail.eventCode), 1);
+        sessionStorage.removeItem('TaskDetail.processed');
       }
     },
     changeTab (index) {

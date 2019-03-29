@@ -1,5 +1,6 @@
 import router from '@/router';
 import store from '@/store';
+
 export default {
   async beforeRouteEnter (to, from, next) {
     function check () {
@@ -14,7 +15,7 @@ export default {
         'Nobind',
         'PersonalInformation'
       ];
-      if (!sessionStorage.getItem('simpleCode')) {
+      if (role === 'owner' && !sessionStorage.getItem('ownerSimpleCode')) {
         if (!noAuthPages.includes(to.name)) {
           // 没有绑定小区直接到添加小区页面
           router.replace({
@@ -23,8 +24,16 @@ export default {
         }
       }
     }
+    const role = to.meta.role;
+    if (role) {
+      store.commit('changeRole', to.meta.role);
+      if (role === 'owner') {
+        await store.dispatch('getWxInfo');
+      } else {
+        await store.dispatch('getPropertyInfo');
+      }
+    }
 
-    await store.dispatch('getWxInfo');
     check();
     next();
   },

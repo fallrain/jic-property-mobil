@@ -81,7 +81,7 @@ export default {
     query () {
       /* 查询上墙信息 */
       const data = {
-        j_sub_system: sessionStorage.getItem('simpleCode'),
+        j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
         ownerCode: sessionStorage.getItem('ownerCode'),
         ...this.pageCfg.page
       };
@@ -126,7 +126,7 @@ export default {
         {
           ownerCode: sessionStorage.getItem('ownerCode'),
           infoCode: item.infoCode,
-          j_sub_system: sessionStorage.getItem('simpleCode')
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

@@ -5,7 +5,7 @@ export default {
         'wx/mp/jssdk/signature',
         null,
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           url: location.href
         }
       ).then(r => {

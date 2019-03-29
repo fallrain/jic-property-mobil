@@ -123,7 +123,7 @@ let util = {
   updateUserCommunity (data) {
     sessionStorage.setItem('ownerCode', data.ownerCode);
     sessionStorage.setItem('roomCode', data.roomCode);
-    sessionStorage.setItem('simpleCode', data.simpleCode);
+    sessionStorage.setItem('ownerSimpleCode', data.simpleCode);
     sessionStorage.setItem('communityName', data.communityName);
     sessionStorage.setItem('address', data.address);
   }

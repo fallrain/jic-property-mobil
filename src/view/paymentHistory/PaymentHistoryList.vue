@@ -141,7 +141,7 @@ export default {
       const _this = this;
       const simpleCode = this.hUtil.getUrlVal('r_sys') ? decodeURIComponent(this.hUtil.getUrlVal('r_sys')) : '';
       const communityName = this.hUtil.getUrlVal('r_sysname') ? decodeURIComponent(this.hUtil.getUrlVal('r_sysname')) : '';
-      if (simpleCode && simpleCode !== sessionStorage.getItem('simpleCode')) {
+      if (simpleCode && simpleCode !== sessionStorage.getItem('ownerSimpleCode')) {
         this.$vux.confirm.show({
           title: '系统通知',
           hideOnBlur: false,
@@ -203,7 +203,7 @@ export default {
         {
           payType: payType,
           uid: localStorage.getItem('uid'),
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           ...pageCfg.page
         }
       ).then(r => {

@@ -1,6 +1,7 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import {axGet} from '@/lib/ajax';
+
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
@@ -19,10 +20,15 @@ export default new Vuex.Store({
       unitName: '',
       roomName: '',
       ownerName: ''
+    },
+    curRole: '',
+    propertyInfo: {
+      userName: ''
     }
   },
   mutations: {
     toggleAliveExclude ({aliveExclude}, name) {
+      /* 改变缓存排除的页面 */
       const index = aliveExclude.indexOf(name);
       index === -1 ? aliveExclude.push(name) : aliveExclude.splice(index, 1);
     },
@@ -35,11 +41,21 @@ export default new Vuex.Store({
       index === -1 && aliveExclude.push(name);
     },
     updateUserCommunity ({addresses}, {communityName, buildingName, unitName, roomName, ownerName}) {
+      /* 更新业主¬信息 */
       Object.assign(addresses, {communityName, buildingName, unitName, roomName, ownerName});
+    },
+    updatePropertyInfo ({propertyInfo}, {userName}) {
+      /* 更新物业信息 */
+      Object.assign(propertyInfo, {userName});
+    },
+    changeRole (state, role) {
+      /* 改变角色 */
+      state.curRole = role;
     }
   },
   actions: {
     getWxInfo ({commit}) {
+      /* 普通业主/租户的信息 */
       return axGet(
         'communityInfo/wxGetAllInfoByWx',
         {
@@ -50,10 +66,25 @@ export default new Vuex.Store({
         if (code === '200') {
           sessionStorage.setItem('ownerCode', data.ownerCode);
           sessionStorage.setItem('roomCode', data.roomCode);
-          sessionStorage.setItem('simpleCode', data.simpleCode);
+          sessionStorage.setItem('ownerSimpleCode', data.simpleCode);
           sessionStorage.setItem('communityName', data.communityName);
           sessionStorage.setItem('address', data.communityName + data.buildingName + data.unitName + data.roomName);
           commit('updateUserCommunity', data);
+        }
+      });
+    },
+    getPropertyInfo ({commit}) {
+      /* 物业管理人员的信息 */
+      return axGet(
+        'handlerWxUserRel/selectHandlerByWx',
+        {
+          requestNoToast: true,
+          wxUid: localStorage.getItem('uid')
+        }
+      ).then(({code, value: data}) => {
+        if (code === '200') {
+          sessionStorage.setItem('propertySimpleCode', data.simpleCode);
+          commit('updatePropertyInfo', data);
         }
       });
     }

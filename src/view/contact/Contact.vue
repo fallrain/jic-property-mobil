@@ -39,7 +39,7 @@ export default {
       this.axGet(
         'communityContact/wxList',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           pageNum: 1,
           pageSize: 99999999
         }

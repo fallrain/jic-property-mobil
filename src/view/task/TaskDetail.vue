@@ -56,7 +56,7 @@
         class="TaskDetail-handleform"
       >
         <p class="TaskDetail-handleform-title common-kv-item">
-          <label class="name">处理人</label><span class="val">王明</span>
+          <label class="name">处理人</label><span class="val">{{propertyInfo.userName}}</span>
         </p>
         <div class="TaskDetail-handleform-ta-par">
           <h-textarea
@@ -123,6 +123,7 @@ export default {
   },
   created () {
     this.init();
+    this.genVdt();
   },
   activated () {
     // this.updateLevel();
@@ -146,7 +147,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(['addresses'])
+    ...mapState([
+      'addresses',
+      'propertyInfo'
+    ])
   },
   methods: {
     init () {
@@ -228,7 +232,7 @@ export default {
       if (code === '200') {
         const detail = JSON.parse(sessionStorage.getItem('TaskDetail.detail'));
         detail.handlerInfo = {
-          handler: '',
+          handler: this.propertyInfo.userName,
           handlerTime,
           images: [],
           replay: this.form.handleCnt

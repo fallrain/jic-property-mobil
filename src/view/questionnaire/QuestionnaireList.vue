@@ -45,7 +45,7 @@ export default {
       this.axGet(
         'questionSurvey/wxList',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           ...this.pageCfg.page
         }
       ).then(r => {

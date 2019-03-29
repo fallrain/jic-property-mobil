@@ -58,7 +58,7 @@ export default {
       this.axGet(
         'roomOwner/wxGetAllOwners',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           roomCode: sessionStorage.getItem('roomCode')
         }
       ).then(r => {
@@ -88,7 +88,7 @@ export default {
           ownerCode: item.ownerCode
         },
         {
-          j_sub_system: sessionStorage.getItem('simpleCode')
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode')
         }
       ).then(r => {
         if (r.code === '200') {

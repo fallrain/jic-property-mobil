@@ -150,7 +150,7 @@ export default {
             ownerCode: sessionStorage.getItem('ownerCode')
           },
           {
-            j_sub_system: sessionStorage.getItem('simpleCode')
+            j_sub_system: sessionStorage.getItem('ownerSimpleCode')
           }
         ).then(r => {
           if (r.code === '200') {

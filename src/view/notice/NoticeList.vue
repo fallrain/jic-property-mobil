@@ -45,7 +45,7 @@ export default {
       this.axGet(
         'article/list',
         {
-          j_sub_system: sessionStorage.getItem('simpleCode'),
+          j_sub_system: sessionStorage.getItem('ownerSimpleCode'),
           isPush: 2,
           articleType: 'notice',
           ...this.pageCfg.page
