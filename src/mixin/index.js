@@ -41,7 +41,7 @@ export default {
     return {
       pageCfg: {
         page: {
-          pageSize: 20,
+          pageSize: 1,
           pageNum: 1
         },
         loadingType: 1,

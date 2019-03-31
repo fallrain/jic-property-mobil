@@ -2,17 +2,17 @@
   <div>
     <ol class="EventDetail-form">
       <li class="EventDetail-form-item">
-        <label class="name">事件编号</label><span>{{eventCode}}</span>
+        <label class="name">事件编号</label><span class="val code">{{eventCode}}</span>
       </li>
       <li class="EventDetail-form-item">
         <label class="name">上报人</label>
-        <span>{{addresses.buildingName+addresses.unitName+addresses.roomName+'-'+addresses.ownerName}}</span>
+        <span class="val">{{question.reporter}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <label class="name">上报时间</label><span>{{reportTime}}</span>
+        <label class="name">上报时间</label><span class="val">{{reportTime}}</span>
       </li>
       <li class="EventDetail-form-item">
-        <label class="name">事件分类</label><span>{{eventTypeName}}</span>
+        <label class="name">事件分类</label><span class="val">{{eventTypeName}}</span>
       </li>
       <li class="EventDetail-form-item">
         <span>{{description}}</span>
@@ -158,12 +158,14 @@ export default {
       if (detail) {
         detail = JSON.parse(detail);
         this.eventCode = detail.eventCode;
+        this.question = detail.question;
         this.reportTime = detail.question.reportTime;
         this.eventTypeName = detail.question.eventTypeName;
         this.description = detail.question.description;
         this.handlerInfo = detail.handlerInfo;
         detail.evaluateInfo.level *= 1;
         this.evaluateInfo = detail.evaluateInfo;
+        this.reportInfo = detail.reportInfo;
         this.state = detail.state;
         this.imgUrl = detail.images && detail.images[0] ? detail.images[0].url : null;
         this.answerImgUrl = detail.handlerInfo && detail.handlerInfo.images && detail.handlerInfo.images[0] ? detail.handlerInfo.images[0].url : null;

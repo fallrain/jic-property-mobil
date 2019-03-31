@@ -182,7 +182,7 @@ export default {
   }
 
   .HEvent-head-eId {
-    font-size: 14px;
+    font-size: 12px;
     color: #999;
   }
 

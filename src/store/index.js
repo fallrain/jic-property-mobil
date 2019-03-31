@@ -1,9 +1,14 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import {axGet} from '@/lib/ajax';
-
+import createPersistedState from '@/lib/vuexPlugin/persistedstate';
 Vue.use(Vuex);
 export default new Vuex.Store({
+  plugins: [
+    createPersistedState({
+      storage: sessionStorage
+    })
+  ],
   state: {
     aliveExclude: [
       'PaymentHistoryList',
@@ -24,7 +29,9 @@ export default new Vuex.Store({
     curRole: '',
     propertyInfo: {
       userName: ''
-    }
+    },
+    // 当前传递的事件详情
+    curEventDetail: {}
   },
   mutations: {
     toggleAliveExclude ({aliveExclude}, name) {
@@ -51,6 +58,12 @@ export default new Vuex.Store({
     changeRole (state, role) {
       /* 改变角色 */
       state.curRole = role;
+    },
+    updateCurEventDetail (state, detail) {
+      Object.assign(state.curEventDetail, detail);
+    },
+    resetCurEventDetail (state) {
+      state.curEventDetail = {};
     }
   },
   actions: {

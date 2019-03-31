@@ -9,10 +9,10 @@
       :question="item.question"
       :handlerInfo="item.handlerInfo"
       :evaluateInfo="item.evaluateInfo"
-      :level="item.level"
+      :level="item.evaluateInfo.level"
       :toScore="toScore"
       :delEvent="delEvent"
-      :toDeatil="toDetail"
+      :toDetail="toDetail"
     ></h-event>
     <h-loadmore
       ref="hloadmore"
@@ -27,6 +27,8 @@
 import HEvent from '../../components/common/HEvent';
 import HLoadmore from '../../components/common/HLoadmore';
 
+import {mapState, mapMutations} from 'vuex';
+
 export default {
   name: 'MyEventList',
   components: {HLoadmore, HEvent},
@@ -39,6 +41,7 @@ export default {
     };
   },
   created () {
+    this.resetCurEventDetail();
     this.query();
   },
   activated () {
@@ -50,16 +53,21 @@ export default {
       list: []
     };
   },
+  computed: {
+    ...mapState([
+      'curEventDetail'
+    ])
+  },
   methods: {
+    ...mapMutations([
+      'updateCurEventDetail',
+      'resetCurEventDetail'
+    ]),
     updateLevelByEventCode () {
       /* 打分后重新进入此页面更新星星 */
-      let levelDetail = sessionStorage.getItem('MyEventList.level');
-      if (levelDetail) {
-        levelDetail = JSON.parse(levelDetail);
-        const event = this.list.find(v => v.eventCode === levelDetail.eventCode);
-        event.level = levelDetail.level;
-        event.evaluateInfo.evaluateContent = levelDetail.evaluateContent;
-        sessionStorage.removeItem('MyEventList.level');
+      if (JSON.stringify(this.curEventDetail) !== '{}') {
+        const event = this.list.find(v => v.eventCode === this.curEventDetail.eventCode);
+        Object.assign(event, this.curEventDetail);
       }
     },
     updateList () {
@@ -71,7 +79,7 @@ export default {
     },
     async query () {
       /* 查询我上报的事件 */
-      const {code, value, ...r} = await this.axGet(
+      const {code, value} = await this.axGet(
         'event/listByUser',
         {
           uid: localStorage.getItem('uid'),
@@ -80,10 +88,12 @@ export default {
       );
       if (code === '200') {
         this.list = this.list.concat(value.list.map(function (v) {
+          v.evaluateInfo && !v.evaluateInfo.level && (v.evaluateInfo.level = 0);
           return {
             eventCode: v.eventCode,
             state: !!v.state,
             question: {
+              reporter: v.reportInfo.reportRoom + '-' + v.reportInfo.reportName,
               reportTime: v.reportTime,
               eventTypeName: v.eventTypeName,
               description: v.description
@@ -94,7 +104,7 @@ export default {
             images: v.images
           };
         }));
-        this.$refs.hloadmore.queryBack(r, this);
+        this.$refs.hloadmore.queryBack({code, value}, this);
       }
     },
     toScore (eventCode, level, evaluateContent) {
@@ -133,7 +143,7 @@ export default {
     },
     toDetail (data) {
       /* 跳转事件详情 */
-      sessionStorage.setItem('EventDetail.detail', JSON.stringify(data));
+      this.updateCurEventDetail(data);
       this.$router.push({
         name: 'EventDetail'
       });

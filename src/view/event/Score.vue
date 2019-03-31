@@ -34,6 +34,7 @@ import HScore from '../../components/common/HScore';
 import HTextarea from '../../components/common/HTextarea';
 import HButton from '../../components/common/HButton';
 
+import {mapState, mapMutations} from 'vuex';
 export default {
   name: 'Score',
   components: {HButton, HTextarea, HScore},
@@ -51,15 +52,19 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapState([
+      'curEventDetail'
+    ])
+  },
   methods: {
+    ...mapMutations([
+      'updateCurEventDetail'
+    ]),
     init () {
-      let detail = sessionStorage.getItem('Score.detail');
-      if (detail) {
-        detail = JSON.parse(detail);
-        this.form.eventCode = detail.eventCode;
-        this.form.content = detail.evaluateContent;
-        this.form.starsNum = detail.level;
-      }
+      this.form.eventCode = this.curEventDetail.eventCode;
+      this.form.content = this.curEventDetail.evaluateInfo.evaluateContent;
+      this.form.starsNum = this.curEventDetail.evaluateInfo.level;
     },
     genVdt () {
       this.vdt = new this.HValidate({
@@ -101,14 +106,15 @@ export default {
           text: '评价成功',
           onHide: () => {
             sessionStorage.removeItem('Score.detail');
-            sessionStorage.setItem(this.type + '.level', JSON.stringify({
-              'eventCode': this.form.eventCode,
-              'level': this.form.starsNum,
-              'evaluateContent': this.form.content
-            }));
-            this.$router.replace({
+            sessionStorage.setItem(this.type + '.level', 'true');
+            const curEventDetailTemp = JSON.parse(JSON.stringify(this.curEventDetail));
+            curEventDetailTemp.evaluateInfo.level = this.form.starsNum;
+            curEventDetailTemp.evaluateInfo.evaluateContent = this.form.content;
+            this.updateCurEventDetail(curEventDetailTemp);
+            /* this.$router.replace({
               name: this.type
-            });
+            }); */
+            this.$router.back();
           }
         });
       }

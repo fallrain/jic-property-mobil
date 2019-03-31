@@ -10,16 +10,25 @@
         :answer="item.answer"
         :delHandler="delSuggestion"
       ></h-suggestion>
+      <h-loadmore
+        ref="hloadmore"
+        :show="pageCfg.loadingShow"
+        :loadingType="pageCfg.loadingType"
+        :data="pageCfg.page"
+        :query="query"
+      ></h-loadmore>
     </div>
   </div>
 </template>
 
 <script>
+import HLoadmore from '../../components/common/HLoadmore';
 import HSuggestion from '../../components/common/HSuggestion';
 
 export default {
   name: 'SuggestionList',
   components: {
+    HLoadmore,
     HSuggestion
   },
   data () {
@@ -44,14 +53,15 @@ export default {
         }
       );
       if (code === '200') {
-        this.list = value.list.map(function (v) {
+        this.list = this.list.concat(value.list.map(function (v) {
           return {
             id: v.id,
             time: v.createdTime,
             question: v.question,
             answer: v.reply
           };
-        });
+        }));
+        this.$refs.hloadmore.queryBack({code, value}, this);
       }
     },
     delSuggestion (id) {
