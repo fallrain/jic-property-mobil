@@ -55,6 +55,10 @@
   display: table-cell;
 }
 
+.dis-flex {
+  display: flex;
+}
+
 .pseudo-clear:after {
   clear: both;
   display: block;
@@ -1787,6 +1791,10 @@
   margin-left: 20px;
 }
 
+.EventReport-img-preshow {
+  display: flex;
+}
+
 /*事件上报 end*/
 
 /*我要打分*/
@@ -1875,6 +1883,11 @@
   img {
     max-width: 100%;
   }
+}
+
+.EventDetail-answer-item-flexwrap {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .EventDetail-evaluate {

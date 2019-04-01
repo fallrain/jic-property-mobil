@@ -17,8 +17,14 @@
       <li class="EventDetail-form-item">
         <span>{{description}}</span>
       </li>
-      <li class="EventDetail-form-item" v-if="imgUrl">
-        <img :src="imgUrl">
+      <li
+        class="EventDetail-form-item EventDetail-answer-item-flexwrap"
+        v-if="imgUrl.length">
+        <img
+          v-for="(img,index) in imgUrl"
+          :key="index"
+          :src="img.url"
+        >
       </li>
     </ol>
     <div v-if="state">
@@ -32,8 +38,15 @@
         <li class="EventDetail-answer-item">
           <label class="name">{{handlerInfo.replay}}</label>
         </li>
-        <li class="EventDetail-answer-item" v-if="answerImgUrl">
-          <img :src="answerImgUrl">
+        <li
+          class="EventDetail-answer-item EventDetail-answer-item-flexwrap"
+          v-if="answerImgUrl.length"
+        >
+          <img
+            v-for="(img,index) in answerImgUrl"
+            :key="index"
+            :src="img.url"
+          >
         </li>
       </ol>
       <div
@@ -67,16 +80,22 @@
       </form>
       <div class="InformationWallForm-img-par TaskDetail-img-par">
         <div
-          v-show="form.imgUrl"
-          class="InformationWallForm-preshow"
+          v-show="form.imgUrl.length"
+          class="EventReport-img-preshow"
         >
-          <i class="iconfont del icon-shanchu" @click="delImg"></i>
-          <img
-            :src="form.imgUrl"
+          <div
+            class="InformationWallForm-preshow"
+            v-for="(item,index) in form.imgUrl"
+            :key="item"
           >
+            <i class="iconfont del icon-shanchu" @click="delImg(index)"></i>
+            <img
+              :src="item"
+            >
+          </div>
         </div>
         <vue-core-image-upload
-          v-show="!form.imgUrl"
+          v-show="form.imgUrl.length < 3"
           class="btn btn-primary"
           :crop="false"
           inputOfFile="file"
@@ -87,7 +106,7 @@
           extensions="png,jpg,jpeg"
           inputAccept="image/jpg,image/jpeg,image/png"
           :url="uploadUrl"
-          :multiple-size="1"
+          :multiple-size="3"
           @errorhandle="uploadError"
         >
           <h-upload></h-upload>
@@ -138,10 +157,11 @@ export default {
       handlerInfo: '',
       evaluateInfo: {},
       uploadUrl: process.env.base_url + 'document/upload',
-      imgUrl: '',
-      answerImgUrl: '',
+      imgUrl: [],
+      answerImgUrl: [],
       form: {
-        imgUrl: '',
+        imgUrl: [],
+        imgCode: [],
         handleCnt: ''
       }
     };
@@ -167,19 +187,19 @@ export default {
         this.evaluateInfo = detail.evaluateInfo;
         this.reportInfo = detail.reportInfo;
         this.state = detail.state;
-        this.imgUrl = detail.images && detail.images[0] ? detail.images[0].url : null;
-        this.answerImgUrl = detail.handlerInfo && detail.handlerInfo.images && detail.handlerInfo.images[0] ? detail.handlerInfo.images[0].url : null;
+        this.imgUrl = detail.images || [];
+        this.answerImgUrl = (detail.handlerInfo && detail.handlerInfo.images) || [];
       }
     },
-    delImg () {
+    delImg (index) {
       /* 删除图片 */
-      this.form.imgUrl = '';
-      this.form.imgCode = '';
+      this.form.imgUrl.splice(index, 1);
+      this.form.imgCode.splice(index, 1);
     },
     imageUploaded ({code, value: data}) {
       if (code === '200') {
-        this.form.imgUrl = data[0].url;
-        this.form.imgCode = data[0].docId;
+        this.form.imgUrl.push(data[0].url);
+        this.form.imgCode.push(data[0].docId);
       }
     },
     uploadError (res) {
@@ -228,7 +248,7 @@ export default {
           handlerUid: localStorage.getItem('uid'),
           handlerReplay: this.form.handleCnt,
           handleTime: handlerTime,
-          handlerImages: this.form.imgCode
+          handlerImages: this.form.imgCode.join(',')
         }
       );
       if (code === '200') {
@@ -236,14 +256,9 @@ export default {
         detail.handlerInfo = {
           handler: this.propertyInfo.userName,
           handlerTime,
-          images: [],
+          images: this.form.imgUrl || [],
           replay: this.form.handleCnt
         };
-        if (this.form.imgUrl) {
-          detail.handlerInfo.images.push({
-            url: this.form.imgUrl
-          });
-        }
         sessionStorage.setItem('TaskList.processed', JSON.stringify(detail));
         this.$router.push({
           name: 'TaskList',

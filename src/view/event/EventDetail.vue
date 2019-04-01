@@ -17,8 +17,14 @@
       <li class="EventDetail-form-item">
         <span>{{description}}</span>
       </li>
-      <li class="EventDetail-form-item" v-if="imgUrl">
-        <img :src="imgUrl">
+      <li
+        class="EventDetail-form-item EventDetail-answer-item-flexwrap"
+        v-if="imgUrl.length"
+      >
+        <img
+          v-for="(img,index) in imgUrl"
+          :key="index"
+          :src="img.url">
       </li>
     </ol>
     <ol class="EventDetail-answer" v-if="state">
@@ -31,8 +37,14 @@
       <li class="EventDetail-answer-item">
         <label class="name">{{handlerInfo.replay}}</label>
       </li>
-      <li class="EventDetail-answer-item" v-if="answerImgUrl">
-        <img :src="answerImgUrl">
+      <li
+        class="EventDetail-answer-item EventDetail-answer-item-flexwrap"
+        v-if="answerImgUrl.length">
+        <img
+          v-for="(img,index) in answerImgUrl"
+          :key="index"
+          :src="img.url"
+        >
       </li>
     </ol>
     <div
@@ -85,8 +97,8 @@ export default {
   },
   data () {
     return {
-      imgUrl: '',
-      answerImgUrl: '',
+      imgUrl: [],
+      answerImgUrl: [],
       eventCode: '',
       reportTime: '',
       eventTypeName: '',
@@ -113,8 +125,8 @@ export default {
       this.handlerInfo = detail.handlerInfo;
       this.evaluateInfo = detail.evaluateInfo;
       this.state = detail.state;
-      this.imgUrl = detail.images && detail.images[0] ? detail.images[0].url : null;
-      this.answerImgUrl = detail.handlerInfo && detail.handlerInfo.images && detail.handlerInfo.images[0] ? detail.handlerInfo.images[0].url : null;
+      this.imgUrl = detail.images || [];
+      this.answerImgUrl = (detail.handlerInfo && detail.handlerInfo.images) || [];
     },
     delEvent () {
       /* 删除事件 */

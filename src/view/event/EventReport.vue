@@ -17,16 +17,22 @@
     </div>
     <div class="InformationWallForm-img-par EventReport-img-par">
       <div
-        v-show="form.imgUrl"
-        class="InformationWallForm-preshow"
+        class="EventReport-img-preshow"
+        v-show="form.imgUrl.length"
       >
-        <i class="iconfont del icon-shanchu" @click="delImg"></i>
-        <img
-          :src="form.imgUrl"
+        <div
+          class="InformationWallForm-preshow"
+          v-for="(item,index) in form.imgUrl"
+          :key="item"
         >
+          <i class="iconfont del icon-shanchu" @click="delImg(index)"></i>
+          <img
+            :src="item"
+          >
+        </div>
       </div>
       <vue-core-image-upload
-        v-show="!form.imgUrl"
+        v-show="form.imgUrl.length < 3"
         class="btn btn-primary"
         :crop="false"
         inputOfFile="file"
@@ -37,7 +43,7 @@
         extensions="png,jpg,jpeg"
         inputAccept="image/jpg,image/jpeg,image/png"
         :url="uploadUrl"
-        :multiple-size="1"
+        :multiple-size="3"
         @errorhandle="uploadError"
       >
         <h-upload></h-upload>
@@ -70,7 +76,8 @@ export default {
       form: {
         eventTypeCode: '',
         description: '',
-        imgUrl: ''
+        imgUrl: [],
+        imgCode: []
       },
       uploadUrl: process.env.base_url + 'document/upload',
       options: []
@@ -122,15 +129,15 @@ export default {
         }
       });
     },
-    delImg () {
+    delImg (index) {
       /* 删除图片 */
-      this.form.imgUrl = '';
-      this.form.imgCode = '';
+      this.form.imgUrl.splice(index, 1);
+      this.form.imgCode.splice(index, 1);
     },
     imageUploaded ({code, value}) {
       if (code === '200') {
-        this.form.imgUrl = value[0].url;
-        this.form.imgCode = value[0].docId;
+        this.form.imgUrl.push(value[0].url);
+        this.form.imgCode.push(value[0].docId);
       }
     },
     uploadError (res) {
@@ -161,9 +168,7 @@ export default {
           'uid': localStorage.getItem('uid'),
           'eventTypeCode': this.form.eventTypeCode,
           'description': this.form.description,
-          'images': [
-            this.form.imgCode
-          ].join(',')
+          'images': this.form.imgCode.join(',')
         }
       );
       if (code === '200') {
@@ -171,8 +176,8 @@ export default {
           text: '上报成功',
           onHide: () => {
             /* this.$router.push({
-              name: 'MyEventList'
-            }); */
+                name: 'MyEventList'
+              }); */
             this.closeWxWindow();
           }
         });
