@@ -19,6 +19,7 @@
       :show="pageCfg.loadingShow"
       :loadingType="pageCfg.loadingType"
       :data="pageCfg.page"
+      :query="query"
     ></h-loadmore>
   </div>
 </template>
@@ -107,13 +108,9 @@ export default {
         this.$refs.hloadmore.queryBack({code, value}, this);
       }
     },
-    toScore (eventCode, level, evaluateContent) {
+    toScore (data) {
       /* 评分 */
-      sessionStorage.setItem('Score.detail', JSON.stringify({
-        eventCode,
-        level,
-        evaluateContent
-      }));
+      this.updateCurEventDetail(data);
       this.$router.push({
         name: 'Score',
         params: {

@@ -72,7 +72,7 @@
           v-if="!isTask"
           type="button"
           class="HEvent-footer-btn"
-          @click="toScore(eId,level,evaluateInfo.evaluateContent)"
+          @click="toScore(data)"
         >重新评价
         </button>
       </div>

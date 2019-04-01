@@ -24,6 +24,7 @@ const BindUserChoose = () => import(/* webpackChunkName: "BindUserChoose" */ '@/
 const BindUser = () => import(/* webpackChunkName: "BindUser" */ '@/view/myCommunity/BindUser');
 const Contact = () => import(/* webpackChunkName: "Contact" */ '@/view/contact/Contact');
 const Nobind = () => import(/* webpackChunkName: "Nobind" */ '@/view/nobind/Nobind');
+const NobindOfProperty = () => import(/* webpackChunkName: "NobindOfProperty" */ '@/view/nobind/NobindOfProperty');
 const SuggestionList = () => import(/* webpackChunkName: "SuggestionList" */ '@/view/suggestion/SuggestionList');
 const SuggestionForm = () => import(/* webpackChunkName: "SuggestionForm" */ '@/view/suggestion/SuggestionForm');
 const EventReport = () => import(/* webpackChunkName: "EventReport" */ '@/view/event/EventReport');
@@ -251,6 +252,15 @@ let data = [
     meta: {
       title: '未绑定',
       role: 'owner'
+    }
+  },
+  {
+    path: '/nobindOfProperty',
+    name: 'NobindOfProperty',
+    component: NobindOfProperty,
+    meta: {
+      title: '未绑定',
+      role: 'property'
     }
   },
   {

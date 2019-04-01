@@ -2,11 +2,11 @@
   <div>
     <ol class="EventDetail-form">
       <li class="EventDetail-form-item">
-        <label class="name">事件编号</label><span>{{eventCode}}</span>
+        <label class="name">事件编号</label><span class="val code">{{eventCode}}</span>
       </li>
       <li class="EventDetail-form-item">
         <label class="name">上报人</label>
-        <span class="val code">{{question.reporter}}</span>
+        <span class="val">{{question.reporter}}</span>
       </li>
       <li class="EventDetail-form-item">
         <label class="name">上报时间</label><span class="val">{{reportTime}}</span>

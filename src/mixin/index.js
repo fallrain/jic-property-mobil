@@ -11,8 +11,8 @@ export default {
         'UnitList',
         'RoomList',
         'BindUserChoose',
-        'BindUser',
         'Nobind',
+        'BindUser',
         'PersonalInformation'
       ];
       if (role === 'owner' && !sessionStorage.getItem('ownerSimpleCode')) {
@@ -24,17 +24,29 @@ export default {
         }
       }
     }
+    function propertyCheck () {
+      const noAuthPages = [
+        'NobindOfProperty'
+      ];
+      if (role === 'property' && !sessionStorage.getItem('propertySimpleCode')) {
+        if (!noAuthPages.includes(to.name)) {
+          router.replace({
+            name: 'NobindOfProperty'
+          });
+        }
+      }
+    }
     const role = to.meta.role;
     if (role) {
       store.commit('changeRole', to.meta.role);
       if (role === 'owner') {
         await store.dispatch('getWxInfo');
+        check();
       } else {
         await store.dispatch('getPropertyInfo');
+        propertyCheck();
       }
     }
-
-    check();
     next();
   },
   data: function () {
