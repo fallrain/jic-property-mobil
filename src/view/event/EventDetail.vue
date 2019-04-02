@@ -143,9 +143,10 @@ export default {
           ).then(({code}) => {
             if (code === '200') {
               sessionStorage.setItem('MyEventList.deletedEventCode', this.eventCode);
-              this.$router.push({
+              /* this.$router.replace({
                 name: 'MyEventList'
-              });
+              }); */
+              this.$router.back();
             }
           });
         }
