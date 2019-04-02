@@ -61,6 +61,28 @@
             </div>
           </div>
         </h-cell>
+        <h-cell @click.native="jump('MyEventList')">
+          <div class="PersonalInformation-item">
+            <div class="PersonalInformation-item-portrait">
+              <img src="@/assets/img/mine-myreplay@2x.png">
+            </div>
+            <div class="PersonalInformation-item-cnt">
+              <p class="title">我上报的事件</p>
+              <p class="introduction">查看我上报的事件</p>
+            </div>
+          </div>
+        </h-cell>
+        <h-cell @click.native="jump('SuggestionList')">
+          <div class="PersonalInformation-item">
+            <div class="PersonalInformation-item-portrait">
+              <img src="@/assets/img/mine-replaylist@2x.png">
+            </div>
+            <div class="PersonalInformation-item-cnt">
+              <p class="title">我提交的意见</p>
+              <p class="introduction">查看我提交的意见</p>
+            </div>
+          </div>
+        </h-cell>
       </h-group>
     </div>
   </div>
