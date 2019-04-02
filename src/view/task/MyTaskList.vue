@@ -53,7 +53,7 @@ export default {
               eventCode: v.eventCode,
               state: !!v.state,
               question: {
-                reporter: v.reporter,
+                reporter: v.reportInfo.reportRoom + '-' + v.reportInfo.reportName,
                 reportTime: v.reportTime,
                 eventTypeName: v.eventTypeName,
                 description: v.description
